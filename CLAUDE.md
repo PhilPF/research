@@ -130,8 +130,6 @@ writing it to disk, not by returning it.
   `reviews/<claim-id>-<agent>.md` and returns **only** its short
   structured verdict block (format fixed in each agent's own file).
   Detail is never lost — it is one file read away.
-- Returned verdict blocks: **hard cap 150 words.** Eve's returned list:
-  **hard cap 300 words.**
 - You relay verdict blocks verbatim and add nothing. Do not re-explain,
   re-summarize, or expand them.
 - Do not read `reviews/` files into context unless the user asks for the
