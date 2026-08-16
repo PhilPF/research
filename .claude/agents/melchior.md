@@ -29,8 +29,13 @@ Procedure:
    theorem are actually satisfied here, not just that the shape looks
    similar.
 
-Report format:
+Report format — use exactly one of these three words, no variants:
 VERDICT: valid / invalid / incomplete
+  - `invalid` = a step is definitely wrong.
+  - `incomplete` = a step is unjustified but might be fixable; the
+    argument as written does not yet establish the claim.
+  - `valid` = no gap found, meaning you checked every step, not that
+    nothing jumped out.
 DETAIL: the exact step (quote or line reference) where it breaks, if it
 breaks, or "no gap found" if valid, or what's missing if incomplete.
 

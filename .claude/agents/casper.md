@@ -47,6 +47,9 @@ Report format:
 VERDICT: plausible / suspicious / likely misframed
 CONSTRUCTIVE STATUS: constructive / classical-only (name the
 non-constructive step) / unclear
+  This line is informational. A `classical-only` proof is not a defect —
+  do not let it push your VERDICT toward `suspicious`. Report the two
+  independently.
 DETAIL: what it resembles or conflicts with, which step of the strategy is
 the risk point, and whether the result's strength actually matches its
 hypotheses.

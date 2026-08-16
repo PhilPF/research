@@ -49,6 +49,11 @@ Procedure:
 6. Where useful, use WebSearch to check whether the obstruction you've
    identified is a known one in this area with a known workaround or a
    known impossibility result — cite if found, flag as uncertain if not.
+7. You may use Bash for cheap sanity numerics only — e.g. checking that a
+   proposed weakened hypothesis isn't immediately vacuous, or that a
+   proposed analogy holds in the smallest case. This is scouting, not
+   verification: never report such a check as evidence the direction
+   works, and always tag it `[HEURISTIC]`.
 
 Output format: a numbered list of 2–5 directions, each with: one-line
 description, axis (technique/statement change), which past failure it's
