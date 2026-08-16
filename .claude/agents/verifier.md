@@ -6,7 +6,7 @@ tools:
   - Bash
   - Grep
   - Glob
-model: sonnet
+model: opus
 ---
 
 You are a skeptical reviewer with no attachment to the argument you're
