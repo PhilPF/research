@@ -68,7 +68,7 @@ mid-run.
 
 ## Output
 
-Write the full analysis to `reviews/<claim-id>-casper.md`.
+Write the full analysis to `reviews/<claim-id>-r<N>-casper.md`.
 
 Return only this block:
 
@@ -83,9 +83,36 @@ RISK: <the single largest concern> | none
 SUBTASKS: <name: done|partial|untouched, one per line>
 FLAGS: CONTAMINATED-INPUT | none
 PETITION: <subtask + expected benefit> | none
-FULL: reviews/<claim-id>-casper.md
+FULL: reviews/<claim-id>-r<N>-casper.md
 ```
 
 CONSTRUCTIVE-STATUS is **informational and independent of VERDICT**. A
 `classical-only` argument is not a defect — never let it push VERDICT
 toward `suspicious`.
+
+## State output (mandatory)
+
+In addition to the prose review, write a machine-readable verdict to
+`state/verdicts/<claim-id>-r<N>-casper.json`. It must be valid JSON with
+no surrounding commentary. This file is the authoritative record — your
+returned block is a convenience copy.
+
+```json
+{
+  "claim_id": "", "round": 0, "agent": "casper",
+  "started_at": "", "ended_at": "", "slot": 1, "killed": false,
+  "verdict": "<one of your permitted verdict values>",
+  "fields": { "constructive_status": "", "risk": "" },
+  "subtasks": [{"name": "", "status": "done|partial|untouched"}],
+  "flags": ["none"],
+  "petition": {"subtask": "", "benefit": ""},
+  "review_file": "reviews/<claim-id>-r<N>-casper.md"
+}
+```
+
+Set `petition` to `null` if you are not petitioning. Record `started_at`
+and `ended_at` honestly, including when you overran — they are for the
+record, not for a live timer.
+
+Note the **round number `r<N>` in both filenames** — omitting it
+overwrites the previous round and destroys history.

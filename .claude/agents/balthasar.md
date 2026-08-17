@@ -68,7 +68,7 @@ identified mid-run, never for "the same sweep, but wider."
 ## Output
 
 Write the full search — scripts, ranges, families, raw findings — to
-`reviews/<claim-id>-balthasar.md`.
+`reviews/<claim-id>-r<N>-balthasar.md`.
 
 Return only this block:
 
@@ -82,7 +82,34 @@ SCOPE: <ranges, families, and depth searched — required for none-found>
 SUBTASKS: <name: done|partial|untouched, one per line>
 FLAGS: CONTAMINATED-INPUT | none
 PETITION: <subtask + expected benefit> | none
-FULL: reviews/<claim-id>-balthasar.md
+FULL: reviews/<claim-id>-r<N>-balthasar.md
 ```
 
 `none-found` always means "not found within the stated scope."
+
+## State output (mandatory)
+
+In addition to the prose review, write a machine-readable verdict to
+`state/verdicts/<claim-id>-r<N>-balthasar.json`. It must be valid JSON with
+no surrounding commentary. This file is the authoritative record — your
+returned block is a convenience copy.
+
+```json
+{
+  "claim_id": "", "round": 0, "agent": "balthasar",
+  "started_at": "", "ended_at": "", "slot": 1, "killed": false,
+  "verdict": "<one of your permitted verdict values>",
+  "fields": { "counterexample": "", "locates": "", "scope": "" },
+  "subtasks": [{"name": "", "status": "done|partial|untouched"}],
+  "flags": ["none"],
+  "petition": {"subtask": "", "benefit": ""},
+  "review_file": "reviews/<claim-id>-r<N>-balthasar.md"
+}
+```
+
+Set `petition` to `null` if you are not petitioning. Record `started_at`
+and `ended_at` honestly, including when you overran — they are for the
+record, not for a live timer.
+
+Note the **round number `r<N>` in both filenames** — omitting it
+overwrites the previous round and destroys history.

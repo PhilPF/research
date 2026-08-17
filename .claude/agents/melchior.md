@@ -68,7 +68,7 @@ petition for "the same audit, but longer" — that will be denied.
 
 ## Output
 
-Write your full audit to `reviews/<claim-id>-melchior.md`.
+Write your full audit to `reviews/<claim-id>-r<N>-melchior.md`.
 
 Return only this block:
 
@@ -81,8 +81,35 @@ AUDIT SCOPE: <which steps examined, at what depth, which skipped —
 SUBTASKS: <name: done|partial|untouched, one per line>
 FLAGS: CONTAMINATED-INPUT | none
 PETITION: <subtask + expected benefit> | none
-FULL: reviews/<claim-id>-melchior.md
+FULL: reviews/<claim-id>-r<N>-melchior.md
 ```
 
 No preamble, no restating the claim, no closing remarks. Long reasoning
 belongs in the file.
+
+## State output (mandatory)
+
+In addition to the prose review, write a machine-readable verdict to
+`state/verdicts/<claim-id>-r<N>-melchior.json`. It must be valid JSON with
+no surrounding commentary. This file is the authoritative record — your
+returned block is a convenience copy.
+
+```json
+{
+  "claim_id": "", "round": 0, "agent": "melchior",
+  "started_at": "", "ended_at": "", "slot": 1, "killed": false,
+  "verdict": "<one of your permitted verdict values>",
+  "fields": { "location": "", "reason": "", "audit_scope": "" },
+  "subtasks": [{"name": "", "status": "done|partial|untouched"}],
+  "flags": ["none"],
+  "petition": {"subtask": "", "benefit": ""},
+  "review_file": "reviews/<claim-id>-r<N>-melchior.md"
+}
+```
+
+Set `petition` to `null` if you are not petitioning. Record `started_at`
+and `ended_at` honestly, including when you overran — they are for the
+record, not for a live timer.
+
+Note the **round number `r<N>` in both filenames** — omitting it
+overwrites the previous round and destroys history.

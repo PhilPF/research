@@ -73,7 +73,7 @@ bottleneck this architecture exists to remove.
 
 ## Output format
 
-Write extended reasoning to `reviews/<claim-id>-eve.md`. Return only:
+Write extended reasoning to `reviews/<claim-id>-r<N>-eve.md`. Return only:
 
 ```
 1. <one-line description>
@@ -129,3 +129,38 @@ REASON: <one line>
 Nothing else. No analysis, no hedging, no conditions. If the input lacks
 what you need to judge, return `RULING: no` with that as the reason — a
 fresh round is cheap.
+
+---
+
+## State output (mandatory, both modes)
+
+Write valid JSON, no surrounding commentary.
+
+**Mode 1 — `propose`** → `state/eve/<claim-id>-r<N>-propose.json`
+
+```json
+{
+  "claim_id": "", "round": 0, "mode": "propose",
+  "written_at": "",
+  "directions": [
+    {"n": 1, "description": "", "axis": "technique|statement",
+     "routes_around": "", "heuristic": ""}
+  ],
+  "exhausted": null,
+  "review_file": "reviews/<claim-id>-r<N>-eve.md"
+}
+```
+
+**Mode 2 — `extension-ruling`** → `state/eve/<claim-id>-r<N>-ruling-<agent>.json`
+
+```json
+{
+  "claim_id": "", "round": 0, "mode": "extension-ruling",
+  "written_at": "",
+  "petitioner": "", "subtask": "",
+  "ruling": "yes|no", "reason": ""
+}
+```
+
+The ruling file is written for **both** outcomes — a denial with its
+reason is as much a part of the record as a grant.
