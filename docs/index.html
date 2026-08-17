@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#050403"/><polygon points="60,18 96,42 96,78 60,102 24,78 24,42" fill="none" stroke="#ff9a2e" stroke-width="4"/><text x="60" y="65" fill="#ff9a2e" font-family="monospace" font-size="16" text-anchor="middle">MAGI</text></svg></template>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #050403; }
+    * { box-sizing: border-box; }
+    .term-scroll::-webkit-scrollbar { width: 6px; }
+    .term-scroll::-webkit-scrollbar-thumb { background: #3a2408; }
+    .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    @keyframes magi-pulse { 0%,100% { opacity:1; } 50% { opacity:0.25; } }
+    @keyframes magi-glow { 0%,100% { filter:brightness(1); } 50% { filter:brightness(1.25); } }
+    @keyframes stripe-slide { from { background-position:0 0; } to { background-position:64px 0; } }
+    @keyframes scan-slide { from { background-position:0 0; } to { background-position:0 40px; } }
+    @keyframes marquee-y { from { transform:translateY(0); } to { transform:translateY(-50%); } }
+  </style>
+</helmet>
+
+<div style="height:100vh; width:100vw; overflow:hidden; display:flex; flex-direction:column; background:#050403 url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22><path d=%22M0 30h60M30 0v60%22 stroke=%22%232a1a08%22 stroke-width=%221%22/></svg>'); color:#ff9a2e; font-family:'IBM Plex Mono',monospace; font-size:12px; line-height:1.4;">
+
+  <!-- HEADER -->
+  <div style="position:relative; flex-shrink:0; display:flex; align-items:center; gap:14px; padding:9px 16px; background:#0a0805; border-top:3px solid #ff9a2e; border-bottom:1px solid #ff9a2e; overflow:hidden;">
+    <div style="position:absolute; top:0; right:0; width:80px; height:100%; background:repeating-linear-gradient(45deg, #ff9a2e 0 8px, #0a0805 8px 16px); opacity:0.35;"></div>
+    <div style="display:flex; align-items:center; gap:8px; z-index:1; flex-shrink:0;">
+      <div style="width:20px; height:20px; flex-shrink:0; background:#ff9a2e; clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"></div>
+      <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:18px; letter-spacing:0.15em;">MAGI</div>
+      <div style="font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:14px; color:#ff9a2e; letter-spacing:0.1em; opacity:0.85;">「審査系」</div>
+    </div>
+    <div style="width:1px; height:20px; background:#5a3c14; flex-shrink:0;"></div>
+    <div style="flex:1; min-width:0; z-index:1;">
+      <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:14px; color:#ffd9a0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ session.claim_title }}</div>
+      <div style="display:flex; gap:8px; margin-top:1px; font-size:10px; color:#c97a2e; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+        <span>{{ session.claim_id }}</span><span>::</span><span>{{ session.session_id }}</span>
+      </div>
+    </div>
+    <div style="text-align:right; font-size:9px; color:#7a5426; white-space:nowrap; z-index:1; flex-shrink:0;">
+      <div>{{ session.branch }}</div>
+      <div>{{ buildInfo.built_at }}</div>
+    </div>
+  </div>
+
+  <!-- STATUS ROW (single current alert, priority-driven) -->
+  <div style="position:relative; flex-shrink:0; display:flex; align-items:center; gap:10px; background:#0a0805; border-bottom:1px solid #3a2408; padding:6px 16px; overflow:hidden; height:26px;">
+    <div style="position:absolute; inset:0; background:{{ alert.bg }}; background-size:64px 40px; opacity:{{ alert.bgOpacity }}; animation:{{ alert.bgAnim }};"></div>
+    <span style="position:relative; z-index:1; width:6px; height:6px; flex-shrink:0; background:{{ alert.color }}; animation:magi-pulse 1.4s infinite;"></span>
+    <span style="position:relative; z-index:1; font-weight:700; font-size:10.5px; letter-spacing:0.05em; color:{{ alert.color }};">{{ alert.text }}</span>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div style="flex:1; min-height:0; display:grid; grid-template-columns:250px 1fr 250px; gap:10px; padding:10px; overflow:hidden;">
+
+    <!-- LEFT COLUMN: PROBLEM (1/3) + DETAIL (2/3) -->
+    <div style="min-height:0; display:flex; flex-direction:column; gap:8px;">
+      <div class="term-scroll" style="flex:1; min-height:0; display:flex; flex-direction:column; background:#020a03; border:1px solid #164d1f; overflow-y:auto;">
+        <div style="flex-shrink:0; padding:6px 10px; border-bottom:1px solid #0e3016; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#3fd15e;">「質問」PROBLEM</div>
+        <div style="padding:10px; font-size:10.5px; color:#3fd15e; white-space:pre-wrap; display:flex; flex-direction:column; gap:8px;">
+          <div><span style="color:#2a5c37;">user statement:</span><br/>{{ session.problem.user_statement }}</div>
+          <div><span style="color:#2a5c37;">current statement:</span><br/>{{ session.problem.current_statement }}</div>
+          <div><span style="color:#2a5c37;">intent:</span><br/>{{ session.problem.intent }}</div>
+        </div>
+      </div>
+      <div class="term-scroll" style="flex:2; min-height:0; display:flex; flex-direction:column; background:#020a03; border:1px solid #164d1f; overflow-y:auto;">
+        <div style="flex-shrink:0; padding:6px 10px; border-bottom:1px solid #0e3016; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#3fd15e; display:flex; align-items:center; justify-content:space-between;">
+          <span>{{ dumpTitle }}</span>
+          <sc-if value="{{ dumpOpen }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ closeDump }}" title="close" style="background:none; border:1px solid #164d1f; color:#3fd15e; font-size:10px; width:18px; height:18px; cursor:pointer; font-family:'IBM Plex Mono',monospace;">✕</button>
+          </sc-if>
+        </div>
+        <sc-if value="{{ dumpOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:10px; font-size:10.5px; color:#3fd15e; white-space:pre-wrap;">{{ dumpText }}</div>
+        </sc-if>
+        <sc-if value="{{ !dumpOpen }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:10px; font-size:10.5px; color:#2a5c37;">$ click a MAGI node or EVE to inspect its raw output_</div>
+        </sc-if>
+      </div>
+    </div>
+
+    <!-- CENTER: EVE + MAGI trio, equal area -->
+    <div style="min-height:0; position:relative; display:grid; grid-template-rows:1.25fr 1.75fr; gap:8px;">
+      <div style="min-height:0; display:flex; justify-content:center;">
+        <div onClick="{{ balthasar.onClick }}" title="{{ balthasar.verdict }}" style="cursor:pointer; position:relative; z-index:2; width:70%; clip-path:polygon(6% 0%, 94% 0%, 100% 100%, 0% 100%); background:{{ balthasar.fill }}; box-shadow:{{ balthasar.glow }}; animation:{{ balthasar.anim }}; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="width:7px; height:7px; flex-shrink:0; background:#0a0805; {{ balthasar.beaconAnim }}"></span>
+            <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:16px; letter-spacing:0.06em; color:#0a0805; white-space:nowrap;">BALTHASAR</div>
+          </div>
+          <div style="font-size:9px; font-weight:700; letter-spacing:0.05em; color:#0a0805; opacity:0.7; white-space:nowrap;">{{ balthasar.statusLabel }}</div>
+        </div>
+      </div>
+      <div style="min-height:0; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div onClick="{{ casper.onClick }}" title="{{ casper.verdict }}" style="cursor:pointer; position:relative; z-index:2; clip-path:polygon(0% 0%, 100% 0%, 82% 100%, 0% 100%); background:{{ casper.fill }}; box-shadow:{{ casper.glow }}; animation:{{ casper.anim }}; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding-right:14%;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="width:7px; height:7px; flex-shrink:0; background:#0a0805; {{ casper.beaconAnim }}"></span>
+            <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:16px; letter-spacing:0.06em; color:#0a0805; white-space:nowrap;">CASPER</div>
+          </div>
+          <div style="font-size:9px; font-weight:700; letter-spacing:0.05em; color:#0a0805; opacity:0.7; white-space:nowrap;">{{ casper.statusLabel }}</div>
+        </div>
+        <div onClick="{{ melchior.onClick }}" title="{{ melchior.verdict }}" style="cursor:pointer; position:relative; z-index:2; clip-path:polygon(18% 100%, 0% 0%, 100% 0%, 100% 100%); background:{{ melchior.fill }}; box-shadow:{{ melchior.glow }}; animation:{{ melchior.anim }}; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding-left:14%;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="width:7px; height:7px; flex-shrink:0; background:#0a0805; {{ melchior.beaconAnim }}"></span>
+            <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:16px; letter-spacing:0.06em; color:#0a0805; white-space:nowrap;">MELCHIOR</div>
+          </div>
+          <div style="font-size:9px; font-weight:700; letter-spacing:0.05em; color:#0a0805; opacity:0.7; white-space:nowrap;">{{ melchior.statusLabel }}</div>
+        </div>
+      </div>
+
+      <div style="position:absolute; left:50%; top:calc(35.7% - 10px); width:2px; height:20px; background:linear-gradient(#ff9a2e,transparent); transform:translateX(-50%); animation:magi-pulse 2s infinite; z-index:4;"></div>
+      <div style="position:absolute; left:50%; top:35.7%; transform:translate(-50%,-50%); z-index:1; width:130px; height:130px; background:{{ eve.color }}; opacity:0.14; clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"></div>
+      <div onClick="{{ toggleEve }}" style="cursor:pointer; position:absolute; left:50%; top:35.7%; transform:translate(-50%,-50%); z-index:5; background:#050403; border:3px solid {{ eve.color }}; width:112px; height:112px; clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; animation:magi-glow 3s infinite; box-shadow:0 0 30px {{ eve.color }};">
+        <span style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:20px; letter-spacing:0.1em; color:{{ eve.color }};">EVE</span>
+        <span style="font-size:9.5px; font-weight:700; letter-spacing:0.05em; color:{{ eve.color }}; opacity:0.85;">{{ eve.statusLabel }}</span>
+      </div>
+    </div>
+
+    <!-- LOG (right) -->
+    <div class="term-scroll" style="min-height:0; display:flex; flex-direction:column; background:#020a03; border:1px solid #164d1f;">
+      <div style="flex-shrink:0; padding:6px 10px; border-bottom:1px solid #0e3016; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#3fd15e;">LOG.md 「記録」</div>
+      <div class="no-scrollbar" style="flex:1; min-height:0; overflow:hidden;" style-hover="overflow-y:auto;">
+        <div style="font-size:10.5px; animation:marquee-y {{ scrollDuration }} linear infinite;" style-hover="animation-play-state:paused;">
+          <sc-for list="{{ logBlocksDoubled }}" as="lb" hint-placeholder-count="16">
+            <sc-if value="{{ lb.isSection }}" hint-placeholder-val="{{ false }}">
+              <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:11px; color:#7fffa0; margin:10px 10px 3px; border-top:1px solid #0e3016; padding-top:8px;">{{ lb.text }}</div>
+            </sc-if>
+            <sc-if value="{{ lb.isRoundHeader }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex; align-items:center; gap:8px; margin:10px 10px 3px; border-top:1px solid #0e3016; padding-top:8px;">
+                <span style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:11px; color:#7fffa0;">{{ lb.text }}</span>
+                <span style="font-size:9px; font-weight:700; padding:1px 6px; border:1px solid {{ lb.color }}; color:{{ lb.color }};">{{ lb.outcome }}</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ lb.isP }}" hint-placeholder-val="{{ false }}">
+              <div style="color:#3fd15e; white-space:pre-wrap; margin:0 10px 2px;">{{ lb.text }}</div>
+            </sc-if>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;forceAlert&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;auto&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;misframed&quot;,&quot;extension-pending&quot;,&quot;phase-active&quot;,&quot;idle&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Test overrides&quot;},
+  &quot;forceMelchiorVerdict&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;auto&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;gap-found&quot;,&quot;no-gap-found&quot;,&quot;counterexample-found&quot;,&quot;none-found&quot;,&quot;vacuous-or-trivial&quot;,&quot;plausible&quot;,&quot;suspicious&quot;,&quot;likely-misframed&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Test overrides&quot;},
+  &quot;forceMelchiorStatus&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;auto&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;launched&quot;,&quot;done&quot;,&quot;paused&quot;,&quot;killed&quot;,&quot;errored&quot;,&quot;extension-requested&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Test overrides&quot;},
+  &quot;forceBalthasarVerdict&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;auto&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;gap-found&quot;,&quot;no-gap-found&quot;,&quot;counterexample-found&quot;,&quot;none-found&quot;,&quot;vacuous-or-trivial&quot;,&quot;plausible&quot;,&quot;suspicious&quot;,&quot;likely-misframed&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Test overrides&quot;},
+  &quot;forceBalthasarStatus&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;auto&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;launched&quot;,&quot;done&quot;,&quot;paused&quot;,&quot;killed&quot;,&quot;errored&quot;,&quot;extension-requested&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Test overrides&quot;},
+  &quot;forceCasperVerdict&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;auto&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;gap-found&quot;,&quot;no-gap-found&quot;,&quot;counterexample-found&quot;,&quot;none-found&quot;,&quot;vacuous-or-trivial&quot;,&quot;plausible&quot;,&quot;suspicious&quot;,&quot;likely-misframed&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Test overrides&quot;},
+  &quot;forceCasperStatus&quot;: {&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;auto&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;launched&quot;,&quot;done&quot;,&quot;paused&quot;,&quot;killed&quot;,&quot;errored&quot;,&quot;extension-requested&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Test overrides&quot;}
+}">
+const C = { orange: '#ff9a2e', amber: '#ffcf5c', red: '#ff2b2b', green: '#3fd15e', gray: '#6b5535' };
+const VERDICT_FILL = {
+  'gap-found': '#ff3b3b', 'no-gap-found': '#3ddc84', 'counterexample-found': '#ff3b3b',
+  'none-found': '#3ddc84', 'vacuous-or-trivial': '#ffcf5c', 'plausible': '#3ddc84',
+  'suspicious': '#ffcf5c', 'likely-misframed': '#ff3b3b'
+};
+const STATUS_LABEL = { 'launched': 'PROCESSING', 'done': 'STANDBY', 'paused': 'PAUSED', 'killed': 'OFFLINE', 'errored': 'OFFLINE', 'extension-requested': 'AWAITING RULING' };
+const OUTCOME_COLOR = { 'gap-located': C.red, 'calibration': C.amber, 'misframed': C.red, 'candidate-stable': C.green, 'incomplete-round': C.gray, 'killed-agent': C.red };
+const BEACON_ACTIVE = { 'launched': true, 'extension-requested': true, 'errored': true, 'done': false, 'paused': false, 'killed': false };
+
+const SESSION = {
+  session_id: 'jt-ke2fh5', branch: 'claude/new-session-ke2fh5', claim_id: 'jt-def',
+  claim_title: 'Characterizing integrators compatible with jet transport',
+  status: 'active', latest_round: 1,
+  problem: {
+    user_statement: "Find a characterization of the numerical integrators that satisfy jet transport (as used by Gimeno, Jorba, Jorba-Cuscó, Miguel, Zou). Ideally a normal form, or at least a precise statement of what the property forces.",
+    current_statement: "Round-1 definitional candidate: a method satisfies jet transport iff running the method with jet arithmetic over a Weil algebra W (computation a) coincides with running the same method with ordinary arithmetic on the extended system of dimension n·dim W obtained by adjoining the variational equations (computation b).",
+    intent: "A precise definition of jet transport, an honest account of what it necessarily implies, and if attainable a characterization of the compatible methods, hypotheses stated explicitly and justified."
+  }
+};
+const LIVE = { phase: 'eve-propose', extension: null };
+const BUILD = { built_at: '2026-08-17 18:04 UTC' };
+
+const VERDICTS = {
+  melchior: { verdict: 'gap-found', status: 'done', dump:
+`MELCHIOR — Coherence Review, jt-def, Round 1
+
+LOCATION: Clause (b) — "running the same method... on the extended system" (dimension n·dim W).
+
+REASON: A method under hypotheses smooth+local alone is formally only a family {Phi_n} of maps indexed by dimension, with nothing tying Phi_n to Phi_{n·dim W}. "The same method" is not a defined term given only the hypotheses on record, so clause (b) does not typecheck as stated. The obvious fix — a fixed formula/scheme uniform in dimension — is exactly what the dispatch's own cautions forbid assuming. The problem statement independently flags this exact gap as open.
+
+AUDIT SCOPE: well-posedness of (a) under smoothness (resolved via functorial Weil prolongation); well-posedness of (b) under smooth+local (gap located here); consistency with dispatch cautions (checked). Secondary: basis-identification for "coincide" (partial). Not reached: classification of test cases (blocked).
+
+SUBTASKS: well-posedness (a) — done · well-posedness (b) / cross-dimension — done · consistency with cautions — done · basis-identification — partial · classify test cases — untouched.` },
+  balthasar: { verdict: 'vacuous-or-trivial', status: 'done', dump:
+`BALTHASAR — Round 1, jt-def
+
+COUNTEREXAMPLE: W = R (the ground ring, m = {0}) is a legitimate Weil algebra. For this W, the extended system has dimension n — it IS the original unmodified IVP. Computation (a) and (b) are then syntactically the same computation, so EVERY method trivially satisfies "(a) = (b)". Verified computationally that even for W = R[eps]/(eps^2), the order-0 component of (a) and (b) coincides automatically for any method tested; all discriminating content lives strictly in the positive-order component.
+
+LOCATES: the candidate carries no explicit quantifier over W. Minimal fix: require dim W >= 2, and state whether the definition is universal over all such W or fixed to one. Once W is nontrivial and fixed, the definition is NOT vacuous — it passes Euler/Heun/exact flow and correctly fails the aromatic and coordinate-dependent methods.
+
+SCOPE: W=R, W=R[eps]/eps^2, W=R[eps]/eps^3 checked by hand + exact custom-CAS computation. Not checked: componentwise rational rule, adaptive step-size, jets in parameters/time/stepsize, non-isomorphic Weil algebras.
+
+SUBTASKS: vacuity check W=R — done · base-slice triviality — done · sanity check quantified-W definition — done · componentwise rational rule — untouched · adaptive step-size — untouched · jets in parameters/time — untouched · non-isomorphic Weil algebras — untouched · higher-order jet behavior — partial.` },
+  casper: { verdict: 'suspicious', status: 'done', dump:
+`CASPER — Outside-view review, jt-def, round 1
+
+CONSTRUCTIVE STATUS: unclear — no argument given yet in round 1, nothing to certify.
+
+RISK: The candidate leaves two structural parameters unresolved: (1) which Weil algebras W the equality (a)=(b) must hold for; (2) what identifies "the same method" Phi at dimension n with Phi at dimension n·dim(W). The core (a)=(b) relation matches the problem's operational description and is not vacuous against the test-case list, but as literally written it is a proposition schema rather than a single well-posed statement — a clean verdict on it risks certifying a narrower-scoped answer than the deliverable asks for.
+
+SUBTASKS: known theorem/near-miss family — done · strategy failure modes — done · conclusion strength / near-circularity — done · degenerate ends of hypothesis space — done · constructive status — partial.` }
+};
+
+const ROUND1 = {
+  number: 1, date: '2026-08-17', outcome: 'misframed',
+  text: `Statement: Definitional candidate — a numerical integrator satisfies jet transport iff computation (a), running the method's program on n variables with jet arithmetic over a Weil algebra W, coincides with computation (b), running the same method with ordinary arithmetic on the extended system of dimension n·dim W obtained by adjoining the variational equations. Hypotheses on record: smoothness, locality.
+Argument shape: none — round 1 is definitional; the object under test is the definitional candidate itself and the hypotheses needed to state it.
+MAGI: M gap-found | B vacuous-or-trivial | C suspicious
+Unfinished: melchior — basis-identification (partial), classify test cases (untouched, blocked); balthasar — componentwise rational rule, adaptive step-size, jets in parameters/time/stepsize, non-isomorphic Weil algebras (untouched); casper — constructive status (partial).
+Extensions: none petitioned.
+Carried to Eve: clause (b) cross-dimension typecheck failure; missing quantifier over W; basis-identification for "coincide"; Balthasar's separation evidence at nontrivial fixed W; Casper's two open structural parameters.`
+};
+
+const EVE_DUMP = `EVE — propose, jt-def r1
+
+phase: eve-propose — no output written yet. Eve reads LOG.md in full once the round closes and returns 2-5 distinct directions (technique or statement axis), never ranked.`;
+
+const AGENT_KEYS = ['melchior', 'balthasar', 'casper'];
+
+function buildLogBlocks() {
+  const blocks = [
+    { isSection: true, text: 'PROBLEM — jt-def' },
+    { isP: true, text: 'user statement: ' + SESSION.problem.user_statement },
+    { isP: true, text: 'current statement: ' + SESSION.problem.current_statement },
+    { isP: true, text: 'intent: ' + SESSION.problem.intent },
+    { isRoundHeader: true, text: `ROUND ${ROUND1.number} — ${ROUND1.date} — jt-def`, outcome: ROUND1.outcome.toUpperCase(), color: OUTCOME_COLOR[ROUND1.outcome] ?? C.gray }
+  ];
+  ROUND1.text.split('\n').forEach(line => blocks.push({ isP: true, text: line }));
+  return blocks;
+}
+
+class Component extends DCLogic {
+  state = { dumpKey: null };
+  toggle = (key) => this.setState(s => ({ dumpKey: s.dumpKey === key ? null : key }));
+  closeDump = () => this.setState({ dumpKey: null });
+
+  renderVals() {
+    const p = this.props || {};
+    const statusColorMap = { active: C.amber, stabilized: C.green, blocked: C.red };
+    const sColor = statusColorMap[SESSION.status] ?? C.gray;
+
+    const agentBlocks = {};
+    AGENT_KEYS.forEach(key => {
+      const forceV = p['force' + key.charAt(0).toUpperCase() + key.slice(1) + 'Verdict'];
+      const forceS = p['force' + key.charAt(0).toUpperCase() + key.slice(1) + 'Status'];
+      const base = VERDICTS[key];
+      const verdict = (forceV && forceV !== 'auto') ? forceV : base.verdict;
+      const status = (forceS && forceS !== 'auto') ? forceS : base.status;
+      const fill = VERDICT_FILL[verdict] ?? '#ab9873';
+      const active = !!BEACON_ACTIVE[status];
+      agentBlocks[key] = {
+        verdict, fill,
+        glow: active ? `0 0 22px ${fill}99` : `0 0 8px ${fill}44`,
+        anim: active ? 'magi-glow 1.6s infinite' : 'none',
+        beaconAnim: active ? 'animation:magi-pulse 1s infinite;' : '',
+        statusLabel: STATUS_LABEL[status] ?? status.toUpperCase(),
+        onClick: () => this.toggle(key)
+      };
+    });
+
+    const evePhaseColor = { 'eve-propose': C.amber, 'extension-ruling': C.amber, 'idle': C.green };
+    const eve = { color: evePhaseColor[LIVE.phase] ?? C.green, statusLabel: LIVE.phase.toUpperCase() };
+
+    const dumpKey = this.state.dumpKey;
+    const dumpTitleMap = { eve: 'EVE 「統合」', melchior: 'MELCHIOR', balthasar: 'BALTHASAR', casper: 'CASPER' };
+    const dumpTextMap = { eve: EVE_DUMP, melchior: VERDICTS.melchior.dump, balthasar: VERDICTS.balthasar.dump, casper: VERDICTS.casper.dump };
+
+    const forceAlert = p.forceAlert;
+    const autoAlert = ROUND1.outcome === 'misframed'
+      ? { text: '▲ ROUND 1 :: MISFRAMED — CARRIED TO EVE', color: '#ff5c3d', bg: 'repeating-linear-gradient(135deg, #ff2b2b 0 10px, transparent 10px 20px)', bgOpacity: 0.12, bgAnim: 'stripe-slide 2.4s linear infinite' }
+      : LIVE.extension
+        ? { text: `EXTENSION :: ${LIVE.extension.petitioner.toUpperCase()} :: PENDING`, color: C.amber, bg: 'repeating-linear-gradient(135deg, #ffcf5c 0 10px, transparent 10px 20px)', bgOpacity: 0.08, bgAnim: 'stripe-slide 3s linear infinite' }
+        : { text: `PHASE :: ${LIVE.phase.toUpperCase()} :: ROUND ${SESSION.latest_round}`, color: C.orange, bg: 'repeating-linear-gradient(90deg, #ff9a2e 0 2px, transparent 2px 40px)', bgOpacity: 0.06, bgAnim: 'scan-slide 3s linear infinite' };
+    const alertMap = {
+      auto: autoAlert,
+      'misframed': { text: '▲ ROUND 1 :: MISFRAMED — CARRIED TO EVE', color: '#ff5c3d', bg: 'repeating-linear-gradient(135deg, #ff2b2b 0 10px, transparent 10px 20px)', bgOpacity: 0.12, bgAnim: 'stripe-slide 2.4s linear infinite' },
+      'extension-pending': { text: 'EXTENSION :: BALTHASAR :: PENDING', color: C.amber, bg: 'repeating-linear-gradient(135deg, #ffcf5c 0 10px, transparent 10px 20px)', bgOpacity: 0.08, bgAnim: 'stripe-slide 3s linear infinite' },
+      'phase-active': { text: `PHASE :: ${LIVE.phase.toUpperCase()} :: ROUND ${SESSION.latest_round}`, color: C.orange, bg: 'repeating-linear-gradient(90deg, #ff9a2e 0 2px, transparent 2px 40px)', bgOpacity: 0.06, bgAnim: 'scan-slide 3s linear infinite' },
+      idle: { text: `SESSION :: ${SESSION.status.toUpperCase()}`, color: sColor, bg: 'none', bgOpacity: 0, bgAnim: 'none' }
+    };
+    const alert = (forceAlert && forceAlert !== 'auto') ? alertMap[forceAlert] : autoAlert;
+
+    const logBlocks = buildLogBlocks();
+
+    return {
+      session: { ...SESSION, statusColor: sColor },
+      buildInfo: BUILD,
+      alert, eve,
+      melchior: agentBlocks.melchior, balthasar: agentBlocks.balthasar, casper: agentBlocks.casper,
+      toggleEve: () => this.toggle('eve'),
+      scrollDuration: '22s',
+      logBlocksDoubled: logBlocks.concat(logBlocks),
+      dumpOpen: !!dumpKey,
+      dumpTitle: dumpKey ? dumpTitleMap[dumpKey] : 'DETAIL',
+      dumpText: dumpKey ? dumpTextMap[dumpKey] : '',
+      closeDump: this.closeDump
+    };
+  }
+}
+</script>
+</body>
+</html>
