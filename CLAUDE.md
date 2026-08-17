@@ -166,8 +166,10 @@ exist" — always carry the scope forward.
 
 Depth is preserved on disk, not in context.
 
-- Every agent writes full analysis to `reviews/<claim-id>-<agent>.md` and
-  returns only its structured report block.
+- Every agent writes full analysis to `reviews/<claim-id>-r<N>-<agent>.md`
+  (the round number is mandatory — omitting it overwrites prior rounds and
+  destroys the history Eve depends on) and returns only its structured
+  report block.
 - Do not read `reviews/` into context unless the user asks for a specific
   agent's full analysis. Give the path instead.
 - Relay report blocks verbatim; add nothing.
@@ -189,9 +191,106 @@ Outcome: gap-located | calibration | LOCALIZED-GAP | misframed |
 MAGI: M <verdict> | B <verdict> | C <verdict> | C-constructive <status>
 Unfinished: <subtasks flagged partial/untouched, by agent>
 Extensions: <agent> petitioned <subtask> — Eve: yes/no (<reason>)
-Reviews: reviews/<claim-id>-{melchior,balthasar,casper,eve}.md
+Reviews: reviews/<claim-id>-r<N>-{melchior,balthasar,casper,eve}.md
 Carried to Eve: <MAGI-implied leads, unadopted>
 ```
 
 Assign each claim a short stable `claim-id` (e.g. `thm3-v2`) and reuse it
 across rounds, filenames, and log entries.
+
+---
+
+## 9. Machine-readable state (`state/`)
+
+`LOG.md` is for humans. `state/` is the authoritative machine-readable
+record, consumed by a read-only dashboard. Emitting it is mandatory, not
+optional — a round without its state files is an incomplete round.
+
+```
+state/session.json                          # problem + session metadata
+state/live.json                             # heartbeat, overwritten
+state/rounds/<claim-id>-r<N>.json           # one per round
+state/verdicts/<claim-id>-r<N>-<agent>.json # written by each agent
+state/eve/<claim-id>-r<N>-<mode>.json       # written by Eve
+reviews/<claim-id>-r<N>-<agent>.md          # full prose analysis
+```
+
+All timestamps ISO-8601 UTC. All files valid JSON — never truncated,
+never with trailing commentary.
+
+**You (orchestrator) write** `session.json`, `live.json`, and
+`rounds/*.json`. **Agents write their own** `verdicts/*.json` and
+`eve/*.json`. You never edit an agent's state file.
+
+### `session.json` — write once at session start, update `latest_round`
+
+```json
+{
+  "session_id": "<short id>",
+  "branch": "<git branch this session writes to>",
+  "started_at": "",
+  "status": "active | awaiting-user | closed",
+  "problem": {
+    "claim_id": "thm3",
+    "title": "<short human label>",
+    "user_statement": "<the user's words, verbatim, unedited>",
+    "current_statement": "<precise restatement with hypotheses>",
+    "intent": "<what the user actually wants from this>"
+  },
+  "latest_round": 0
+}
+```
+
+### `live.json` — rewrite at every phase change
+
+This drives the status view. Update it at phase boundaries only — on
+dispatch, when an agent finishes, when an extension is petitioned or
+ruled, and when you hand back to the user. Do **not** update it
+continuously or write progress ticks: the dashboard is not real-time and
+does not need them.
+
+```json
+{
+  "updated_at": "",
+  "phase": "idle | dispatching | magi-running | extension | eve-propose | awaiting-user",
+  "claim_id": "thm3",
+  "round": 4,
+  "agents": {
+    "melchior":  {"status": "launched|done|paused|killed|errored|extension-requested",
+                  "slot": 1},
+    "balthasar": {"...": "..."},
+    "casper":    {"...": "..."}
+  },
+  "extension": {
+    "petitioner": "balthasar",
+    "subtask": "",
+    "ruling": "pending | yes | no",
+    "reason": ""
+  },
+  "awaiting_user": {"question": "", "options": []}
+}
+```
+
+Set `extension` and `awaiting_user` to `null` when not applicable. When an
+extension is granted, the other two agents' status becomes `paused` —
+the dashboard renders this directly.
+
+### `rounds/<claim-id>-r<N>.json` — write when the round closes
+
+```json
+{
+  "claim_id": "thm3", "round": 4,
+  "statement": "<version under test, with hypotheses>",
+  "argument_shape": "<approach>",
+  "dispatched_at": "", "completed_at": "",
+  "outcome": "gap-located | calibration | LOCALIZED-GAP | misframed | candidate-stable | incomplete-round | killed-<agent>",
+  "verdicts": ["state/verdicts/thm3-r4-melchior.json", "..."],
+  "extensions": [
+    {"agent": "", "subtask": "", "ruling": "yes|no", "reason": "", "granted_at": ""}
+  ],
+  "eve": "state/eve/thm3-r4-propose.json",
+  "carried_to_eve": ["<MAGI-implied leads, unadopted>"]
+}
+```
+
+Never modify a closed round file. Rounds are append-only as a set.
