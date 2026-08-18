@@ -64,9 +64,19 @@ Dispatched to Lilith (propose mode, capped at exactly 2 directions) to fold
 into the jt-percoord direction-space alongside Round 1's findings.
 
 Lilith (propose, jt-percoord r2, capped at 2 routes): 2 directions returned
-— see reviews/jt-percoord-r2-lilith.md and
+— see reviews/jt-percoord-r2-lilith-propose1.md and
 state/lilith/jt-percoord-r2-propose.json. Awaiting user choice for Round 2's
 claim.
+
+[CORRECTION 2026-08-18: the review file for this entry was originally
+written to reviews/jt-percoord-r2-lilith.md, then a later propose step
+(logged below) reused that same filename and overwrote it, in violation of
+the mandatory-round-number naming rule. Recovered from git history
+(commit 1d14855) and renamed to reviews/jt-percoord-r2-lilith-propose1.md;
+the overwriting content was renamed to reviews/jt-percoord-r2-lilith-propose2.md.
+No verdicts or round outcomes were affected — this corrects a file-path
+pointer only. Appended per the append-only log rule rather than editing the
+original entry's outcome/verdict lines.]
 
 ## Round 2 — 2026-08-18 — jt-percoord
 Statement: Restrict to the equal-order case W_1=W_2=R[e]/(e^2). Require the
@@ -102,5 +112,5 @@ the (a)-vs-(b) dispute is really about how much cross-index data survives,
 not about coordinate-relabeling symmetry [Casper].
 
 Lilith (propose, jt-percoord r2-v2): 4 directions returned — see
-reviews/jt-percoord-r2-lilith.md and
+reviews/jt-percoord-r2-lilith-propose2.md and
 state/lilith/jt-percoord-r2-propose-v2.json. Awaiting user choice for Round 3.
