@@ -32,20 +32,20 @@
   <!-- HEADER -->
   <div style="position:relative; z-index:20; flex-shrink:0; display:flex; align-items:stretch; gap:0; background:#0a0805; border-top:3px solid #ff9a2e; border-bottom:1px solid #ff9a2e; {{ headerExtra }}">
 
-    <div style="display:flex; align-items:center; gap:10px; padding:8px 14px; flex-shrink:0; border-right:1px solid #3a2408;">
-      <svg viewBox="0 0 305.13 280.47" style="width:30px; height:27px; flex-shrink:0; display:block;" aria-hidden="true">
-        <polygon points="93.413,0 267.891,0 215.391,90.933 40.913,90.933" fill="#ff9a2e"></polygon>
-        <polygon points="0,96.933 104.999,96.933 192.238,248.035 87.239,248.034" fill="#ff9a2e"></polygon>
-        <polygon points="252.63,38.433 305.129,129.366 217.89,280.468 165.391,189.535" fill="#ff9a2e"></polygon>
-        <polygon points="111.927,96.933 211.927,96.933 161.927,183.536" fill="#ffcf5c"></polygon>
+    <div onClick="{{ toggleCompact }}" title="show / hide the MAGI array" style="cursor:pointer; display:flex; align-items:center; gap:10px; padding:8px 14px; flex-shrink:0; border-right:1px solid #3a2408; {{ brandExtra }}">
+      <svg viewBox="0 0 305.13 280.47" style="width:{{ logo.size }}; height:auto; flex-shrink:0; display:block; filter:{{ logo.glow }};" aria-hidden="true">
+        <polygon points="93.413,0 267.891,0 215.391,90.933 40.913,90.933" fill="{{ logo.melchior }}"></polygon>
+        <polygon points="0,96.933 104.999,96.933 192.238,248.035 87.239,248.034" fill="{{ logo.casper }}"></polygon>
+        <polygon points="252.63,38.433 305.129,129.366 217.89,280.468 165.391,189.535" fill="{{ logo.balthasar }}"></polygon>
+        <polygon points="111.927,96.933 211.927,96.933 161.927,183.536" fill="{{ logo.lilith }}"></polygon>
       </svg>
       <div>
-        <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:19px; line-height:1; letter-spacing:0.22em;">GENESIS</div>
-        <div style="font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:10px; line-height:1.4; color:#c97a2e; letter-spacing:0.18em;">「審査系」</div>
+        <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:19px; line-height:1; letter-spacing:0.22em; {{ wordExtra }}">GENESIS</div>
+        <div style="font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:10px; line-height:1.4; color:#c97a2e; letter-spacing:0.18em; {{ jpExtra }}">「審査系」</div>
       </div>
     </div>
 
-    <div style="flex:1; min-width:0; display:flex; flex-direction:column; justify-content:center; gap:2px; padding:8px 14px;">
+    <div style="flex:1; min-width:0; display:flex; flex-direction:column; justify-content:center; gap:2px; padding:8px 14px; {{ titleExtra }}">
       <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:15px; line-height:1.1; color:#ffd9a0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ session.claim_title }}</div>
       <div style="display:flex; align-items:center; gap:8px; font-size:9.5px; letter-spacing:0.06em; color:#c97a2e; white-space:nowrap; overflow:hidden;">
         <span>{{ session.claim_id }}</span>
@@ -56,32 +56,55 @@
       </div>
     </div>
 
-    <div style="display:flex; align-items:center; gap:8px; padding:8px 14px; flex-shrink:0; border-left:1px solid #3a2408; {{ metaExtra }}">
-      <div style="display:flex; align-items:center; gap:7px; padding:5px 9px; border:1px solid {{ sourceInfo.color }};">
-        <span style="width:6px; height:6px; flex-shrink:0; background:{{ sourceInfo.color }}; animation:magi-pulse 1.6s infinite;"></span>
-        <span style="font-weight:700; font-size:9.5px; letter-spacing:0.1em; color:{{ sourceInfo.color }}; white-space:nowrap;">{{ sourceInfo.label }}</span>
-        <span style="font-size:9px; color:#7a5426; white-space:nowrap;">{{ sourceInfo.fetchedAt }}</span>
+    <div class="no-scrollbar" style="display:flex; align-items:center; gap:8px; padding:8px 14px; flex-shrink:0; border-left:1px solid #3a2408; {{ metaExtra }}">
+      <div style="flex-shrink:0; display:flex; align-items:center; gap:7px; padding:5px 9px; border:1px solid {{ build.color }};">
+        <span style="width:6px; height:6px; flex-shrink:0; background:{{ build.color }}; animation:magi-pulse 1.6s infinite;"></span>
+        <div style="display:flex; flex-direction:column; gap:1px;">
+          <span style="font-weight:700; font-size:9px; letter-spacing:0.1em; color:{{ build.color }}; white-space:nowrap;">{{ build.label }}</span>
+          <span style="font-size:8.5px; color:#7a5426; white-space:nowrap;">{{ build.detail }}</span>
+        </div>
       </div>
 
-      <div style="position:relative;">
-        <button onClick="{{ toggleBranchMenu }}" title="branch" style="display:flex; align-items:center; gap:8px; min-width:150px; background:#0a0805; border:1px solid #5a3c14; color:#ff9a2e; padding:5px 8px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.06em; cursor:pointer;" style-hover="border-color:#ff9a2e;">
-          <span style="color:#7a5426; flex-shrink:0;">BR</span>
-          <span style="flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left;">{{ selectedBranch }}</span>
+      <div style="position:relative; flex-shrink:0;">
+        <button onClick="{{ toggleRoundMenu }}" title="round" style="display:flex; align-items:center; gap:6px; width:74px; background:#0a0805; border:1px solid #5a3c14; color:#ff9a2e; padding:5px 8px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.06em; cursor:pointer;" style-hover="border-color:#ff9a2e;">
+          <span style="color:#7a5426; flex-shrink:0;">R</span>
+          <span style="flex:1; min-width:0; text-align:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ selectedRound }}</span>
           <span style="flex-shrink:0; color:#c97a2e;">▾</span>
         </button>
-        <sc-if value="{{ branchOpen }}" hint-placeholder-val="{{ false }}">
-          <div style="position:absolute; right:0; top:calc(100% + 5px); z-index:90; min-width:260px; max-height:280px; overflow-y:auto; background:#0a0805; border:1px solid #5a3c14; box-shadow:0 10px 30px rgba(0,0,0,0.7);" class="no-scrollbar">
-            <sc-for list="{{ branchOptions }}" as="b" hint-placeholder-count="1">
-              <div onClick="{{ b.onPick }}" style="display:flex; align-items:center; gap:8px; padding:6px 9px; cursor:pointer; font-size:9.5px; letter-spacing:0.05em; color:#ffd9a0; border-bottom:1px solid #241703; white-space:nowrap;" style-hover="background:#241703;">
-                <span style="width:5px; height:5px; flex-shrink:0; background:{{ b.dot }};"></span>
-                <span style="overflow:hidden; text-overflow:ellipsis;">{{ b.name }}</span>
+        <sc-if value="{{ roundOpen }}" hint-placeholder-val="{{ false }}">
+          <div class="no-scrollbar" style="position:absolute; right:0; top:calc(100% + 5px); z-index:90; min-width:120px; max-height:240px; overflow-y:auto; background:#0a0805; border:1px solid #5a3c14; box-shadow:0 10px 30px rgba(0,0,0,0.7);">
+            <sc-for list="{{ roundOptions }}" as="r" hint-placeholder-count="1">
+              <div onClick="{{ r.onPick }}" style="display:flex; align-items:center; gap:8px; padding:6px 9px; cursor:pointer; font-size:9.5px; color:#ffd9a0; border-bottom:1px solid #241703; white-space:nowrap;" style-hover="background:#241703;">
+                <span style="width:5px; height:5px; flex-shrink:0; background:{{ r.dot }};"></span>
+                <span>{{ r.label }}</span>
               </div>
             </sc-for>
           </div>
         </sc-if>
       </div>
 
-      <button onClick="{{ refreshLive }}" title="refresh from GitHub" style="flex-shrink:0; background:#0a0805; border:1px solid #5a3c14; color:#ff9a2e; font-size:13px; width:28px; height:27px; cursor:pointer;" style-hover="border-color:#ff9a2e;">↻</button>
+      <div style="position:relative; flex-shrink:0;">
+        <button onClick="{{ toggleBranchMenu }}" title="session / branch" style="display:flex; align-items:center; gap:8px; width:172px; background:#0a0805; border:1px solid #5a3c14; color:#ff9a2e; padding:5px 8px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.06em; cursor:pointer;" style-hover="border-color:#ff9a2e;">
+          <span style="color:#7a5426; flex-shrink:0;">BR</span>
+          <span style="flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left;">{{ selectedBranch }}</span>
+          <span style="flex-shrink:0; color:#c97a2e;">▾</span>
+        </button>
+        <sc-if value="{{ branchOpen }}" hint-placeholder-val="{{ false }}">
+          <div class="no-scrollbar" style="position:absolute; right:0; top:calc(100% + 5px); z-index:90; width:300px; max-height:280px; overflow-y:auto; background:#0a0805; border:1px solid #5a3c14; box-shadow:0 10px 30px rgba(0,0,0,0.7);">
+            <sc-for list="{{ branchOptions }}" as="b" hint-placeholder-count="1">
+              <div onClick="{{ b.onPick }}" style="display:flex; align-items:flex-start; gap:8px; padding:6px 9px; cursor:pointer; border-bottom:1px solid #241703;" style-hover="background:#241703;">
+                <span style="width:5px; height:5px; margin-top:4px; flex-shrink:0; background:{{ b.dot }};"></span>
+                <div style="flex:1; min-width:0;">
+                  <div style="font-size:9.5px; color:#ffd9a0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ b.name }}</div>
+                  <div style="font-size:8.5px; color:#7a5426; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ b.meta }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+
+      <button onClick="{{ refreshLive }}" title="reload snapshot" style="flex-shrink:0; background:#0a0805; border:1px solid #5a3c14; color:#ff9a2e; font-size:13px; width:28px; height:27px; cursor:pointer;" style-hover="border-color:#ff9a2e;">↻</button>
     </div>
   </div>
 
@@ -91,7 +114,14 @@
       <div style="position:absolute; top:-60px; left:-60px; right:-60px; bottom:-60px; background:{{ alert.bg }}; opacity:{{ alert.bgOpacity }}; animation:{{ alert.bgAnim }}; will-change:transform;"></div>
     </div>
     <span style="position:relative; z-index:1; width:6px; height:6px; flex-shrink:0; background:{{ alert.color }}; animation:magi-pulse 1.4s infinite;"></span>
-    <span style="position:relative; z-index:1; font-weight:700; font-size:10.5px; letter-spacing:0.05em; color:{{ alert.color }};">{{ alert.text }}</span>
+    <span style="position:relative; z-index:1; font-weight:700; font-size:10.5px; letter-spacing:0.05em; color:{{ alert.color }}; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ alert.text }}</span>
+    <span style="flex:1;"></span>
+    <sc-if value="{{ fault.show }}" hint-placeholder-val="{{ false }}">
+      <span style="position:relative; z-index:1; flex-shrink:0; font-weight:700; font-size:9px; letter-spacing:0.06em; color:#ff5c3d; border:1px solid #ff5c3d; padding:1px 6px; white-space:nowrap; max-width:40vw; overflow:hidden; text-overflow:ellipsis;">{{ fault.text }}</span>
+    </sc-if>
+    <sc-if value="{{ stale }}" hint-placeholder-val="{{ false }}">
+      <span onClick="{{ reloadPage }}" style="position:relative; z-index:1; flex-shrink:0; cursor:pointer; font-weight:700; font-size:9px; letter-spacing:0.06em; color:#ffcf5c; border:1px solid #ffcf5c; padding:1px 6px; white-space:nowrap;">NEW SNAPSHOT — RELOAD</span>
+    </sc-if>
   </div>
 
   <!-- MAIN GRID -->
@@ -149,30 +179,30 @@
     </div>
 
     <!-- CENTER: LILITH + MAGI trio -->
-    <div style="grid-column:2; grid-row:1; min-width:0; min-height:0; display:flex; align-items:center; justify-content:center; padding:8px; container-type:size; {{ centerPlace }}">
+    <div style="grid-column:2; grid-row:1; min-width:0; min-height:0; display:flex; align-items:center; justify-content:center; padding:8px; container-type:size; {{ centerPlace }}" data-screen-label="MAGI ARRAY">
       <div style="position:relative; width:min(100%, calc(100cqh * 1.0879)); aspect-ratio:305.129 / 280.468; container-type:inline-size;">
 
-        <div onClick="{{ melchior.onClick }}" title="{{ melchior.verdict }}" style="cursor:pointer; position:absolute; left:13.41%; width:74.39%; top:0%; height:32.42%; clip-path:polygon(23.13% 0%, 100% 0%, 76.87% 100%, 0% 100%); background:{{ melchior.fill }}; box-shadow:{{ melchior.glow }}; animation:{{ melchior.anim }}; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(3px, 0.7cqw, 8px);">
-          <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:clamp(15px, 3.9cqw, 34px); line-height:1; letter-spacing:0.06em; color:#0a0805; white-space:nowrap;">MELCHIOR</div>
-          <div style="background:#0a0805; padding:2px 8px; font-weight:700; font-size:clamp(9px, 2.1cqw, 17px); letter-spacing:0.1em; color:{{ melchior.fill }}; white-space:nowrap;">{{ melchior.verdictLabel }}</div>
-          <div style="font-size:clamp(8px, 1.6cqw, 14px); font-weight:600; letter-spacing:0.14em; color:#0a0805; opacity:0.5; white-space:nowrap;">{{ melchior.statusLabel }}</div>
+        <div onClick="{{ melchior.onClick }}" title="{{ melchior.verdict }}" style="cursor:pointer; position:absolute; left:13.41%; width:74.39%; top:0%; height:32.42%; clip-path:polygon(23.13% 0%, 100% 0%, 76.87% 100%, 0% 100%); background:{{ melchior.fill }}; box-shadow:{{ melchior.glow }}; animation:{{ melchior.anim }}; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(1px, 0.7cqw, 8px);">
+          <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:{{ magi.nameSize }}; line-height:1; letter-spacing:0.06em; color:#0a0805; white-space:nowrap;">MELCHIOR</div>
+          <div style="background:#0a0805; padding:1px 6px; font-weight:700; font-size:{{ magi.pillSize }}; letter-spacing:0.1em; color:{{ melchior.fill }}; white-space:nowrap;">{{ melchior.verdictLabel }}</div>
+          <div style="font-size:{{ magi.statusSize }}; font-weight:600; letter-spacing:0.14em; color:#0a0805; opacity:0.5; white-space:nowrap; {{ magi.statusExtra }}">{{ melchior.statusLabel }}</div>
         </div>
 
-        <div onClick="{{ casper.onClick }}" title="{{ casper.verdict }}" style="cursor:pointer; position:absolute; left:0%; width:63.00%; top:34.56%; height:53.88%; clip-path:polygon(0% 0%, 54.62% 0%, 100% 100%, 45.38% 100%); background:{{ casper.fill }}; box-shadow:{{ casper.glow }}; animation:{{ casper.anim }}; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(3px, 0.7cqw, 8px);">
-          <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:clamp(15px, 3.9cqw, 34px); line-height:1; letter-spacing:0.06em; color:#0a0805; white-space:nowrap;">CASPER</div>
-          <div style="background:#0a0805; padding:2px 8px; font-weight:700; font-size:clamp(9px, 2.1cqw, 17px); letter-spacing:0.1em; color:{{ casper.fill }}; white-space:nowrap;">{{ casper.verdictLabel }}</div>
-          <div style="font-size:clamp(8px, 1.6cqw, 14px); font-weight:600; letter-spacing:0.14em; color:#0a0805; opacity:0.5; white-space:nowrap;">{{ casper.statusLabel }}</div>
+        <div onClick="{{ casper.onClick }}" title="{{ casper.verdict }}" style="cursor:pointer; position:absolute; left:0%; width:63.00%; top:34.56%; height:53.88%; clip-path:polygon(0% 0%, 54.62% 0%, 100% 100%, 45.38% 100%); background:{{ casper.fill }}; box-shadow:{{ casper.glow }}; animation:{{ casper.anim }}; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(1px, 0.7cqw, 8px);">
+          <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:{{ magi.nameSize }}; line-height:1; letter-spacing:0.06em; color:#0a0805; white-space:nowrap;">CASPER</div>
+          <div style="background:#0a0805; padding:1px 6px; font-weight:700; font-size:{{ magi.pillSize }}; letter-spacing:0.1em; color:{{ casper.fill }}; white-space:nowrap;">{{ casper.verdictLabel }}</div>
+          <div style="font-size:{{ magi.statusSize }}; font-weight:600; letter-spacing:0.14em; color:#0a0805; opacity:0.5; white-space:nowrap; {{ magi.statusExtra }}">{{ casper.statusLabel }}</div>
         </div>
 
-        <div onClick="{{ balthasar.onClick }}" title="{{ balthasar.verdict }}" style="cursor:pointer; position:absolute; left:54.20%; width:45.80%; top:13.70%; height:86.30%; clip-path:polygon(62.43% 0%, 100% 37.57%, 37.57% 100%, 0% 62.43%); background:{{ balthasar.fill }}; box-shadow:{{ balthasar.glow }}; animation:{{ balthasar.anim }}; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(3px, 0.7cqw, 8px);">
-          <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:clamp(15px, 3.9cqw, 34px); line-height:1; letter-spacing:0.06em; color:#0a0805; white-space:nowrap;">BALTHASAR</div>
-          <div style="background:#0a0805; padding:2px 8px; font-weight:700; font-size:clamp(9px, 2.1cqw, 17px); letter-spacing:0.1em; color:{{ balthasar.fill }}; white-space:nowrap;">{{ balthasar.verdictLabel }}</div>
-          <div style="font-size:clamp(8px, 1.6cqw, 14px); font-weight:600; letter-spacing:0.14em; color:#0a0805; opacity:0.5; white-space:nowrap;">{{ balthasar.statusLabel }}</div>
+        <div onClick="{{ balthasar.onClick }}" title="{{ balthasar.verdict }}" style="cursor:pointer; position:absolute; left:54.20%; width:45.80%; top:13.70%; height:86.30%; clip-path:polygon(62.43% 0%, 100% 37.57%, 37.57% 100%, 0% 62.43%); background:{{ balthasar.fill }}; box-shadow:{{ balthasar.glow }}; animation:{{ balthasar.anim }}; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(1px, 0.7cqw, 8px);">
+          <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:{{ magi.nameSize }}; line-height:1; letter-spacing:0.06em; color:#0a0805; white-space:nowrap;">BALTHASAR</div>
+          <div style="background:#0a0805; padding:1px 6px; font-weight:700; font-size:{{ magi.pillSize }}; letter-spacing:0.1em; color:{{ balthasar.fill }}; white-space:nowrap;">{{ balthasar.verdictLabel }}</div>
+          <div style="font-size:{{ magi.statusSize }}; font-weight:600; letter-spacing:0.14em; color:#0a0805; opacity:0.5; white-space:nowrap; {{ magi.statusExtra }}">{{ balthasar.statusLabel }}</div>
         </div>
 
-        <div onClick="{{ toggleEve }}" style="cursor:pointer; position:absolute; left:36.68%; width:32.77%; top:34.56%; height:30.88%; clip-path:polygon(0% 0%, 100% 0%, 50% 100%); background:{{ eve.color }}; animation:magi-glow 3s infinite; filter:drop-shadow(0 0 14px {{ eve.color }}); display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding-top:3%; gap:clamp(1px, 0.3cqw, 4px);">
-          <span style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:clamp(20px, 5.6cqw, 48px); line-height:1; letter-spacing:0.12em; color:#0a0805;">LILITH</span>
-          <span style="font-size:clamp(8px, 1.6cqw, 14px); font-weight:600; letter-spacing:0.14em; color:#0a0805; opacity:0.5; white-space:nowrap;">{{ eve.statusLabel }}</span>
+        <div onClick="{{ toggleLilith }}" style="cursor:pointer; position:absolute; left:36.68%; width:32.77%; top:34.56%; height:30.88%; clip-path:polygon(0% 0%, 100% 0%, 50% 100%); background:{{ lilith.color }}; animation:magi-glow 3s infinite; filter:drop-shadow(0 0 14px {{ lilith.color }}); display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding-top:3%; gap:clamp(1px, 0.3cqw, 4px);">
+          <span style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:{{ magi.lilithSize }}; line-height:1; letter-spacing:0.12em; color:#0a0805;">LILITH</span>
+          <span style="font-size:{{ magi.statusSize }}; font-weight:600; letter-spacing:0.14em; color:#0a0805; opacity:0.5; white-space:nowrap; {{ magi.statusExtra }}">{{ lilith.statusLabel }}</span>
         </div>
 
       </div>
@@ -187,7 +217,7 @@
         <span onClick="{{ toggleLogPause }}" title="auto-scroll / hold" style="cursor:pointer; font-size:9px; letter-spacing:0.08em; color:{{ logPauseColor }};">{{ logPauseLabel }}</span>
         <button onClick="{{ toggleLogMax }}" title="expand / collapse" style="flex-shrink:0; background:none; border:1px solid #164d1f; color:#3fd15e; font-size:11px; line-height:1; width:20px; height:18px; cursor:pointer; font-family:'IBM Plex Mono',monospace;" style-hover="border-color:#3fd15e;">{{ logMaxIcon }}</button>
       </div>
-      <div ref="{{ logRef }}" onMouseEnter="{{ logEnter }}" onMouseLeave="{{ logLeave }}" onWheel="{{ onLogWheel }}" style="flex:1; min-height:0; overflow:hidden; overscroll-behavior:contain;">
+      <div ref="{{ logRef }}" onMouseEnter="{{ logEnter }}" onMouseLeave="{{ logLeave }}" onWheel="{{ onLogWheel }}" onTouchStart="{{ onLogTouchStart }}" onTouchMove="{{ onLogTouchMove }}" onTouchEnd="{{ onLogTouchEnd }}" style="flex:1; min-height:0; overflow:hidden; overscroll-behavior:contain; touch-action:none;">
         <div ref="{{ logInnerRef }}" style="font-size:10.5px; will-change:transform;">
           <sc-for list="{{ logCopies }}" as="copy" hint-placeholder-count="2">
           <div data-log-copy="1">
@@ -233,33 +263,74 @@ const VERDICT_SHORT = {
   'none-found': 'NONE FOUND', 'vacuous-or-trivial': 'VACUOUS', 'plausible': 'PLAUSIBLE',
   'suspicious': 'SUSPICIOUS', 'likely-misframed': 'MISFRAMED'
 };
-const PHASE_LABEL = { 'eve-propose': 'PROPOSE', 'extension-ruling': 'EXT-RULING', 'magi-review': 'REVIEW', 'idle': 'IDLE' };
+const PHASE_LABEL = { 'lilith-propose': 'PROPOSE', 'eve-propose': 'PROPOSE', 'extension-ruling': 'EXT-RULING', 'magi-review': 'REVIEW', 'idle': 'IDLE' };
 const OUTCOME_COLOR = { 'gap-located': C.red, 'calibration': C.amber, 'misframed': C.red, 'candidate-stable': C.green, 'incomplete-round': C.gray, 'killed-agent': C.red };
 const STATUS_LABEL = { 'launched': 'PROCESSING', 'done': 'STANDBY', 'paused': 'PAUSED', 'killed': 'OFFLINE', 'errored': 'OFFLINE', 'extension-requested': 'AWAITING RULING' };
 const BEACON_ACTIVE = { 'launched': true, 'extension-requested': true, 'errored': true, 'done': false, 'paused': false, 'killed': false };
 const AGENT_KEYS = ['melchior', 'balthasar', 'casper'];
-const REPO = 'PhilPF/research';
+const NO_REPORT_FILL = '#5c5340';
+const DATA_BASE = './data/';
+const BUILD_POLL_MS = 120000;
 const MAX_BODY = 'position:absolute; inset:0; z-index:60; background:rgba(2,10,3,0.70); backdrop-filter:blur(8px) saturate(1.25); -webkit-backdrop-filter:blur(8px) saturate(1.25); box-shadow:0 0 40px rgba(0,0,0,0.55);';
-const maxStyle = (portrait) => (portrait ? 'grid-area:1 / 1 / 4 / 2; ' : 'grid-area:1 / 1 / 2 / 4; ') + MAX_BODY;
-const rawBase = (branch) => `https://raw.githubusercontent.com/${REPO}/${branch}/`;
+const maxStyle = (portrait, compact) => {
+  const area = portrait ? (compact ? '1 / 1 / 3 / 2' : '1 / 1 / 4 / 2') : (compact ? '1 / 1 / 2 / 3' : '1 / 1 / 2 / 4');
+  return 'grid-area:' + area + '; ' + MAX_BODY;
+};
 
 const SAMPLE = {
+  branch: 'claude/new-session-ke2fh5',
   session: {
-    session_id: 'jt-ke2fh5', branch: 'claude/new-session-ke2fh5', claim_id: 'jt-def',
-    claim_title: 'Characterizing integrators compatible with jet transport', status: 'active', latest_round: 1
+    session_id: 'jt-ke2fh5', branch: 'claude/new-session-ke2fh5', status: 'active', latest_round: 1,
+    problem: { claim_id: 'jt-def', title: 'Characterizing integrators compatible with jet transport' }
   },
-  live: { phase: 'eve-propose', extension: null, round: 1 },
+  live: { phase: 'lilith-propose', round: 1, extension: null, agents: { melchior: { status: 'done' }, balthasar: { status: 'done' }, casper: { status: 'done' } } },
+  rounds: [{ claim_id: 'jt-def', round: 1, outcome: 'misframed' }],
   verdicts: {
-    melchior: { verdict: 'gap-found', status: 'done', dump: `MELCHIOR — Coherence Review, jt-def, Round 1\n\nLOCATION: Clause (b) — "running the same method... on the extended system" (dimension n·dim W).\nREASON: A method under hypotheses smooth+local alone is formally only a family {Phi_n} of maps indexed by dimension, with nothing tying Phi_n to Phi_{n·dim W}. "The same method" is not a defined term given only the hypotheses on record.\nSUBTASKS: well-posedness (a) — done · well-posedness (b) — done · consistency with cautions — done · basis-identification — partial · classify test cases — untouched.` },
-    balthasar: { verdict: 'vacuous-or-trivial', status: 'done', dump: `BALTHASAR — Round 1, jt-def\n\nCOUNTEREXAMPLE: W = R (the ground ring, m = {0}) is a legitimate Weil algebra. For this W, computations (a) and (b) are syntactically identical, so EVERY method trivially satisfies "(a) = (b)".\nLOCATES: the candidate carries no explicit quantifier over W.\nSUBTASKS: vacuity check W=R — done · base-slice triviality — done · sanity check quantified-W — done · componentwise rational rule — untouched.` },
-    casper: { verdict: 'suspicious', status: 'done', dump: `CASPER — Outside-view review, jt-def, round 1\n\nRISK: The candidate leaves two structural parameters unresolved — which Weil algebras W the equality must hold for, and what identifies "the same method" across dimensions.\nSUBTASKS: known theorem/near-miss family — done · strategy failure modes — done · degenerate ends of hypothesis space — done · constructive status — partial.` }
+    'jt-def-r1-melchior.json': { verdict: 'gap-found' },
+    'jt-def-r1-balthasar.json': { verdict: 'vacuous-or-trivial' },
+    'jt-def-r1-casper.json': { verdict: 'suspicious' }
   },
-  logMd: `## Round 1 — 2026-08-17 — jt-def
-Statement: Definitional candidate — a numerical integrator satisfies jet transport iff computation (a), jet arithmetic over a Weil algebra W, coincides with computation (b), ordinary arithmetic on the extended system of dimension n·dim W.
-Outcome: misframed (Balthasar vacuous-or-trivial); gap-located also fired (Melchior gap-found).
-MAGI: M gap-found | B vacuous-or-trivial | C suspicious
-Carried to Eve: clause (b) cross-dimension typecheck failure; missing quantifier over W; basis-identification for "coincide".`
+  lilith: { 'jt-def-r1-propose.json': { phase: 'lilith-propose', directions: ['quantify over all Weil algebras W explicitly', 'fix an identification of "the same method" across dimensions', 'restrict to non-degenerate W and re-test clause (b)'] } },
+  reviews: {
+    'jt-def-r1-melchior.md': '# MELCHIOR — Coherence Review, jt-def, Round 1\n\nLOCATION: Clause (b) — "running the same method... on the extended system" (dimension n·dim W).\nREASON: A method under hypotheses smooth+local alone is formally only a family {Phi_n} of maps indexed by dimension, with nothing tying Phi_n to Phi_{n·dim W}. "The same method" is not a defined term given only the hypotheses on record.\n\n## SUBTASKS\n- well-posedness (a) — done\n- well-posedness (b) — done\n- consistency with cautions — done\n- basis-identification — partial\n- classify test cases — untouched',
+    'jt-def-r1-balthasar.md': '# BALTHASAR — Round 1, jt-def\n\nCOUNTEREXAMPLE: W = R (the ground ring, m = {0}) is a legitimate Weil algebra. For this W, computations (a) and (b) are syntactically identical, so **every** method trivially satisfies "(a) = (b)".\nLOCATES: the candidate carries no explicit quantifier over W.\n\n## SUBTASKS\n- vacuity check W=R — done\n- base-slice triviality — done\n- sanity check quantified-W — done\n- componentwise rational rule — untouched',
+    'jt-def-r1-casper.md': '# CASPER — Outside-view review, jt-def, round 1\n\nRISK: The candidate leaves two structural parameters unresolved — which Weil algebras W the equality must hold for, and what identifies "the same method" across dimensions.\n\n## SUBTASKS\n- known theorem / near-miss family — done\n- strategy failure modes — done\n- degenerate ends of hypothesis space — done\n- constructive status — partial'
+  },
+  log: '## Round 1 — 2026-08-17 — jt-def\nStatement: Definitional candidate — a numerical integrator satisfies jet transport iff computation (a), jet arithmetic over a Weil algebra W, coincides with computation (b), ordinary arithmetic on the extended system of dimension n·dim W.\nOutcome: misframed (Balthasar vacuous-or-trivial); gap-located also fired (Melchior gap-found).\nMAGI: M gap-found | B vacuous-or-trivial | C suspicious\nCarried to Lilith: clause (b) cross-dimension typecheck failure; missing quantifier over W; basis-identification for "coincide".',
+  errors: []
 };
+
+const KEY_RE = /^(.+)-r(\d+)-([a-z]+)\.(json|md)$/;
+function keyInfo(k) { const m = String(k).match(KEY_RE); return m ? { claim: m[1], round: parseInt(m[2], 10), agent: m[3] } : null; }
+function findByRound(bag, round, agent) {
+  for (const k of Object.keys(bag || {})) {
+    const i = keyInfo(k);
+    if (i && i.round === round && (!agent || i.agent === agent)) return { key: k, value: bag[k] };
+  }
+  return null;
+}
+function roundsOf(snap) {
+  const set = new Set();
+  (snap.rounds || []).forEach(r => { if (r && r.round != null) set.add(Number(r.round)); });
+  ['verdicts', 'reviews', 'lilith'].forEach(g => Object.keys(snap[g] || {}).forEach(k => { const i = keyInfo(k); if (i) set.add(i.round); }));
+  if (snap.live && snap.live.round != null) set.add(Number(snap.live.round));
+  const list = [...set].filter(n => Number.isFinite(n)).sort((a, b) => a - b);
+  return list.length ? list : [1];
+}
+
+function jsonToMd(o) {
+  if (o == null) return 'no data';
+  if (typeof o === 'string') return o;
+  const flat = v => (v && typeof v === 'object') ? JSON.stringify(v) : String(v);
+  const out = [];
+  for (const [k, v] of Object.entries(o)) {
+    if (v == null) continue;
+    if (Array.isArray(v)) { out.push('## ' + k.toUpperCase()); v.forEach(x => out.push('- ' + flat(x))); }
+    else if (typeof v === 'object') { out.push('## ' + k.toUpperCase()); Object.entries(v).forEach(([k2, v2]) => out.push(k2 + ': ' + flat(v2))); }
+    else out.push(k + ': ' + String(v));
+  }
+  return out.join('\n');
+}
 
 function parseLogMd(md) {
   const lines = (md || '').split('\n');
@@ -297,10 +368,10 @@ function reflow(t) {
 }
 
 function mdInline(s) {
-  const parts = []; const re = /(\*\*[^*]+\*\*|`[^`]+`|\*[^*]+\*)/g; let i = 0, m;
+  const parts = []; const re = /(\*\*[^*]+\*\*|\x60[^\x60]+\x60|\*[^*]+\*)/g; let i = 0, m;
   while ((m = re.exec(s))) {
     if (m.index > i) parts.push({ t: s.slice(i, m.index), plain: true });
-    parts.push({ t: m[0].replace(/^(\*\*|`|\*)/, '').replace(/(\*\*|`|\*)$/, ''), b: true });
+    parts.push({ t: m[0].replace(/^(\*\*|\x60|\*)/, '').replace(/(\*\*|\x60|\*)$/, ''), b: true });
     i = m.index + m[0].length;
   }
   if (i < s.length) parts.push({ t: s.slice(i), plain: true });
@@ -321,35 +392,89 @@ function mdParse(t) {
   return out;
 }
 
-async function fetchText(url) { const r = await fetch(url); if (!r.ok) throw new Error(url); return r.text(); }
-async function fetchJson(url) { return JSON.parse(await fetchText(url)); }
+async function fetchJson(url) {
+  const r = await fetch(url, { cache: 'no-cache' });
+  if (!r.ok) throw new Error(url + ' -> ' + r.status);
+  return r.json();
+}
 
 class Component extends DCLogic {
-  state = { data: SAMPLE, source: 'sample', fetchedAt: null, history: [], loading: false, branch: 'main', branches: ['main'], cmd: '', logRepeat: 2, maxPanel: null, logPaused: false, mdMode: true, branchOpen: false, portrait: false };
+  state = {
+    data: SAMPLE, source: 'sample', fetchedAt: null, sessions: [], sessionFile: null,
+    build: null, stale: false, round: null, roundOpen: false, branchOpen: false,
+    history: [], cmd: '', logRepeat: 2, maxPanel: null, logPaused: false, mdMode: true,
+    portrait: false, compact: false
+  };
   historyRef = React.createRef();
   inputRef = React.createRef();
   spacerRef = React.createRef();
   logRef = React.createRef();
   logInnerRef = React.createRef();
-  ALIASES = { casper: 'casper', balthasar: 'balthasar', balthazar: 'balthasar', melchior: 'melchior', melcior: 'melchior', eve: 'eve', lilith: 'eve' };
+  ALIASES = { casper: 'casper', balthasar: 'balthasar', balthazar: 'balthasar', melchior: 'melchior', melcior: 'melchior', lilith: 'lilith', eve: 'lilith' };
 
   componentDidMount() {
-    fetch(`https://api.github.com/repos/${REPO}/branches`).then(r => r.ok ? r.json() : []).then(list => {
-      const names = list.map(b => b.name);
-      if (names.length) this.setState({ branches: names });
-    }).catch(() => {});
     this.refreshLive();
-    this._poll = setInterval(this.refreshLive, 20000);
+    this.checkBuild();
+    this._poll = setInterval(this.checkBuild, BUILD_POLL_MS);
     this._raf = requestAnimationFrame(this.logTick);
     this.syncOrientation();
     window.addEventListener('resize', this.syncOrientation);
   }
+  componentWillUnmount() {
+    clearInterval(this._poll);
+    cancelAnimationFrame(this._raf);
+    window.removeEventListener('resize', this.syncOrientation);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.portrait !== this.state.portrait || prevState.compact !== this.state.compact) this._logPos = 0;
+  }
+
   syncOrientation = () => {
     const portrait = window.innerHeight > window.innerWidth;
     if (portrait !== this.state.portrait) this.setState({ portrait });
   };
-  componentWillUnmount() { clearInterval(this._poll); cancelAnimationFrame(this._raf); window.removeEventListener('resize', this.syncOrientation); }
 
+  refreshLive = async (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    try {
+      const idx = await fetchJson(DATA_BASE + 'index.json');
+      const sessions = (idx.sessions || []).slice().sort((a, b) => String(b.started_at || '').localeCompare(String(a.started_at || '')));
+      const keep = sessions.find(s => s.file === this.state.sessionFile);
+      const chosen = keep || sessions[0];
+      this.setState({ sessions });
+      if (chosen) await this.loadSession(chosen.file, true);
+    } catch (err) {
+      this.setState({ source: this.state.source === 'live' ? 'live' : 'sample-fallback' });
+    }
+  };
+
+  loadSession = async (file, keepRound) => {
+    try {
+      const snap = await fetchJson(DATA_BASE + file);
+      this.setState(s => ({
+        data: snap, sessionFile: file, source: 'live', fetchedAt: new Date().toISOString(),
+        branchOpen: false, round: keepRound ? s.round : null
+      }));
+    } catch (err) {
+      this.setState({ source: 'sample-fallback', branchOpen: false });
+    }
+  };
+
+  checkBuild = async () => {
+    try {
+      const b = await fetchJson(DATA_BASE + 'build-id.json');
+      const prev = this.state.build;
+      if (prev && prev.sha && b.sha && b.sha !== prev.sha) this.setState({ stale: true });
+      else this.setState({ build: b });
+    } catch (err) { /* nothing published yet */ }
+  };
+  reloadPage = () => window.location.reload();
+
+  pickBranch = (file) => { this.setState({ branchOpen: false, round: null }); this.loadSession(file, false); };
+  toggleBranchMenu = () => this.setState(s => ({ branchOpen: !s.branchOpen, roundOpen: false }));
+  toggleRoundMenu = () => this.setState(s => ({ roundOpen: !s.roundOpen, branchOpen: false }));
+  pickRound = (n) => this.setState({ round: n, roundOpen: false });
+  toggleCompact = () => this.setState(s => ({ compact: !s.compact, maxPanel: null }));
 
   _logPos = 0;
   logTick = () => {
@@ -360,27 +485,22 @@ class Component extends DCLogic {
       if (cycle > 20) {
         const needed = Math.ceil(el.clientHeight / cycle) + 1;
         if (needed !== this.state.logRepeat) this.setState({ logRepeat: needed });
-        if (!this._logHover && !this.state.logPaused) this._logPos += 0.35;
+        if (!this._logHover && !this._logTouch && !this.state.logPaused) this._logPos += 0.35;
         this._logPos = ((this._logPos % cycle) + cycle) % cycle;
         inner.style.transform = 'translate3d(0,' + (-this._logPos).toFixed(2) + 'px,0)';
       }
     }
     this._raf = requestAnimationFrame(this.logTick);
-    this.syncOrientation();
-    window.addEventListener('resize', this.syncOrientation);
-  }
-  syncOrientation = () => {
-    const portrait = window.innerHeight > window.innerWidth;
-    if (portrait !== this.state.portrait) this.setState({ portrait });
-  };;
+  };
   onLogWheel = (e) => { this._logPos += e.deltaY * 0.6; };
+  onLogTouchStart = (e) => { this._logTouch = true; this._touchY = e.touches[0].clientY; };
+  onLogTouchMove = (e) => { const y = e.touches[0].clientY; this._logPos += (this._touchY - y); this._touchY = y; };
+  onLogTouchEnd = () => { this._logTouch = false; };
   logEnter = () => { this._logHover = true; };
   logLeave = () => { this._logHover = false; };
-  toggleMax = (which) => this.setState(s => ({ maxPanel: s.maxPanel === which ? null : which }));
   toggleLogPause = (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState(s => ({ logPaused: !s.logPaused })); };
   toggleMd = (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState(s => ({ mdMode: !s.mdMode })); };
-  toggleBranchMenu = () => this.setState(s => ({ branchOpen: !s.branchOpen }));
-  pickBranch = (name) => this.setState({ branch: name, branchOpen: false }, () => this.refreshLive());
+  toggleMax = (which) => this.setState(s => ({ maxPanel: s.maxPanel === which ? null : which }));
 
   scrollLatestToTop = () => {
     const el = this.historyRef.current; if (!el) return;
@@ -392,7 +512,7 @@ class Component extends DCLogic {
       if (last) el.scrollTop += last.getBoundingClientRect().top - el.getBoundingClientRect().top - 30;
     });
   };
-
+  afterAppend = () => requestAnimationFrame(this.scrollLatestToTop);
   focusInput = () => { if (this.inputRef.current) this.inputRef.current.focus(); };
   onCmdChange = (e) => this.setState({ cmd: e.target.value });
   onCmdKey = (e) => { if (e.key === 'Enter') { e.preventDefault(); this.runCommand(this.state.cmd); } };
@@ -406,124 +526,164 @@ class Component extends DCLogic {
       return;
     }
     this.setState({ cmd: '' });
-    this.toggle(key, (this._dumps || {})[key] || 'no data', cmd);
+    this.toggle(key, (this._dumps || {})[key] || 'no report written', cmd);
   };
-
-  afterAppend = () => requestAnimationFrame(this.scrollLatestToTop);
-  toggle = (key, text, label) => { this.setState(s => ({ history: [...s.history, { key: label || key, text: reflow(text) }] }), this.afterAppend); this.focusInput(); };
+  toggle = (key, text, label) => {
+    this.setState(s => ({ history: [...s.history, { key: label || key, text: reflow(text) }] }), this.afterAppend);
+    this.focusInput();
+  };
   closeDump = () => this.setState({ history: [] });
-  onBranchChange = (e) => { this.setState({ branch: e.target.value }, () => this.refreshLive()); };
-
-  refreshLive = async () => {
-    this.setState({ loading: true });
-    const RAW_BASE = rawBase(this.state.branch);
-    try {
-      const session = await fetchJson(RAW_BASE + 'state/session.json');
-      const live = await fetchJson(RAW_BASE + 'state/live.json');
-      const claim = session.problem.claim_id;
-      const round = live.round;
-      const verdicts = {};
-      await Promise.all(AGENT_KEYS.map(async a => {
-        let dump = null, verdict = null;
-        try { dump = await fetchText(RAW_BASE + `reviews/${claim}-r${round}-${a}.md`); } catch (e) {}
-        try {
-          const vj = await fetchJson(RAW_BASE + `state/verdicts/${claim}-r${round}-${a}.json`);
-          verdict = vj.verdict;
-          if (!dump) dump = `${a.toUpperCase()} — ${claim} r${round}\n\n` + Object.entries(vj.fields || {}).map(([k, v]) => `${k.toUpperCase()}: ${v}`).join('\n\n');
-        } catch (e) {}
-        verdicts[a] = { verdict: verdict || 'suspicious', status: (live.agents && live.agents[a] && live.agents[a].status) || 'done', dump: dump || 'no data' };
-      }));
-      const logMd = await fetchText(RAW_BASE + 'LOG.md');
-      this.setState({
-        data: {
-          session: { session_id: session.session_id, branch: session.branch, claim_id: claim, claim_title: session.problem.title, status: session.status, latest_round: session.latest_round },
-          live, verdicts, logMd
-        },
-        source: 'live', fetchedAt: new Date().toISOString(), loading: false
-      });
-    } catch (e) {
-      this.setState({ source: this.state.source === 'live' ? 'live' : 'sample-fallback', loading: false });
-    }
-  };
 
   renderVals() {
     const p = this.props || {};
-    const d = this.state.data;
+    const d = this.state.data || SAMPLE;
+    const sess = d.session || {};
+    const problem = sess.problem || {};
+    const live = d.live || {};
+    const rounds = roundsOf(d);
+    const round = this.state.round != null ? this.state.round : rounds[rounds.length - 1];
+    const claimId = problem.claim_id || sess.claim_id || 'unknown';
+
     const statusColorMap = { active: C.amber, stabilized: C.green, blocked: C.red };
-    const sColor = statusColorMap[d.session.status] ?? C.gray;
+    const sColor = statusColorMap[sess.status] ?? C.gray;
 
     const agentBlocks = {};
+    const dumps = {};
     AGENT_KEYS.forEach(key => {
+      const vHit = findByRound(d.verdicts, round, key);
+      const rHit = findByRound(d.reviews, round, key);
       const forceV = p['force' + key.charAt(0).toUpperCase() + key.slice(1) + 'Verdict'];
       const forceS = p['force' + key.charAt(0).toUpperCase() + key.slice(1) + 'Status'];
-      const base = d.verdicts[key] || { verdict: 'suspicious', status: 'done', dump: 'no data' };
-      const verdict = (forceV && forceV !== 'auto') ? forceV : base.verdict;
-      const status = (forceS && forceS !== 'auto') ? forceS : base.status;
-      const fill = VERDICT_FILL[verdict] ?? '#ab9873';
+      const rawVerdict = vHit && vHit.value ? vHit.value.verdict : null;
+      const verdict = (forceV && forceV !== 'auto') ? forceV : rawVerdict;
+      const liveStatus = (Number(live.round) === Number(round) && live.agents && live.agents[key]) ? live.agents[key].status : ((vHit || rHit) ? 'done' : null);
+      const status = (forceS && forceS !== 'auto') ? forceS : liveStatus;
+      const reported = !!verdict;
+      const fill = reported ? (VERDICT_FILL[verdict] ?? '#ab9873') : NO_REPORT_FILL;
       const active = !!BEACON_ACTIVE[status];
       agentBlocks[key] = {
-        verdict, fill,
-        glow: active ? `0 0 22px ${fill}99` : `0 0 8px ${fill}44`,
+        verdict: verdict || 'no report written',
+        fill,
+        glow: active ? '0 0 22px ' + fill + '99' : '0 0 8px ' + fill + '44',
         anim: active ? 'magi-glow 1.6s infinite' : 'none',
-        beaconAnim: active ? 'animation:magi-pulse 1s infinite;' : '',
-        statusLabel: STATUS_LABEL[status] ?? status.toUpperCase(),
-        verdictLabel: VERDICT_SHORT[verdict] ?? String(verdict || '').toUpperCase().replace(/-/g, ' '),
-        onClick: () => this.toggle(key)
+        statusLabel: status ? (STATUS_LABEL[status] ?? String(status).toUpperCase()) : '',
+        verdictLabel: reported ? (VERDICT_SHORT[verdict] ?? String(verdict).toUpperCase().replace(/-/g, ' ')) : 'NO REPORT',
+        onClick: () => this.toggle(key, dumps[key], key)
       };
+      let text;
+      if (rHit && typeof rHit.value === 'string' && rHit.value.trim()) text = rHit.value;
+      else if (vHit && vHit.value) text = '# ' + key.toUpperCase() + ' - ' + claimId + ' r' + round + '\n\n' + jsonToMd(vHit.value);
+      else text = '# ' + key.toUpperCase() + ' - ' + claimId + ' r' + round + '\n\nno report written for this round.';
+      dumps[key] = text;
     });
 
-    const evePhaseColor = { 'eve-propose': C.amber, 'extension-ruling': C.amber, 'idle': C.green };
-    const eve = { color: evePhaseColor[d.live.phase] ?? C.green, statusLabel: PHASE_LABEL[d.live.phase] ?? String(d.live.phase || 'idle').toUpperCase().slice(0, 10) };
+    const lilithPhaseColor = { 'lilith-propose': C.amber, 'eve-propose': C.amber, 'extension-ruling': C.amber, 'idle': C.green };
+    const lilith = {
+      color: lilithPhaseColor[live.phase] ?? C.green,
+      statusLabel: PHASE_LABEL[live.phase] ?? String(live.phase || 'idle').toUpperCase().slice(0, 10)
+    };
+    const lHit = findByRound(d.lilith, round, null);
+    dumps.lilith = lHit
+      ? '# LILITH - propose, ' + claimId + ' r' + round + '\n\n' + jsonToMd(lHit.value)
+      : '# LILITH - ' + claimId + ' r' + round + '\n\nphase: ' + (live.phase || 'idle') + '\n\nno proposal written for this round.';
+    this._dumps = dumps;
 
-    const eveDump = `EVE — propose, ${d.session.claim_id} r${d.live.round}\n\nphase: ${d.live.phase} — Eve reads LOG.md in full once the round closes and returns 2-5 distinct directions (technique or statement axis), never ranked.`;
-    const dumpTextMap = { eve: eveDump, melchior: (d.verdicts.melchior || SAMPLE.verdicts.melchior).dump, balthasar: (d.verdicts.balthasar || SAMPLE.verdicts.balthasar).dump, casper: (d.verdicts.casper || SAMPLE.verdicts.casper).dump };
-    this._dumps = dumpTextMap;
-    agentBlocks.melchior.onClick = () => this.toggle('melchior', dumpTextMap.melchior);
-    agentBlocks.balthasar.onClick = () => this.toggle('balthasar', dumpTextMap.balthasar);
-    agentBlocks.casper.onClick = () => this.toggle('casper', dumpTextMap.casper);
+    const logBlocks = parseLogMd(d.log || SAMPLE.log);
+    const roundOutcome = ((d.rounds || []).find(r => Number(r.round) === Number(round)) || {}).outcome
+      || (logBlocks.find(b => b.isRoundHeader && b.outcome) || {}).outcome || '';
+    const outcomeKey = String(roundOutcome).toLowerCase();
 
-    const roundOutcome = (parseLogMd(d.logMd || SAMPLE.logMd).find(b => b.isRoundHeader) || {}).outcome || '';
     const forceAlert = p.forceAlert;
-    const autoAlert = roundOutcome === 'MISFRAMED'
-      ? { text: 'LATEST ROUND :: MISFRAMED — CARRIED TO EVE', color: '#ff5c3d', bg: 'repeating-linear-gradient(135deg, #ff2b2b 0 10px, transparent 10px 20px)', bgOpacity: 0.12, bgAnim: 'drift-diag 2.6s linear infinite' }
-      : d.live.extension
-        ? { text: `EXTENSION :: ${(d.live.extension.petitioner || '').toUpperCase()} :: PENDING`, color: C.amber, bg: 'repeating-linear-gradient(135deg, #ffcf5c 0 10px, transparent 10px 20px)', bgOpacity: 0.08, bgAnim: 'drift-diag 3.2s linear infinite' }
-        : { text: `PHASE :: ${(d.live.phase || 'idle').toUpperCase()} :: ROUND ${d.live.round}`, color: C.orange, bg: 'repeating-linear-gradient(90deg, #ff9a2e 0 2px, transparent 2px 40px)', bgOpacity: 0.06, bgAnim: 'drift-x 3.4s linear infinite' };
+    const autoAlert = outcomeKey === 'misframed'
+      ? { text: 'ROUND ' + round + ' :: MISFRAMED - CARRIED TO LILITH', color: '#ff5c3d', bg: 'repeating-linear-gradient(135deg, #ff2b2b 0 10px, transparent 10px 20px)', bgOpacity: 0.12, bgAnim: 'drift-diag 2.6s linear infinite' }
+      : live.extension
+        ? { text: 'EXTENSION :: ' + String((live.extension || {}).petitioner || '').toUpperCase() + ' :: PENDING', color: C.amber, bg: 'repeating-linear-gradient(135deg, #ffcf5c 0 10px, transparent 10px 20px)', bgOpacity: 0.08, bgAnim: 'drift-diag 3.2s linear infinite' }
+        : { text: 'PHASE :: ' + String(live.phase || 'idle').toUpperCase() + ' :: ROUND ' + round, color: C.orange, bg: 'repeating-linear-gradient(90deg, #ff9a2e 0 2px, transparent 2px 40px)', bgOpacity: 0.06, bgAnim: 'drift-x 3.4s linear infinite' };
     const alertMap = {
       auto: autoAlert,
-      'misframed': { text: 'LATEST ROUND :: MISFRAMED — CARRIED TO EVE', color: '#ff5c3d', bg: 'repeating-linear-gradient(135deg, #ff2b2b 0 10px, transparent 10px 20px)', bgOpacity: 0.12, bgAnim: 'drift-diag 2.6s linear infinite' },
+      'misframed': { text: 'ROUND ' + round + ' :: MISFRAMED - CARRIED TO LILITH', color: '#ff5c3d', bg: 'repeating-linear-gradient(135deg, #ff2b2b 0 10px, transparent 10px 20px)', bgOpacity: 0.12, bgAnim: 'drift-diag 2.6s linear infinite' },
       'extension-pending': { text: 'EXTENSION :: PENDING', color: C.amber, bg: 'repeating-linear-gradient(135deg, #ffcf5c 0 10px, transparent 10px 20px)', bgOpacity: 0.08, bgAnim: 'drift-diag 3.2s linear infinite' },
-      'phase-active': { text: `PHASE :: ${(d.live.phase || 'idle').toUpperCase()} :: ROUND ${d.live.round}`, color: C.orange, bg: 'repeating-linear-gradient(90deg, #ff9a2e 0 2px, transparent 2px 40px)', bgOpacity: 0.06, bgAnim: 'drift-x 3.4s linear infinite' },
-      idle: { text: `SESSION :: ${d.session.status.toUpperCase()}`, color: sColor, bg: 'none', bgOpacity: 0, bgAnim: 'none' }
+      'phase-active': { text: 'PHASE :: ' + String(live.phase || 'idle').toUpperCase() + ' :: ROUND ' + round, color: C.orange, bg: 'repeating-linear-gradient(90deg, #ff9a2e 0 2px, transparent 2px 40px)', bgOpacity: 0.06, bgAnim: 'drift-x 3.4s linear infinite' },
+      idle: { text: 'SESSION :: ' + String(sess.status || 'idle').toUpperCase(), color: sColor, bg: 'none', bgOpacity: 0, bgAnim: 'none' }
     };
     const alert = (forceAlert && forceAlert !== 'auto') ? alertMap[forceAlert] : autoAlert;
 
-    const logBlocks = parseLogMd(d.logMd || SAMPLE.logMd);
-    const sourceInfoMap = {
-      live: { label: 'LIVE', color: C.green, fetchedAt: this.state.fetchedAt ? new Date(this.state.fetchedAt).toLocaleTimeString() : '' },
-      sample: { label: 'SAMPLE DATA', color: C.gray, fetchedAt: 'not yet fetched' },
-      'sample-fallback': { label: 'FETCH FAILED — SAMPLE', color: C.red, fetchedAt: 'offline / CORS' }
+    const errs = d.errors || [];
+    const fault = { show: errs.length > 0, text: errs.length ? 'FAULT :: ' + (errs[0].path || 'unknown') + (errs.length > 1 ? ' +' + (errs.length - 1) : '') : '' };
+
+    const b = this.state.build;
+    const shortSha = b && b.sha ? String(b.sha).slice(0, 7) : '';
+    const builtAt = b && b.built_at ? new Date(b.built_at).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
+    const buildMap = {
+      live: { label: 'SNAPSHOT', color: C.green, detail: builtAt ? builtAt + (shortSha ? ' / ' + shortSha : '') : 'loaded' },
+      sample: { label: 'SAMPLE DATA', color: C.gray, detail: 'no snapshot published' },
+      'sample-fallback': { label: 'NO SNAPSHOT', color: C.red, detail: 'showing sample data' }
+    };
+
+    const portrait = this.state.portrait, compact = this.state.compact;
+    const gridExtra = portrait
+      ? (compact
+        ? 'grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr) minmax(0,1fr);'
+        : 'grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr); gap:8px; padding:8px;')
+      : (compact ? 'grid-template-columns:minmax(0,1fr) minmax(0,1fr);' : '');
+
+    const magi = portrait
+      ? { nameSize: 'clamp(9px, 5.4cqw, 34px)', pillSize: 'clamp(7px, 2.9cqw, 17px)', statusSize: '0', statusExtra: 'display:none;', lilithSize: 'clamp(11px, 7cqw, 48px)' }
+      : { nameSize: 'clamp(8px, 4.1cqw, 34px)', pillSize: 'clamp(6.5px, 2.2cqw, 17px)', statusSize: 'clamp(6px, 1.7cqw, 14px)', statusExtra: '', lilithSize: 'clamp(10px, 5.8cqw, 48px)' };
+    const logo = {
+      size: portrait ? (compact ? '30px' : '24px') : (compact ? '38px' : '30px'),
+      glow: compact ? 'drop-shadow(0 0 6px rgba(255,154,46,0.45))' : 'none',
+      melchior: compact ? agentBlocks.melchior.fill : C.orange,
+      casper: compact ? agentBlocks.casper.fill : C.orange,
+      balthasar: compact ? agentBlocks.balthasar.fill : C.orange,
+      lilith: compact ? lilith.color : C.amber
     };
 
     return {
-      session: { ...d.session, statusColor: sColor },
-      sourceInfo: sourceInfoMap[this.state.source] ?? sourceInfoMap.sample,
+      session: {
+        claim_title: problem.title || sess.title || 'no session loaded',
+        claim_id: claimId,
+        session_id: sess.session_id || 'unknown',
+        branch: d.branch || sess.branch || 'unknown',
+        statusColor: sColor
+      },
+      build: buildMap[this.state.source] ?? buildMap.sample,
+      stale: this.state.stale,
+      reloadPage: this.reloadPage,
+      fault,
       refreshLive: this.refreshLive,
-      selectedBranch: this.state.branch,
+      toggleCompact: this.toggleCompact,
+      logo,
+      selectedBranch: d.branch || sess.branch || 'main',
       branchOpen: this.state.branchOpen,
       toggleBranchMenu: this.toggleBranchMenu,
-      branchOptions: this.state.branches.map(name => ({ name, dot: name === this.state.branch ? C.green : '#5a3c14', onPick: () => this.pickBranch(name) })),
-      historyRef: this.historyRef, inputRef: this.inputRef, spacerRef: this.spacerRef, logRef: this.logRef,
+      branchOptions: (this.state.sessions.length ? this.state.sessions : [{ branch: d.branch, title: problem.title, status: sess.status, latest_round: sess.latest_round, file: null, has_errors: false }]).map(s => ({
+        name: s.branch || 'unknown',
+        meta: [s.title, s.status, s.latest_round != null ? 'r' + s.latest_round : null].filter(Boolean).join(' / '),
+        dot: s.has_errors ? C.red : (s.file === this.state.sessionFile ? C.green : '#5a3c14'),
+        onPick: () => s.file ? this.pickBranch(s.file) : this.setState({ branchOpen: false })
+      })),
+      selectedRound: String(round),
+      roundOpen: this.state.roundOpen,
+      toggleRoundMenu: this.toggleRoundMenu,
+      roundOptions: rounds.map(n => ({ label: 'ROUND ' + n, dot: n === round ? C.green : '#5a3c14', onPick: () => this.pickRound(n) })),
+      historyRef: this.historyRef, inputRef: this.inputRef, spacerRef: this.spacerRef,
+      logRef: this.logRef, logInnerRef: this.logInnerRef,
       cmd: this.state.cmd, onCmdChange: this.onCmdChange, onCmdKey: this.onCmdKey, focusInput: this.focusInput,
-      logEnter: this.logEnter, logLeave: this.logLeave, onLogWheel: this.onLogWheel, logInnerRef: this.logInnerRef,
-      termExtra: this.state.maxPanel === 'term' ? maxStyle(this.state.portrait) : '',
-      logExtra: this.state.maxPanel === 'log' ? maxStyle(this.state.portrait) : '',
-      gridExtra: this.state.portrait ? 'grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,0.9fr) minmax(0,1fr) minmax(0,1fr);' : '',
-      termPlace: this.state.portrait ? 'grid-area:2 / 1;' : '',
-      centerPlace: this.state.portrait ? 'grid-area:1 / 1;' : '',
-      logPlace: this.state.portrait ? 'grid-area:3 / 1;' : '',
-      headerExtra: this.state.portrait ? 'flex-wrap:wrap;' : '',
-      metaExtra: this.state.portrait ? 'flex:1; flex-wrap:wrap; border-left:none; border-top:1px solid #3a2408; justify-content:flex-end;' : '',
+      logEnter: this.logEnter, logLeave: this.logLeave, onLogWheel: this.onLogWheel,
+      onLogTouchStart: this.onLogTouchStart, onLogTouchMove: this.onLogTouchMove, onLogTouchEnd: this.onLogTouchEnd,
+      termExtra: this.state.maxPanel === 'term' ? maxStyle(portrait, compact) : '',
+      logExtra: this.state.maxPanel === 'log' ? maxStyle(portrait, compact) : '',
+      gridExtra,
+      termPlace: portrait ? ('grid-area:' + (compact ? '1' : '2') + ' / 1;') : (compact ? 'grid-area:1 / 1;' : ''),
+      logPlace: portrait ? ('grid-area:' + (compact ? '2' : '3') + ' / 1;') : (compact ? 'grid-area:1 / 2;' : ''),
+      centerPlace: compact ? 'display:none;' : (portrait ? 'grid-area:1 / 1;' : ''),
+      headerExtra: portrait ? 'flex-wrap:wrap;' : '',
+      metaExtra: portrait ? 'flex:1 0 100%; border-left:none; border-top:1px solid #3a2408; justify-content:flex-start; overflow-x:auto; padding:5px 10px; gap:6px;' : '',
+      brandExtra: portrait ? 'padding:6px 10px; gap:8px;' : '',
+      titleExtra: portrait ? 'padding:6px 10px; gap:1px;' : '',
+      wordExtra: portrait ? 'font-size:15px; letter-spacing:0.18em;' : '',
+      jpExtra: portrait ? 'display:none;' : '',
       termMaxIcon: this.state.maxPanel === 'term' ? '⤡' : '⤢',
       logMaxIcon: this.state.maxPanel === 'log' ? '⤡' : '⤢',
       toggleLogPause: this.toggleLogPause,
@@ -531,10 +691,9 @@ class Component extends DCLogic {
       logPauseColor: this.state.logPaused ? '#1f7a35' : '#7fffa0',
       toggleTermMax: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.toggleMax('term'); },
       toggleLogMax: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.toggleMax('log'); },
-      alert, eve,
+      alert, lilith, magi,
       melchior: agentBlocks.melchior, balthasar: agentBlocks.balthasar, casper: agentBlocks.casper,
-      toggleEve: () => this.toggle('eve', eveDump, 'lilith'),
-      scrollDuration: '22s',
+      toggleLilith: () => this.toggle('lilith', dumps.lilith, 'lilith'),
       logCopies: Array.from({ length: Math.max(2, this.state.logRepeat) }, () => ({ blocks: logBlocks })),
       mdLabel: this.state.mdMode ? 'MD' : 'RAW',
       mdColor: this.state.mdMode ? '#7fffa0' : '#1f7a35',
