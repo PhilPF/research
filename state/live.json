@@ -1,23 +1,13 @@
 {
-  "updated_at": "2026-08-18T00:00:00Z",
-  "phase": "awaiting-user",
-  "claim_id": "jet-transport",
-  "round": 0,
+  "updated_at": "2026-08-18T00:10:00Z",
+  "phase": "magi-running",
+  "claim_id": "jt-percoord",
+  "round": 1,
   "agents": {
-    "melchior": {"status": "not-dispatched", "slot": 0},
-    "balthasar": {"status": "not-dispatched", "slot": 0},
-    "casper": {"status": "not-dispatched", "slot": 0}
+    "melchior": {"status": "launched", "slot": 1},
+    "balthasar": {"status": "launched", "slot": 1},
+    "casper": {"status": "launched", "slot": 1}
   },
   "extension": null,
-  "awaiting_user": {
-    "question": "Round 0 (scoping) is done: Lilith ordered/digested the raw jet-transport question set into 5 candidate directions plus 4 flagged prerequisites. Which single direction (1 claim) should be formalized and sent to the MAGI as Round 1, or should a prerequisite be resolved first?",
-    "options": [
-      "Direction 1 — maximal vector-field class, standard Weil-lift extensions",
-      "Direction 2 — initial-value extension as template single-axis case",
-      "Direction 3 — two-fold nested extension (composition)",
-      "Direction 4 — per-coordinate fibered extension",
-      "Direction 5 — equivariance under isomorphisms of equal-dimension Weil algebras",
-      "Resolve a PREREQUISITE first (definitional, not yet MAGI-ready)"
-    ]
-  }
+  "awaiting_user": null
 }
