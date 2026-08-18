@@ -1,0 +1,28 @@
+{
+  "claim_id": "jt-percoord",
+  "round": 3,
+  "agent": "melchior",
+  "started_at": "2026-08-18T19:55:51Z",
+  "ended_at": "2026-08-18T20:01:30Z",
+  "slot": 1,
+  "killed": false,
+  "verdict": "gap-found",
+  "fields": {
+    "location": "The background-convention step defining candidate (a): \"index-blind projection = the full multivariable Taylor expansion of F truncated coordinatewise: L_D(F)(x+t·e) = Σ_{α: 0≤α_i≤D_i} (1/α!) ∂^α F(x) t^α\", taken together with \"this licenses running M's SAME formula with W_D-arithmetic in place of R-arithmetic\".",
+    "reason": "L_D(F) is defined only at slice arguments x + t·e (coordinate i perturbed by a multiple of the single generator e_i), but running any multi-stage method's formula over W_D requires evaluating L_D(F) at off-slice arguments: for a genuinely coupled F, RK2's inner stage has nilpotent part e_i + (h/2)Σ_j ∂_jF_i e_j, mixing generators across coordinates. Off the slice the statement's two descriptions of candidate (a) are inequivalent: (a-full) 'full Taylor expansion, truncation automatic from W_D nilpotency' vs (a-trunc) 'sum literally cut at α_i ≤ D_i', which is an index-dependent routing rule and deletes terms that are nonzero in W_D. Concrete witness (exact rational arithmetic in W_{(1,2)}): n=2, D=(1,2), F=(x1^2+x2, x1x2), x0=(2,5), h=1/3. Stage 1 agrees (on slice); at the RK2 inner point Y1 = 7/2 + (5/3)e1 + (1/6)e2 the two readings of L_D(F) differ in the first component by exactly N1^2 = (5/9)e1e2 + (1/36)e2^2, the α=(2,0) term dropped by α_1 ≤ D_1 = 1 despite producing nonzero monomials. Hence the commutation identity has no determinate truth value for RK2, RK4, or backward Euler as posed; only explicit Euler stays on the slice and is unaffected.",
+    "audit_scope": "In depth: definition of L_D and its applicability to multi-stage method formulas, verified with an exact W_{(1,2)} computation; slice-vs-general-argument distinction; quantifier structure of the DEFINE clause; well-typedness of T_D. Shallow: implicit-solve well-definedness over W_D and the 'every h>0' quantifier for backward Euler. Not examined: RK4 specifically, the exact-jet method, the asymptotic-in-h refinement, necessity/sufficiency of the B-series structural property, candidate lifts other than (a), prior rounds' material (deliberately unread for independence)."
+  },
+  "subtasks": [
+    {"name": "well-typedness of L_D as a map on W_D^n (not just the slice)", "status": "done"},
+    {"name": "well-typedness of T_D and of both sides of the commutation identity", "status": "done"},
+    {"name": "quantifier audit of DEFINE (free/bound clash on D; 'every h>0')", "status": "done"},
+    {"name": "well-definedness of running M over W_D for the implicit member", "status": "partial"},
+    {"name": "work the test family Euler/RK2/RK4/BE/exact-jet against the identity", "status": "partial"}
+  ],
+  "flags": ["none"],
+  "petition": {
+    "subtask": "Audit whether the literal-truncation reading (a-trunc) is even a well-defined operation independent of presentation — i.e. whether Σ_{α≤D} ∂^αF(x)N^α/α! depends on the choice of real base point x within the same W_D-element (x is recoverable, but the split of a stage value into 'real part + nilpotent' is re-done at every stage, and (a-trunc) is not multiplicative), plus the parallel question for the implicit W_D-solve.",
+    "benefit": "This is qualitatively different from the slice/off-slice gap already located: it would determine whether (a-trunc) is a coherent convention at all, or only an artifact of the slice presentation. If (a-trunc) is presentation-dependent or non-associative across stages, the round-3 TEST collapses to a single reading and the whole family can be worked without ambiguity; if it is coherent, the test genuinely has two branches and both must be run."
+  },
+  "review_file": "reviews/jt-percoord-r3-melchior.md"
+}
