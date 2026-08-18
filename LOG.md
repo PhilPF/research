@@ -67,3 +67,19 @@ Lilith (propose, jt-percoord r2, capped at 2 routes): 2 directions returned
 — see reviews/jt-percoord-r2-lilith.md and
 state/lilith/jt-percoord-r2-propose.json. Awaiting user choice for Round 2's
 claim.
+
+## Round 2 — 2026-08-18 — jt-percoord
+Statement: Restrict to the equal-order case W_1=W_2=R[e]/(e^2). Require the
+per-coordinate lift to satisfy relabeling/renaming equivariance (swapping
+which coordinate gets which formal nilpotent symbol, together with
+x_1<->x_2, must commute with forming the lift). Test whether this rules out,
+distinguishes, or is vacuous for the two Round-1-located candidate
+cross-term maps: (a) index-blind projection, (b) degree-truncation.
+Argument shape: none — round 1 of testing this specific claim.
+Outcome: pending (MAGI dispatched, awaiting reports).
+MAGI: dispatched (melchior, balthasar, casper) in parallel, identical
+sanitized input including the neutral technical setup (per-coordinate lift,
+the two candidate maps) needed to make the claim well-posed, per the user's
+renaming-invariance idea (Lilith r2-propose Direction 1).
+Extensions: none yet.
+Reviews: reviews/jt-percoord-r2-{melchior,balthasar,casper}.md (pending)

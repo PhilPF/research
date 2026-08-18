@@ -1,19 +1,13 @@
 {
-  "updated_at": "2026-08-18T01:20:00Z",
-  "phase": "awaiting-user",
+  "updated_at": "2026-08-18T01:30:00Z",
+  "phase": "magi-running",
   "claim_id": "jt-percoord",
   "round": 2,
   "agents": {
-    "melchior": {"status": "done", "slot": 1},
-    "balthasar": {"status": "done", "slot": 1},
-    "casper": {"status": "done", "slot": 1}
+    "melchior": {"status": "launched", "slot": 1},
+    "balthasar": {"status": "launched", "slot": 1},
+    "casper": {"status": "launched", "slot": 1}
   },
   "extension": null,
-  "awaiting_user": {
-    "question": "Lilith folded the renaming-invariance idea into 2 routes for jt-percoord Round 2. Which should become the claim?",
-    "options": [
-      "1 — add relabeling/renaming equivariance as an explicit hypothesis, test it against Melchior's two candidate gluing maps (statement)",
-      "2 — construct the cross-term gluing map by symmetrization/coinvariants under the relabeling group, so equivariance holds by construction (technique)"
-    ]
-  }
+  "awaiting_user": null
 }
