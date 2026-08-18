@@ -1,0 +1,43 @@
+{
+  "claim_id": "jet-transport",
+  "round": 0,
+  "mode": "propose",
+  "written_at": "2026-08-18T00:00:00Z",
+  "prerequisites": [
+    {"n": 1, "description": "Minimal regularity / flow-completeness needed for jet transport to be defined for a vector field at all, before 'for all vector fields' is a well-typed quantifier."},
+    {"n": 2, "description": "What plays the role of a Weil algebra for a non-Weil-lift 'extension' — needed before asking whether jet transport makes sense outside Weil lifts."},
+    {"n": 3, "description": "Whether composing two Weil-functor extensions yields another construction of the same kind (e.g. indexed by a tensor/fiber-product Weil algebra) — needed for nested/iterated extensions to be a well-typed single hypothesis rather than 'test the two-fold case at every depth'."},
+    {"n": 4, "description": "What formally constitutes 'respecting a change of isomorphism between same-dimension Weil algebras' for a method — the action and the invariance notion must be pinned down before this is a testable hypothesis."}
+  ],
+  "digest": [
+    {"n": 1, "description": "Maximal vector-field class rather than an arbitrary large-but-unspecified one", "sharpens": "Replaces an unspecified 'large enough class' quantifier with a canonical extremal class, removing an arbitrary choice from the hypothesis."},
+    {"n": 2, "description": "Maximal Weil-algebra class rather than excluding only the trivial algebra", "sharpens": "Forces an explicit description of the full class of Weil algebras covered, closing off silent restriction to a convenient subclass."},
+    {"n": 3, "description": "Non-Weil-lift extensions as candidate carriers of jet transport", "sharpens": "Would widen the classification to distinguish methods on constructions Weil theory doesn't see, a genuinely different axis from Weil-algebra size."},
+    {"n": 4, "description": "Extension with respect to parameters", "sharpens": "Adds a parameter-direction test class, ruling out methods that are only parameter-agnostic by accident."},
+    {"n": 5, "description": "Extension with respect to time", "sharpens": "Adds a time-direction test class, forcing the autonomous/non-autonomous distinction into the open."},
+    {"n": 6, "description": "Extension with respect to initial value", "sharpens": "Closest to classical variational-equation jet prolongation; most likely to have literature precedent to check the hypothesis against."},
+    {"n": 7, "description": "Per-coordinate distinct extensions (fibered Weil structure)", "sharpens": "Replaces one global Weil algebra with a fibered per-coordinate choice, forcing compatibility with mixed-order jet structure."},
+    {"n": 8, "description": "Nested (two-fold) extensions, e.g. IV-then-time", "sharpens": "Tests stability of jet transport under composition, strictly stronger than any single-axis version."},
+    {"n": 9, "description": "Iterated/unbounded nesting of IV, time, and parameter extensions", "sharpens": "Only sharpens beyond item 8 once composition-closure (prerequisite P3) is settled; otherwise not yet a distinct hypothesis."},
+    {"n": 10, "description": "Equivariance/naturality under isomorphisms of same-dimension, non-canonically-isomorphic Weil algebras", "sharpens": "Surfaces a candidate added hypothesis excluding methods that are extension-compatible only for one coordinate choice on the Weil algebra."}
+  ],
+  "directions": [
+    {"n": 1, "description": "State and test jet transport for the maximal class of vector fields (relative to some fixed regularity/completeness threshold to be determined) rather than a fixed convenient test class, for the standard Weil-lift extensions.",
+     "axis": "statement", "routes_around": "n/a (round 0, no prior failure)",
+     "heuristic": "[HEURISTIC] a maximal-class reformulation is the cheapest global strengthening and can be tried on the existing Weil-lift definition without any new construction."},
+    {"n": 2, "description": "State and test jet transport specifically for the initial-value extension (Weil lift along the initial condition, e.g. variational-equation-type prolongation), as the template single-axis extension case.",
+     "axis": "statement", "routes_around": "n/a (round 0, no prior failure)",
+     "heuristic": "[HEURISTIC] initial-value jet extension is the most classically grounded of the parameter/time/IV triple, so is most likely to have an existing definition to anchor the claim against."},
+    {"n": 3, "description": "State and test jet transport for a two-fold nested extension (one Weil-lift extension composed with a second, distinct one, e.g. initial-value extension followed by time extension), stopping short of unbounded iteration.",
+     "axis": "statement", "routes_around": "n/a (round 0, no prior failure)",
+     "heuristic": "[HEURISTIC] testing the first non-trivial composition case exposes whether jet transport is stable under composition without first needing the composition-closure fact that unbounded iteration (item 9 in digest) would require."},
+    {"n": 4, "description": "State and test jet transport under a per-coordinate fibered extension, where each coordinate of the original system is Weil-lifted independently rather than the system as a whole sharing one global Weil algebra.",
+     "axis": "statement", "routes_around": "n/a (round 0, no prior failure)",
+     "heuristic": "[HEURISTIC] a fibered/product extension is a strictly more general object than a single global Weil algebra, so if the property survives it is evidence the classification does not depend on treating coordinates uniformly."},
+    {"n": 5, "description": "Add an equivariance hypothesis to jet transport: require the method to respect isomorphisms between Weil algebras of equal dimension (not merely the algebras' dimension/order), and test whether this is already implied or is a genuinely new constraint.",
+     "axis": "statement", "routes_around": "n/a (round 0, no prior failure)",
+     "heuristic": "[HEURISTIC] equal dimension does not imply canonical isomorphism, so a method compatible with one presentation of the Weil algebra need not be compatible with another — testing this directly targets where an implicit extra hypothesis may be hiding."}
+  ],
+  "exhausted": null,
+  "review_file": "reviews/jet-transport-r0-lilith.md"
+}

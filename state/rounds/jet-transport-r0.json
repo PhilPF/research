@@ -1,0 +1,18 @@
+{
+  "claim_id": "jet-transport",
+  "round": 0,
+  "statement": "N/A — no single claim yet. Round 0 is a scoping/digest step over a raw batch of hypothesis-strengthening questions about jet transport.",
+  "argument_shape": "N/A — no MAGI dispatched this round.",
+  "dispatched_at": "2026-08-18T00:00:00Z",
+  "completed_at": "2026-08-18T00:00:00Z",
+  "outcome": "scoping-round (non-standard: no MAGI dispatch, Lilith-only digest; not in the CLAUDE.md outcome table)",
+  "verdicts": [],
+  "extensions": [],
+  "lilith": "state/lilith/jet-transport-r0-propose.json",
+  "carried_to_eve": [
+    "PREREQUISITE: minimal regularity/flow-completeness needed for jet transport to be defined for a vector field at all",
+    "PREREQUISITE: what plays the role of a Weil algebra for a non-Weil-lift 'extension'",
+    "PREREQUISITE: whether composing two Weil-functor extensions yields another construction of the same kind (closure under composition)",
+    "PREREQUISITE: what formally constitutes a method 'respecting' an isomorphism between same-dimension Weil algebras"
+  ]
+}
