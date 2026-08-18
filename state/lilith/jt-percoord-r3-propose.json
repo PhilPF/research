@@ -1,0 +1,17 @@
+{
+  "claim_id": "jt-percoord",
+  "round": 3,
+  "mode": "propose",
+  "written_at": "2026-08-18T00:00:00Z",
+  "directions": [
+    {
+      "n": 1,
+      "description": "Fix n>=2, order vector D=(D_1,...,D_n) with distinct per-coordinate orders D_i>=1 permitted, and Weil algebra W_D = R[e_1,...,e_n]/(e_1^{D_1+1},...,e_n^{D_n+1}). Fix the per-coordinate Weil lift of a vector field L_D(F) to be Round-1 candidate (a) (index-blind projection = full multivariable Taylor expansion of F truncated coordinatewise: L_D(F)(x+t.e) = sum_{alpha: 0<=alpha_i<=D_i} (1/alpha!) d^alpha F(x) t^alpha), taken as a fixed background convention, NOT reopened this round. A one-step method M is an algorithm producing, from (F,h), an update map Phi_h^M[F]:R^n->R^n approximating the time-h flow of x'=F(x), defined by a formula built from finitely many evaluations of F (plus, for implicit methods, an implicit solve), well-typed by literal substitution over any commutative R-algebra -- this licenses running M's SAME formula with W_D-arithmetic in place of R-arithmetic. Let T_D denote the canonical (routing-free) Weil lift of an actual map Phi:R^n->R^n via its real mixed partials: T_D(Phi)(x+t.e) = sum_{alpha} (1/alpha!) d^alpha Phi(x) t^alpha. DEFINE: M commutes with L_D if, for every admissible F, every D, every h>0, every x_0, M[L_D(F)](x_0+t.e) = T_D(Phi_h^M[F])(x_0+t.e) identically in W_D. TEST: on the family {explicit Euler, explicit midpoint/RK2, classical RK4, backward/implicit Euler, truncated-Taylor-series (\"exact jet\") method of order max_i D_i}, applied to at least one genuinely coupled 2-coordinate vector field with D_1 != D_2 permitted, determine which methods satisfy this commutation identity exactly, which fail, which hold only to some asymptotic order in h, and whether there is an identifiable structural property of M's defining formula (e.g. expressible as a finite polynomial in F and its partials evaluated at x_0 with no comparison/ordering/norm operation -- a B-series/elementary-differential-type method) that is necessary and/or sufficient for commutation to hold at every order D.",
+      "axis": "statement",
+      "routes_around": "Round 1's structural finding (cross-term routing map rho for the vector-field lift is non-canonical, Melchior gap-found) and Round 2's structural finding (relabeling symmetry under-discriminates rho-candidates, Balthasar vacuous-or-trivial + Casper concurrence) -- both are sidestepped, not patched, by fixing rho=(a) as a background parameter and moving the live variable from 'which routing map' to 'which method M', per the researcher's explicit reframing that the question is now about methods, not about the vector-field lift.",
+      "heuristic": "[HEURISTIC] Lifting an actual map Phi via T_D uses honest real mixed partials and needs no routing choice at all, unlike lifting a vector field (an infinitesimal generator) independently per coordinate -- this source/target asymmetry is what makes the commutation square well-typed without re-adjudicating rho, and candidate (a) is the only Round-1/2 candidate that was never disqualified by any test run so far, making it the lowest-assumption fixed choice available."
+    }
+  ],
+  "exhausted": null,
+  "review_file": "reviews/jt-percoord-r3-lilith-propose.md"
+}
