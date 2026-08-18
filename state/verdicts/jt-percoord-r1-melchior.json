@@ -1,0 +1,25 @@
+{
+  "claim_id": "jt-percoord",
+  "round": 1,
+  "agent": "melchior",
+  "started_at": "2026-08-18T00:00:00Z",
+  "ended_at": "2026-08-18T00:10:00Z",
+  "slot": 1,
+  "killed": false,
+  "verdict": "gap-found",
+  "fields": {
+    "location": "The construction implied by 'per-coordinate fibered extension' (statement, main clause: each coordinate Weil-lifted independently rather than one global Weil algebra), specifically the step of forming the lifted vector field's i-th component when the original vector field is coupled (f_i depends on x_j, j != i) and coordinates i, j carry distinct Weil algebras W_i, W_j.",
+    "reason": "For a coupled vector field, the Taylor expansion of the lifted f_i necessarily contains cross terms built from nilpotents of W_j (j != i), which live in W_i (x) W_j, not in W_i, the fiber the i-th lifted coordinate is required to stay in. No compatibility/comparison map between the per-coordinate Weil algebras is specified by 'per-coordinate' or 'fibered,' and distinct natural choices for handling the cross terms (e.g. projecting them away vs. truncating by total nilpotent degree) give inequivalent dynamics. Restricting to decoupled (diagonal) vector fields avoids the problem but reduces the construction to n independent copies of the ordinary 1-D Weil lift, conflicting with the stated intent that this generalization is substantive ('much more than what seems a priori'). Either way the statement as posed does not yet specify the object ('jet transport under a per-coordinate extension') that a later argument would need to establish a property of.",
+    "audit_scope": "Examined: coherence of forming a per-coordinate Weil lift of a general vector field on R^n, for both diagonal and coupled cases, with one worked 2-D concrete instance using two distinct Weil algebras of different order. Not examined (flagged untouched/partial): comparison to KMS-style two-Weil-algebra fibered bundle functors in the literature; the nested-extension and same-dimension-isomorphic-algebra variants raised in the background paragraph; quantifier structure of 'jet transport as a method-property' since that notion has no fixed definition in this thread and inventing one was avoided to not silently assume away the reported formalization gap."
+  },
+  "subtasks": [
+    {"name": "check fixed definitions of core objects", "status": "done"},
+    {"name": "stress-test per-coordinate + fibered composition for well-definedness", "status": "done"},
+    {"name": "check whether charitable formalization reduces to trivial n-copies case", "status": "partial"},
+    {"name": "compare to literature two-Weil-algebra fibered bundle functors", "status": "untouched"},
+    {"name": "audit quantifiers in background 'jet transport as method-property'", "status": "untouched"}
+  ],
+  "flags": ["none"],
+  "petition": null,
+  "review_file": "reviews/jt-percoord-r1-melchior.md"
+}

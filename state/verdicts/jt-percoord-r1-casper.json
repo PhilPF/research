@@ -1,0 +1,23 @@
+{
+  "claim_id": "jt-percoord",
+  "round": 1,
+  "agent": "casper",
+  "started_at": "2026-08-18T00:00:00Z",
+  "ended_at": "2026-08-18T00:10:00Z",
+  "slot": 1,
+  "killed": false,
+  "verdict": "likely-misframed",
+  "fields": {
+    "constructive_status": "unclear",
+    "risk": "The base notion (jet transport for a method, single global Weil algebra) is not yet formalized in this thread, and the posed 'per-coordinate' generalization was picked from a longer uncommitted list (parameters/time/initial-value/nested/same-dimension) without argued priority. It plausibly conflicts with the coordinate-invariance that seems load-bearing for what 'jet transport' / 'a large class of vector fields' are meant to capture (k-jets and Weil functors are classically natural/coordinate-free); a per-coordinate fibered lift depends on a distinguished coordinate system. Left unflagged, the eventual result risks being either near-trivial (a tensor-product-of-Weil-algebras normal-form fact) or a silently narrower, chart-fixed question than the coordinate-free classification the program intends."
+  },
+  "subtasks": [
+    {"name": "Identify base notion of jet transport / Weil algebra link and check coordinate-freedom", "status": "done"},
+    {"name": "Check whether per-coordinate axis was principled vs. arbitrary pick from stated menu", "status": "done"},
+    {"name": "Degenerate/vacuous ends of per-coordinate fibered extension", "status": "partial"},
+    {"name": "Constructive status check", "status": "done"}
+  ],
+  "flags": ["none"],
+  "petition": null,
+  "review_file": "reviews/jt-percoord-r1-casper.md"
+}
