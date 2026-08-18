@@ -19,110 +19,179 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     @keyframes magi-pulse { 0%,100% { opacity:1; } 50% { opacity:0.25; } }
     @keyframes magi-glow { 0%,100% { filter:brightness(1); } 50% { filter:brightness(1.25); } }
-    @keyframes stripe-slide { from { background-position:0 0; } to { background-position:64px 0; } }
-    @keyframes scan-slide { from { background-position:0 0; } to { background-position:0 40px; } }
+    @keyframes drift-diag { from { transform:translate3d(0,0,0); } to { transform:translate3d(14.142px,14.142px,0); } }
+    @keyframes drift-x { from { transform:translate3d(0,0,0); } to { transform:translate3d(40px,0,0); } }
     @keyframes marquee-y { from { transform:translateY(0); } to { transform:translateY(-50%); } }
     @keyframes cursor-blink { 0%,50% { opacity:1; } 50.01%,100% { opacity:0; } }
   </style>
+  <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#050403"/><polygon points="30,30 70,30 70,42 58,64 42,64 30,42" fill="#ffcf5c"/><text x="50" y="52" font-family="monospace" font-size="11" font-weight="700" fill="#0a0805" text-anchor="middle">MAGI</text></svg></template>
 </helmet>
 
 <div style="height:100vh; width:100vw; overflow:hidden; display:flex; flex-direction:column; background:#050403 url('data:image/svg+xml;utf8,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22&gt;&lt;path d=%22M0 30h60M30 0v60%22 stroke=%22%232a1a08%22 stroke-width=%221%22/&gt;&lt;/svg&gt;'); color:#ff9a2e; font-family:'IBM Plex Mono',monospace; font-size:12px; line-height:1.4;">
 
   <!-- HEADER -->
-  <div style="position:relative; flex-shrink:0; display:flex; align-items:center; gap:14px; padding:9px 16px; background:#0a0805; border-top:3px solid #ff9a2e; border-bottom:1px solid #ff9a2e; overflow:hidden;">
-    <div style="position:absolute; top:0; right:0; width:80px; height:100%; background:repeating-linear-gradient(45deg, #ff9a2e 0 8px, #0a0805 8px 16px); opacity:0.35;"></div>
-    <div style="display:flex; align-items:center; gap:8px; z-index:1; flex-shrink:0;">
-      <div style="width:20px; height:20px; flex-shrink:0; background:#ff9a2e; clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"></div>
-      <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:18px; letter-spacing:0.15em;">MAGI</div>
-      <div style="font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:14px; color:#ff9a2e; letter-spacing:0.1em; opacity:0.85;">「審査系」</div>
-    </div>
-    <div style="width:1px; height:20px; background:#5a3c14; flex-shrink:0;"></div>
-    <div style="flex:1; min-width:0; z-index:1;">
-      <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:14px; color:#ffd9a0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ session.claim_title }}</div>
-      <div style="display:flex; gap:8px; margin-top:1px; font-size:10px; color:#c97a2e; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-        <span>{{ session.claim_id }}</span><span>::</span><span>{{ session.session_id }}</span>
+  <div style="position:relative; z-index:20; flex-shrink:0; display:flex; align-items:stretch; gap:0; background:#0a0805; border-top:3px solid #ff9a2e; border-bottom:1px solid #ff9a2e; {{ headerExtra }}">
+
+    <div style="display:flex; align-items:center; gap:10px; padding:8px 14px; flex-shrink:0; border-right:1px solid #3a2408;">
+      <svg viewBox="0 0 305.13 280.47" style="width:30px; height:27px; flex-shrink:0; display:block;" aria-hidden="true">
+        <polygon points="93.413,0 267.891,0 215.391,90.933 40.913,90.933" fill="#ff9a2e"></polygon>
+        <polygon points="0,96.933 104.999,96.933 192.238,248.035 87.239,248.034" fill="#ff9a2e"></polygon>
+        <polygon points="252.63,38.433 305.129,129.366 217.89,280.468 165.391,189.535" fill="#ff9a2e"></polygon>
+        <polygon points="111.927,96.933 211.927,96.933 161.927,183.536" fill="#ffcf5c"></polygon>
+      </svg>
+      <div>
+        <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:19px; line-height:1; letter-spacing:0.22em;">GENESIS</div>
+        <div style="font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:10px; line-height:1.4; color:#c97a2e; letter-spacing:0.18em;">「審査系」</div>
       </div>
     </div>
-    <div style="display:flex; align-items:center; gap:7px; padding:4px 10px; background:#0a0805; border:1px solid {{ sourceInfo.color }}; z-index:1; flex-shrink:0;">
-      <span style="width:6px; height:6px; flex-shrink:0; background:{{ sourceInfo.color }}; animation:magi-pulse 1.6s infinite;"></span>
-      <span style="font-weight:700; font-size:10px; letter-spacing:0.05em; color:{{ sourceInfo.color }}; white-space:nowrap;">{{ sourceInfo.label }}</span>
+
+    <div style="flex:1; min-width:0; display:flex; flex-direction:column; justify-content:center; gap:2px; padding:8px 14px;">
+      <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:15px; line-height:1.1; color:#ffd9a0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ session.claim_title }}</div>
+      <div style="display:flex; align-items:center; gap:8px; font-size:9.5px; letter-spacing:0.06em; color:#c97a2e; white-space:nowrap; overflow:hidden;">
+        <span>{{ session.claim_id }}</span>
+        <span style="color:#5a3c14;">/</span>
+        <span>{{ session.session_id }}</span>
+        <span style="color:#5a3c14;">/</span>
+        <span style="overflow:hidden; text-overflow:ellipsis;">{{ session.branch }}</span>
+      </div>
     </div>
-    <select value="{{ selectedBranch }}" onChange="{{ onBranchChange }}" title="branch" style="flex-shrink:0; background:#0a0805; color:#ff9a2e; border:1px solid #5a3c14; padding:5px 6px; font-family:'IBM Plex Mono',monospace; font-size:10px; z-index:1; max-width:120px;">
-      <sc-for list="{{ branchOptions }}" as="b" hint-placeholder-count="1">
-        <option value="{{ b }}">{{ b }}</option>
-      </sc-for>
-    </select>
-    <button onClick="{{ refreshLive }}" title="refresh from GitHub" style="flex-shrink:0; background:#0a0805; border:1px solid #5a3c14; color:#ff9a2e; font-size:13px; width:26px; height:26px; cursor:pointer; z-index:1;">↻</button>
-    <div style="text-align:right; font-size:9px; color:#7a5426; white-space:nowrap; z-index:1; flex-shrink:0;">
-      <div>{{ session.branch }}</div>
-      <div>{{ sourceInfo.fetchedAt }}</div>
+
+    <div style="display:flex; align-items:center; gap:8px; padding:8px 14px; flex-shrink:0; border-left:1px solid #3a2408; {{ metaExtra }}">
+      <div style="display:flex; align-items:center; gap:7px; padding:5px 9px; border:1px solid {{ sourceInfo.color }};">
+        <span style="width:6px; height:6px; flex-shrink:0; background:{{ sourceInfo.color }}; animation:magi-pulse 1.6s infinite;"></span>
+        <span style="font-weight:700; font-size:9.5px; letter-spacing:0.1em; color:{{ sourceInfo.color }}; white-space:nowrap;">{{ sourceInfo.label }}</span>
+        <span style="font-size:9px; color:#7a5426; white-space:nowrap;">{{ sourceInfo.fetchedAt }}</span>
+      </div>
+
+      <div style="position:relative;">
+        <button onClick="{{ toggleBranchMenu }}" title="branch" style="display:flex; align-items:center; gap:8px; min-width:150px; background:#0a0805; border:1px solid #5a3c14; color:#ff9a2e; padding:5px 8px; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.06em; cursor:pointer;" style-hover="border-color:#ff9a2e;">
+          <span style="color:#7a5426; flex-shrink:0;">BR</span>
+          <span style="flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left;">{{ selectedBranch }}</span>
+          <span style="flex-shrink:0; color:#c97a2e;">▾</span>
+        </button>
+        <sc-if value="{{ branchOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute; right:0; top:calc(100% + 5px); z-index:90; min-width:260px; max-height:280px; overflow-y:auto; background:#0a0805; border:1px solid #5a3c14; box-shadow:0 10px 30px rgba(0,0,0,0.7);" class="no-scrollbar">
+            <sc-for list="{{ branchOptions }}" as="b" hint-placeholder-count="1">
+              <div onClick="{{ b.onPick }}" style="display:flex; align-items:center; gap:8px; padding:6px 9px; cursor:pointer; font-size:9.5px; letter-spacing:0.05em; color:#ffd9a0; border-bottom:1px solid #241703; white-space:nowrap;" style-hover="background:#241703;">
+                <span style="width:5px; height:5px; flex-shrink:0; background:{{ b.dot }};"></span>
+                <span style="overflow:hidden; text-overflow:ellipsis;">{{ b.name }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+
+      <button onClick="{{ refreshLive }}" title="refresh from GitHub" style="flex-shrink:0; background:#0a0805; border:1px solid #5a3c14; color:#ff9a2e; font-size:13px; width:28px; height:27px; cursor:pointer;" style-hover="border-color:#ff9a2e;">↻</button>
     </div>
   </div>
 
   <!-- STATUS ROW (single current alert, priority-driven) -->
   <div style="position:relative; flex-shrink:0; display:flex; align-items:center; gap:10px; background:#0a0805; border-bottom:1px solid #3a2408; padding:6px 16px; overflow:hidden; height:26px;">
-    <div style="position:absolute; inset:0; background:{{ alert.bg }}; background-size:64px 40px; opacity:{{ alert.bgOpacity }}; animation:{{ alert.bgAnim }};"></div>
+    <div style="position:absolute; inset:0; overflow:hidden;">
+      <div style="position:absolute; top:-60px; left:-60px; right:-60px; bottom:-60px; background:{{ alert.bg }}; opacity:{{ alert.bgOpacity }}; animation:{{ alert.bgAnim }}; will-change:transform;"></div>
+    </div>
     <span style="position:relative; z-index:1; width:6px; height:6px; flex-shrink:0; background:{{ alert.color }}; animation:magi-pulse 1.4s infinite;"></span>
     <span style="position:relative; z-index:1; font-weight:700; font-size:10.5px; letter-spacing:0.05em; color:{{ alert.color }};">{{ alert.text }}</span>
   </div>
 
   <!-- MAIN GRID -->
-  <div style="flex:1; min-height:0; display:grid; grid-template-columns:260px 1fr 260px; gap:10px; padding:10px; overflow:hidden;">
+  <div style="position:relative; flex:1; min-height:0; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2fr) minmax(0,1fr); gap:10px; padding:10px; overflow:hidden; {{ gridExtra }}">
 
-    <!-- TERMINAL (left) — shows raw dump when a MAGI/EVE node is clicked -->
-    <div class="term-scroll" ref="{{ historyRef }}" style="min-height:0; display:flex; flex-direction:column; background:#020a03; border:1px solid #164d1f; overflow-y:auto;">
-      <div style="flex-shrink:0; padding:6px 10px; border-bottom:1px solid #0e3016; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#3fd15e; display:flex; align-items:center; justify-content:space-between;">
+    <!-- TERMINAL (left) -->
+    <div style="grid-column:1; grid-row:1; min-width:0; min-height:0; display:flex; flex-direction:column; background:#020a03; border:1px solid #164d1f; {{ termPlace }} {{ termExtra }}">
+      <div onClick="{{ toggleTermMax }}" title="click to expand / collapse" style="flex-shrink:0; cursor:pointer; display:flex; align-items:center; gap:8px; padding:6px 10px; background:#041005; border-bottom:1px solid #0e3016; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#3fd15e;">
         <span>TERMINAL</span>
-        <button onClick="{{ closeDump }}" title="clear" style="background:none; border:1px solid #164d1f; color:#3fd15e; font-size:10px; width:18px; height:18px; cursor:pointer; font-family:'IBM Plex Mono',monospace;">✕</button>
+        <span style="font-family:'Noto Sans JP',sans-serif; font-size:10px; color:#1f7a35; letter-spacing:0.05em;">「端末」</span>
+        <span style="flex:1;"></span>
+        <span onClick="{{ toggleMd }}" title="markdown / raw" style="cursor:pointer; font-size:9px; letter-spacing:0.08em; color:{{ mdColor }};">{{ mdLabel }}</span>
+        <button onClick="{{ toggleTermMax }}" title="expand / collapse" style="flex-shrink:0; background:none; border:1px solid #164d1f; color:#3fd15e; font-size:11px; line-height:1; width:20px; height:18px; cursor:pointer; font-family:'IBM Plex Mono',monospace;" style-hover="border-color:#3fd15e;">{{ termMaxIcon }}</button>
       </div>
-      <div style="padding:8px 10px; font-size:11px; color:#3fd15e; white-space:pre-wrap; line-height:1.5;">
+      <div class="no-scrollbar" ref="{{ historyRef }}" onClick="{{ focusInput }}" style="flex:1; min-height:0; overflow-y:auto; cursor:text; padding:7px 10px 0; font-size:11px; color:#3fd15e; line-height:1.5;">
         <sc-for list="{{ history }}" as="entry" hint-placeholder-count="0">
-          <div data-entry="{{ $index }}" style="margin-bottom:10px;">
-            <div>ppf@magi &lt;&lt; {{ entry.key }}</div>
-            <div>{{ entry.text }}</div>
+          <div data-entry="{{ $index }}" style="margin-bottom:9px;">
+            <div style="color:#7fffa0; margin-bottom:2px;">ppf@magi &lt;&lt; {{ entry.key }}</div>
+            <sc-if value="{{ entry.raw }}" hint-placeholder-val="{{ false }}">
+              <div style="white-space:pre-wrap; overflow-wrap:anywhere;">{{ entry.text }}</div>
+            </sc-if>
+            <sc-if value="{{ entry.md }}" hint-placeholder-val="{{ true }}">
+              <sc-for list="{{ entry.blocks }}" as="blk" hint-placeholder-count="3">
+                <sc-if value="{{ blk.isH }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:12.5px; letter-spacing:0.07em; color:#dfffe8; margin:7px 0 3px;"><sc-for list="{{ blk.spans }}" as="sp" hint-placeholder-count="1"><sc-if value="{{ sp.b }}" hint-placeholder-val="{{ false }}"><span style="color:#dfffe8; font-weight:700;">{{ sp.t }}</span></sc-if><sc-if value="{{ sp.plain }}" hint-placeholder-val="{{ true }}"><span>{{ sp.t }}</span></sc-if></sc-for></div>
+                </sc-if>
+                <sc-if value="{{ blk.isKv }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin:2px 0;"><span style="color:#7fffa0; font-weight:700;">{{ blk.label }}</span><span style="color:#1f7a35;"> :: </span><sc-for list="{{ blk.spans }}" as="sp" hint-placeholder-count="1"><sc-if value="{{ sp.b }}" hint-placeholder-val="{{ false }}"><span style="color:#dfffe8; font-weight:700;">{{ sp.t }}</span></sc-if><sc-if value="{{ sp.plain }}" hint-placeholder-val="{{ true }}"><span>{{ sp.t }}</span></sc-if></sc-for></div>
+                </sc-if>
+                <sc-if value="{{ blk.isLi }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex; gap:7px; margin:1px 0 1px 3px;"><span style="flex-shrink:0; color:#1f7a35;">·</span><div style="flex:1; min-width:0;"><sc-for list="{{ blk.spans }}" as="sp" hint-placeholder-count="1"><sc-if value="{{ sp.b }}" hint-placeholder-val="{{ false }}"><span style="color:#dfffe8; font-weight:700;">{{ sp.t }}</span></sc-if><sc-if value="{{ sp.plain }}" hint-placeholder-val="{{ true }}"><span>{{ sp.t }}</span></sc-if></sc-for></div></div>
+                </sc-if>
+                <sc-if value="{{ blk.isP }}" hint-placeholder-val="{{ true }}">
+                  <div style="margin:2px 0; overflow-wrap:anywhere;"><sc-for list="{{ blk.spans }}" as="sp" hint-placeholder-count="1"><sc-if value="{{ sp.b }}" hint-placeholder-val="{{ false }}"><span style="color:#dfffe8; font-weight:700;">{{ sp.t }}</span></sc-if><sc-if value="{{ sp.plain }}" hint-placeholder-val="{{ true }}"><span>{{ sp.t }}</span></sc-if></sc-for></div>
+                </sc-if>
+                <sc-if value="{{ blk.isBr }}" hint-placeholder-val="{{ false }}">
+                  <div style="height:7px;"></div>
+                </sc-if>
+              </sc-for>
+            </sc-if>
           </div>
         </sc-for>
-        <div>ppf@magi &lt;&lt; <span style="display:inline-block; width:8px; height:14px; background:#3fd15e; margin-left:4px; vertical-align:middle; animation:cursor-blink 1s step-end infinite;"></span></div>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="flex-shrink:0; color:#7fffa0;">ppf@magi &lt;&lt;</span>
+          <div style="position:relative; flex:1; min-width:0; height:15px;">
+            <div style="position:absolute; inset:0; display:flex; align-items:center; white-space:pre; overflow:hidden; pointer-events:none;">
+              <span>{{ cmd }}</span>
+              <span style="display:inline-block; width:7px; height:13px; flex-shrink:0; background:#3fd15e; animation:cursor-blink 1.05s step-end infinite;"></span>
+            </div>
+            <input ref="{{ inputRef }}" value="{{ cmd }}" onChange="{{ onCmdChange }}" onKeyDown="{{ onCmdKey }}" spellcheck="false" autocomplete="off" style="position:absolute; inset:0; width:100%; background:transparent; border:none; outline:none; color:transparent; caret-color:transparent; font-family:'IBM Plex Mono',monospace; font-size:11px; padding:0;" />
+          </div>
+        </div>
+        <div ref="{{ spacerRef }}" data-spacer="1" style="height:0;"></div>
       </div>
     </div>
 
-    <!-- CENTER: EVE + MAGI trio, equal area -->
-    <div style="min-height:0; position:relative; display:grid; grid-template-rows:1.43fr 1.57fr; gap:8px; padding:16px;">
-      <div style="min-height:0; display:flex; justify-content:center;">
-        <div onClick="{{ balthasar.onClick }}" title="{{ balthasar.verdict }}" style="cursor:pointer; position:relative; z-index:2; width:55%; clip-path:polygon(6% 0%, 94% 0%, 100% 100%, 0% 100%); background:{{ balthasar.fill }}; box-shadow:{{ balthasar.glow }}; animation:{{ balthasar.anim }}; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding-top:20px; gap:4px;">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:20px; letter-spacing:0.05em; color:#0a0805; white-space:nowrap;">BALTHASAR</div>
-          </div>
-          <div style="font-size:12px; font-weight:700; letter-spacing:0.05em; color:#0a0805; opacity:0.75; white-space:nowrap;">{{ balthasar.statusLabel }}</div>
-        </div>
-      </div>
-      <div style="min-height:0; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-        <div onClick="{{ casper.onClick }}" title="{{ casper.verdict }}" style="cursor:pointer; position:relative; z-index:2; clip-path:polygon(0% 0%, 100% 0%, 82% 100%, 0% 100%); background:{{ casper.fill }}; box-shadow:{{ casper.glow }}; animation:{{ casper.anim }}; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding-bottom:16px; gap:4px; padding-right:14%;">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:20px; letter-spacing:0.05em; color:#0a0805; white-space:nowrap;">CASPER</div>
-          </div>
-          <div style="font-size:12px; font-weight:700; letter-spacing:0.05em; color:#0a0805; opacity:0.75; white-space:nowrap;">{{ casper.statusLabel }}</div>
-        </div>
-        <div onClick="{{ melchior.onClick }}" title="{{ melchior.verdict }}" style="cursor:pointer; position:relative; z-index:2; clip-path:polygon(18% 100%, 0% 0%, 100% 0%, 100% 100%); background:{{ melchior.fill }}; box-shadow:{{ melchior.glow }}; animation:{{ melchior.anim }}; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding-bottom:16px; gap:4px; padding-left:14%;">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:20px; letter-spacing:0.05em; color:#0a0805; white-space:nowrap;">MELCHIOR</div>
-          </div>
-          <div style="font-size:12px; font-weight:700; letter-spacing:0.05em; color:#0a0805; opacity:0.75; white-space:nowrap;">{{ melchior.statusLabel }}</div>
-        </div>
-      </div>
+    <!-- CENTER: LILITH + MAGI trio -->
+    <div style="grid-column:2; grid-row:1; min-width:0; min-height:0; display:flex; align-items:center; justify-content:center; padding:8px; container-type:size; {{ centerPlace }}">
+      <div style="position:relative; width:min(100%, calc(100cqh * 1.0879)); aspect-ratio:305.129 / 280.468; container-type:inline-size;">
 
-      <div onClick="{{ toggleEve }}" style="cursor:pointer; position:absolute; left:50%; top:47.7%; transform:translate(-50%,-50%); z-index:5; width:210px; height:190px; box-sizing:border-box; border:9px solid #050403; background:{{ eve.color }}; clip-path:polygon(14% 0%, 86% 0%, 100% 22%, 100% 100%, 0% 100%, 0% 22%); display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding-top:32px; gap:5px; animation:magi-glow 3s infinite; filter:drop-shadow(0 0 17px {{ eve.color }});">
-        <span style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:26px; letter-spacing:0.1em; color:#0a0805;">EVE</span>
-        <span style="font-size:12.5px; font-weight:700; letter-spacing:0.05em; color:#0a0805; opacity:0.75;">{{ eve.statusLabel }}</span>
+        <div onClick="{{ melchior.onClick }}" title="{{ melchior.verdict }}" style="cursor:pointer; position:absolute; left:13.41%; width:74.39%; top:0%; height:32.42%; clip-path:polygon(23.13% 0%, 100% 0%, 76.87% 100%, 0% 100%); background:{{ melchior.fill }}; box-shadow:{{ melchior.glow }}; animation:{{ melchior.anim }}; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(3px, 0.7cqw, 8px);">
+          <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:clamp(15px, 3.9cqw, 34px); line-height:1; letter-spacing:0.06em; color:#0a0805; white-space:nowrap;">MELCHIOR</div>
+          <div style="background:#0a0805; padding:2px 8px; font-weight:700; font-size:clamp(9px, 2.1cqw, 17px); letter-spacing:0.1em; color:{{ melchior.fill }}; white-space:nowrap;">{{ melchior.verdictLabel }}</div>
+          <div style="font-size:clamp(8px, 1.6cqw, 14px); font-weight:600; letter-spacing:0.14em; color:#0a0805; opacity:0.5; white-space:nowrap;">{{ melchior.statusLabel }}</div>
+        </div>
+
+        <div onClick="{{ casper.onClick }}" title="{{ casper.verdict }}" style="cursor:pointer; position:absolute; left:0%; width:63.00%; top:34.56%; height:53.88%; clip-path:polygon(0% 0%, 54.62% 0%, 100% 100%, 45.38% 100%); background:{{ casper.fill }}; box-shadow:{{ casper.glow }}; animation:{{ casper.anim }}; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(3px, 0.7cqw, 8px);">
+          <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:clamp(15px, 3.9cqw, 34px); line-height:1; letter-spacing:0.06em; color:#0a0805; white-space:nowrap;">CASPER</div>
+          <div style="background:#0a0805; padding:2px 8px; font-weight:700; font-size:clamp(9px, 2.1cqw, 17px); letter-spacing:0.1em; color:{{ casper.fill }}; white-space:nowrap;">{{ casper.verdictLabel }}</div>
+          <div style="font-size:clamp(8px, 1.6cqw, 14px); font-weight:600; letter-spacing:0.14em; color:#0a0805; opacity:0.5; white-space:nowrap;">{{ casper.statusLabel }}</div>
+        </div>
+
+        <div onClick="{{ balthasar.onClick }}" title="{{ balthasar.verdict }}" style="cursor:pointer; position:absolute; left:54.20%; width:45.80%; top:13.70%; height:86.30%; clip-path:polygon(62.43% 0%, 100% 37.57%, 37.57% 100%, 0% 62.43%); background:{{ balthasar.fill }}; box-shadow:{{ balthasar.glow }}; animation:{{ balthasar.anim }}; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(3px, 0.7cqw, 8px);">
+          <div style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:clamp(15px, 3.9cqw, 34px); line-height:1; letter-spacing:0.06em; color:#0a0805; white-space:nowrap;">BALTHASAR</div>
+          <div style="background:#0a0805; padding:2px 8px; font-weight:700; font-size:clamp(9px, 2.1cqw, 17px); letter-spacing:0.1em; color:{{ balthasar.fill }}; white-space:nowrap;">{{ balthasar.verdictLabel }}</div>
+          <div style="font-size:clamp(8px, 1.6cqw, 14px); font-weight:600; letter-spacing:0.14em; color:#0a0805; opacity:0.5; white-space:nowrap;">{{ balthasar.statusLabel }}</div>
+        </div>
+
+        <div onClick="{{ toggleEve }}" style="cursor:pointer; position:absolute; left:36.68%; width:32.77%; top:34.56%; height:30.88%; clip-path:polygon(0% 0%, 100% 0%, 50% 100%); background:{{ eve.color }}; animation:magi-glow 3s infinite; filter:drop-shadow(0 0 14px {{ eve.color }}); display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding-top:3%; gap:clamp(1px, 0.3cqw, 4px);">
+          <span style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:clamp(20px, 5.6cqw, 48px); line-height:1; letter-spacing:0.12em; color:#0a0805;">LILITH</span>
+          <span style="font-size:clamp(8px, 1.6cqw, 14px); font-weight:600; letter-spacing:0.14em; color:#0a0805; opacity:0.5; white-space:nowrap;">{{ eve.statusLabel }}</span>
+        </div>
+
       </div>
     </div>
 
     <!-- LOG (right) -->
-    <div style="min-height:0; display:flex; flex-direction:column; background:#020a03; border:1px solid #164d1f;">
-      <div style="flex-shrink:0; padding:6px 10px; border-bottom:1px solid #0e3016; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#3fd15e;">LOG.md 「記録」</div>
-      <div class="no-scrollbar" style="flex:1; min-height:0; overflow:hidden;" style-hover="overflow-y:auto;">
-        <div style="font-size:10.5px; animation:marquee-y {{ scrollDuration }} linear infinite;" style-hover="animation-play-state:paused;">
-          <sc-for list="{{ logBlocksDoubled }}" as="lb" hint-placeholder-count="16">
+    <div style="grid-column:3; grid-row:1; min-width:0; min-height:0; display:flex; flex-direction:column; background:#020a03; border:1px solid #164d1f; {{ logPlace }} {{ logExtra }}">
+      <div onClick="{{ toggleLogMax }}" title="click to expand / collapse" style="flex-shrink:0; cursor:pointer; padding:6px 10px; background:#041005; border-bottom:1px solid #0e3016; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#3fd15e; display:flex; align-items:center; gap:8px;">
+        <span>LOG.md</span>
+        <span style="font-family:'Noto Sans JP',sans-serif; font-size:10px; color:#1f7a35; letter-spacing:0.05em;">「記録」</span>
+        <span style="flex:1;"></span>
+        <span onClick="{{ toggleLogPause }}" title="auto-scroll / hold" style="cursor:pointer; font-size:9px; letter-spacing:0.08em; color:{{ logPauseColor }};">{{ logPauseLabel }}</span>
+        <button onClick="{{ toggleLogMax }}" title="expand / collapse" style="flex-shrink:0; background:none; border:1px solid #164d1f; color:#3fd15e; font-size:11px; line-height:1; width:20px; height:18px; cursor:pointer; font-family:'IBM Plex Mono',monospace;" style-hover="border-color:#3fd15e;">{{ logMaxIcon }}</button>
+      </div>
+      <div ref="{{ logRef }}" onMouseEnter="{{ logEnter }}" onMouseLeave="{{ logLeave }}" onWheel="{{ onLogWheel }}" style="flex:1; min-height:0; overflow:hidden; overscroll-behavior:contain;">
+        <div ref="{{ logInnerRef }}" style="font-size:10.5px; will-change:transform;">
+          <sc-for list="{{ logCopies }}" as="copy" hint-placeholder-count="2">
+          <div data-log-copy="1">
+          <sc-for list="{{ copy.blocks }}" as="lb" hint-placeholder-count="16">
             <sc-if value="{{ lb.isRoundHeader }}" hint-placeholder-val="{{ false }}">
               <div style="display:flex; align-items:center; gap:8px; margin:10px 10px 3px; border-top:1px solid #0e3016; padding-top:8px;">
                 <span style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:11px; color:#7fffa0;">{{ lb.text }}</span>
@@ -134,6 +203,8 @@
             <sc-if value="{{ lb.isP }}" hint-placeholder-val="{{ false }}">
               <div style="color:#3fd15e; white-space:pre-wrap; margin:0 10px 2px;">{{ lb.text }}</div>
             </sc-if>
+          </sc-for>
+          </div>
           </sc-for>
         </div>
       </div>
@@ -157,11 +228,19 @@ const VERDICT_FILL = {
   'none-found': '#3ddc84', 'vacuous-or-trivial': '#ffcf5c', 'plausible': '#3ddc84',
   'suspicious': '#ffcf5c', 'likely-misframed': '#ff3b3b'
 };
+const VERDICT_SHORT = {
+  'gap-found': 'GAP FOUND', 'no-gap-found': 'NO GAP', 'counterexample-found': 'COUNTEREX.',
+  'none-found': 'NONE FOUND', 'vacuous-or-trivial': 'VACUOUS', 'plausible': 'PLAUSIBLE',
+  'suspicious': 'SUSPICIOUS', 'likely-misframed': 'MISFRAMED'
+};
+const PHASE_LABEL = { 'eve-propose': 'PROPOSE', 'extension-ruling': 'EXT-RULING', 'magi-review': 'REVIEW', 'idle': 'IDLE' };
 const OUTCOME_COLOR = { 'gap-located': C.red, 'calibration': C.amber, 'misframed': C.red, 'candidate-stable': C.green, 'incomplete-round': C.gray, 'killed-agent': C.red };
 const STATUS_LABEL = { 'launched': 'PROCESSING', 'done': 'STANDBY', 'paused': 'PAUSED', 'killed': 'OFFLINE', 'errored': 'OFFLINE', 'extension-requested': 'AWAITING RULING' };
 const BEACON_ACTIVE = { 'launched': true, 'extension-requested': true, 'errored': true, 'done': false, 'paused': false, 'killed': false };
 const AGENT_KEYS = ['melchior', 'balthasar', 'casper'];
 const REPO = 'PhilPF/research';
+const MAX_BODY = 'position:absolute; inset:0; z-index:60; background:rgba(2,10,3,0.70); backdrop-filter:blur(8px) saturate(1.25); -webkit-backdrop-filter:blur(8px) saturate(1.25); box-shadow:0 0 40px rgba(0,0,0,0.55);';
+const maxStyle = (portrait) => (portrait ? 'grid-area:1 / 1 / 4 / 2; ' : 'grid-area:1 / 1 / 2 / 4; ') + MAX_BODY;
 const rawBase = (branch) => `https://raw.githubusercontent.com/${REPO}/${branch}/`;
 
 const SAMPLE = {
@@ -204,12 +283,55 @@ function parseLogMd(md) {
   return blocks;
 }
 
+function reflow(t) {
+  const out = [];
+  for (const raw of String(t == null ? '' : t).replace(/\r/g, '').split('\n')) {
+    const l = raw.trim();
+    if (!l) { if (out.length && out[out.length - 1] !== '') out.push(''); continue; }
+    const isNew = /^([A-Z][A-Z0-9 _\/\-]{1,28}:|[-*#>·]|\d+\.)/.test(l);
+    const prev = out[out.length - 1];
+    if (!isNew && out.length && prev !== '') out[out.length - 1] = prev + ' ' + l;
+    else out.push(l);
+  }
+  return out.join('\n').trim();
+}
+
+function mdInline(s) {
+  const parts = []; const re = /(\*\*[^*]+\*\*|`[^`]+`|\*[^*]+\*)/g; let i = 0, m;
+  while ((m = re.exec(s))) {
+    if (m.index > i) parts.push({ t: s.slice(i, m.index), plain: true });
+    parts.push({ t: m[0].replace(/^(\*\*|`|\*)/, '').replace(/(\*\*|`|\*)$/, ''), b: true });
+    i = m.index + m[0].length;
+  }
+  if (i < s.length) parts.push({ t: s.slice(i), plain: true });
+  return parts.length ? parts : [{ t: s, plain: true }];
+}
+
+function mdParse(t) {
+  const out = [];
+  for (const raw of String(t == null ? '' : t).replace(/\r/g, '').split('\n')) {
+    const line = raw.trim();
+    if (!line) { if (out.length && !out[out.length - 1].isBr) out.push({ isBr: true }); continue; }
+    let m;
+    if ((m = line.match(/^(#{1,6})\s+(.*)$/))) { out.push({ isH: true, spans: mdInline(m[2]) }); continue; }
+    if ((m = line.match(/^[-*•·]\s+(.*)$/))) { out.push({ isLi: true, spans: mdInline(m[1]) }); continue; }
+    if ((m = line.match(/^([A-Za-z][A-Za-z0-9 _\/-]{1,28}):\s+(.*)$/))) { out.push({ isKv: true, label: m[1].toUpperCase(), spans: mdInline(m[2]) }); continue; }
+    out.push({ isP: true, spans: mdInline(line) });
+  }
+  return out;
+}
+
 async function fetchText(url) { const r = await fetch(url); if (!r.ok) throw new Error(url); return r.text(); }
 async function fetchJson(url) { return JSON.parse(await fetchText(url)); }
 
 class Component extends DCLogic {
-  state = { data: SAMPLE, source: 'sample', fetchedAt: null, history: [], loading: false, branch: 'main', branches: ['main'] };
+  state = { data: SAMPLE, source: 'sample', fetchedAt: null, history: [], loading: false, branch: 'main', branches: ['main'], cmd: '', logRepeat: 2, maxPanel: null, logPaused: false, mdMode: true, branchOpen: false, portrait: false };
   historyRef = React.createRef();
+  inputRef = React.createRef();
+  spacerRef = React.createRef();
+  logRef = React.createRef();
+  logInnerRef = React.createRef();
+  ALIASES = { casper: 'casper', balthasar: 'balthasar', balthazar: 'balthasar', melchior: 'melchior', melcior: 'melchior', eve: 'eve', lilith: 'eve' };
 
   componentDidMount() {
     fetch(`https://api.github.com/repos/${REPO}/branches`).then(r => r.ok ? r.json() : []).then(list => {
@@ -218,17 +340,77 @@ class Component extends DCLogic {
     }).catch(() => {});
     this.refreshLive();
     this._poll = setInterval(this.refreshLive, 20000);
+    this._raf = requestAnimationFrame(this.logTick);
+    this.syncOrientation();
+    window.addEventListener('resize', this.syncOrientation);
   }
-  componentWillUnmount() { clearInterval(this._poll); }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.history.length !== this.state.history.length && this.historyRef.current) {
-      const nodes = this.historyRef.current.querySelectorAll('[data-entry]');
-      const last = nodes[nodes.length - 1];
-      if (last) this.historyRef.current.scrollTop = last.offsetTop - 8;
-    }
-  }
+  syncOrientation = () => {
+    const portrait = window.innerHeight > window.innerWidth;
+    if (portrait !== this.state.portrait) this.setState({ portrait });
+  };
+  componentWillUnmount() { clearInterval(this._poll); cancelAnimationFrame(this._raf); window.removeEventListener('resize', this.syncOrientation); }
 
-  toggle = (key, text) => this.setState(s => ({ history: [...s.history, { key, text }] }));
+
+  _logPos = 0;
+  logTick = () => {
+    const el = this.logRef.current, inner = this.logInnerRef.current;
+    if (el && inner) {
+      const first = inner.querySelector('[data-log-copy]');
+      const cycle = first ? first.offsetHeight : 0;
+      if (cycle > 20) {
+        const needed = Math.ceil(el.clientHeight / cycle) + 1;
+        if (needed !== this.state.logRepeat) this.setState({ logRepeat: needed });
+        if (!this._logHover && !this.state.logPaused) this._logPos += 0.35;
+        this._logPos = ((this._logPos % cycle) + cycle) % cycle;
+        inner.style.transform = 'translate3d(0,' + (-this._logPos).toFixed(2) + 'px,0)';
+      }
+    }
+    this._raf = requestAnimationFrame(this.logTick);
+    this.syncOrientation();
+    window.addEventListener('resize', this.syncOrientation);
+  }
+  syncOrientation = () => {
+    const portrait = window.innerHeight > window.innerWidth;
+    if (portrait !== this.state.portrait) this.setState({ portrait });
+  };;
+  onLogWheel = (e) => { this._logPos += e.deltaY * 0.6; };
+  logEnter = () => { this._logHover = true; };
+  logLeave = () => { this._logHover = false; };
+  toggleMax = (which) => this.setState(s => ({ maxPanel: s.maxPanel === which ? null : which }));
+  toggleLogPause = (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState(s => ({ logPaused: !s.logPaused })); };
+  toggleMd = (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState(s => ({ mdMode: !s.mdMode })); };
+  toggleBranchMenu = () => this.setState(s => ({ branchOpen: !s.branchOpen }));
+  pickBranch = (name) => this.setState({ branch: name, branchOpen: false }, () => this.refreshLive());
+
+  scrollLatestToTop = () => {
+    const el = this.historyRef.current; if (!el) return;
+    const sp = this.spacerRef.current || el.querySelector('[data-spacer]');
+    if (sp) sp.style.height = Math.max(0, el.clientHeight - 60) + 'px';
+    requestAnimationFrame(() => {
+      const nodes = el.querySelectorAll('[data-entry]');
+      const last = nodes[nodes.length - 1];
+      if (last) el.scrollTop += last.getBoundingClientRect().top - el.getBoundingClientRect().top - 30;
+    });
+  };
+
+  focusInput = () => { if (this.inputRef.current) this.inputRef.current.focus(); };
+  onCmdChange = (e) => this.setState({ cmd: e.target.value });
+  onCmdKey = (e) => { if (e.key === 'Enter') { e.preventDefault(); this.runCommand(this.state.cmd); } };
+  runCommand = (raw) => {
+    const cmd = (raw || '').trim().toLowerCase();
+    if (!cmd) return;
+    if (cmd === 'clear') { this.setState({ history: [], cmd: '' }); return; }
+    const key = this.ALIASES[cmd];
+    if (!key) {
+      this.setState(s => ({ history: [...s.history, { key: cmd, text: 'command not found. available: casper  balthazar  melcior  lilith  clear' }], cmd: '' }), this.afterAppend);
+      return;
+    }
+    this.setState({ cmd: '' });
+    this.toggle(key, (this._dumps || {})[key] || 'no data', cmd);
+  };
+
+  afterAppend = () => requestAnimationFrame(this.scrollLatestToTop);
+  toggle = (key, text, label) => { this.setState(s => ({ history: [...s.history, { key: label || key, text: reflow(text) }] }), this.afterAppend); this.focusInput(); };
   closeDump = () => this.setState({ history: [] });
   onBranchChange = (e) => { this.setState({ branch: e.target.value }, () => this.refreshLive()); };
 
@@ -285,15 +467,17 @@ class Component extends DCLogic {
         anim: active ? 'magi-glow 1.6s infinite' : 'none',
         beaconAnim: active ? 'animation:magi-pulse 1s infinite;' : '',
         statusLabel: STATUS_LABEL[status] ?? status.toUpperCase(),
+        verdictLabel: VERDICT_SHORT[verdict] ?? String(verdict || '').toUpperCase().replace(/-/g, ' '),
         onClick: () => this.toggle(key)
       };
     });
 
     const evePhaseColor = { 'eve-propose': C.amber, 'extension-ruling': C.amber, 'idle': C.green };
-    const eve = { color: evePhaseColor[d.live.phase] ?? C.green, statusLabel: (d.live.phase || 'idle').toUpperCase() };
+    const eve = { color: evePhaseColor[d.live.phase] ?? C.green, statusLabel: PHASE_LABEL[d.live.phase] ?? String(d.live.phase || 'idle').toUpperCase().slice(0, 10) };
 
     const eveDump = `EVE — propose, ${d.session.claim_id} r${d.live.round}\n\nphase: ${d.live.phase} — Eve reads LOG.md in full once the round closes and returns 2-5 distinct directions (technique or statement axis), never ranked.`;
     const dumpTextMap = { eve: eveDump, melchior: (d.verdicts.melchior || SAMPLE.verdicts.melchior).dump, balthasar: (d.verdicts.balthasar || SAMPLE.verdicts.balthasar).dump, casper: (d.verdicts.casper || SAMPLE.verdicts.casper).dump };
+    this._dumps = dumpTextMap;
     agentBlocks.melchior.onClick = () => this.toggle('melchior', dumpTextMap.melchior);
     agentBlocks.balthasar.onClick = () => this.toggle('balthasar', dumpTextMap.balthasar);
     agentBlocks.casper.onClick = () => this.toggle('casper', dumpTextMap.casper);
@@ -301,15 +485,15 @@ class Component extends DCLogic {
     const roundOutcome = (parseLogMd(d.logMd || SAMPLE.logMd).find(b => b.isRoundHeader) || {}).outcome || '';
     const forceAlert = p.forceAlert;
     const autoAlert = roundOutcome === 'MISFRAMED'
-      ? { text: '▲ LATEST ROUND :: MISFRAMED — CARRIED TO EVE', color: '#ff5c3d', bg: 'repeating-linear-gradient(135deg, #ff2b2b 0 10px, transparent 10px 20px)', bgOpacity: 0.12, bgAnim: 'stripe-slide 2.4s linear infinite' }
+      ? { text: 'LATEST ROUND :: MISFRAMED — CARRIED TO EVE', color: '#ff5c3d', bg: 'repeating-linear-gradient(135deg, #ff2b2b 0 10px, transparent 10px 20px)', bgOpacity: 0.12, bgAnim: 'drift-diag 2.6s linear infinite' }
       : d.live.extension
-        ? { text: `EXTENSION :: ${(d.live.extension.petitioner || '').toUpperCase()} :: PENDING`, color: C.amber, bg: 'repeating-linear-gradient(135deg, #ffcf5c 0 10px, transparent 10px 20px)', bgOpacity: 0.08, bgAnim: 'stripe-slide 3s linear infinite' }
-        : { text: `PHASE :: ${(d.live.phase || 'idle').toUpperCase()} :: ROUND ${d.live.round}`, color: C.orange, bg: 'repeating-linear-gradient(90deg, #ff9a2e 0 2px, transparent 2px 40px)', bgOpacity: 0.06, bgAnim: 'scan-slide 3s linear infinite' };
+        ? { text: `EXTENSION :: ${(d.live.extension.petitioner || '').toUpperCase()} :: PENDING`, color: C.amber, bg: 'repeating-linear-gradient(135deg, #ffcf5c 0 10px, transparent 10px 20px)', bgOpacity: 0.08, bgAnim: 'drift-diag 3.2s linear infinite' }
+        : { text: `PHASE :: ${(d.live.phase || 'idle').toUpperCase()} :: ROUND ${d.live.round}`, color: C.orange, bg: 'repeating-linear-gradient(90deg, #ff9a2e 0 2px, transparent 2px 40px)', bgOpacity: 0.06, bgAnim: 'drift-x 3.4s linear infinite' };
     const alertMap = {
       auto: autoAlert,
-      'misframed': { text: '▲ LATEST ROUND :: MISFRAMED — CARRIED TO EVE', color: '#ff5c3d', bg: 'repeating-linear-gradient(135deg, #ff2b2b 0 10px, transparent 10px 20px)', bgOpacity: 0.12, bgAnim: 'stripe-slide 2.4s linear infinite' },
-      'extension-pending': { text: 'EXTENSION :: PENDING', color: C.amber, bg: 'repeating-linear-gradient(135deg, #ffcf5c 0 10px, transparent 10px 20px)', bgOpacity: 0.08, bgAnim: 'stripe-slide 3s linear infinite' },
-      'phase-active': { text: `PHASE :: ${(d.live.phase || 'idle').toUpperCase()} :: ROUND ${d.live.round}`, color: C.orange, bg: 'repeating-linear-gradient(90deg, #ff9a2e 0 2px, transparent 2px 40px)', bgOpacity: 0.06, bgAnim: 'scan-slide 3s linear infinite' },
+      'misframed': { text: 'LATEST ROUND :: MISFRAMED — CARRIED TO EVE', color: '#ff5c3d', bg: 'repeating-linear-gradient(135deg, #ff2b2b 0 10px, transparent 10px 20px)', bgOpacity: 0.12, bgAnim: 'drift-diag 2.6s linear infinite' },
+      'extension-pending': { text: 'EXTENSION :: PENDING', color: C.amber, bg: 'repeating-linear-gradient(135deg, #ffcf5c 0 10px, transparent 10px 20px)', bgOpacity: 0.08, bgAnim: 'drift-diag 3.2s linear infinite' },
+      'phase-active': { text: `PHASE :: ${(d.live.phase || 'idle').toUpperCase()} :: ROUND ${d.live.round}`, color: C.orange, bg: 'repeating-linear-gradient(90deg, #ff9a2e 0 2px, transparent 2px 40px)', bgOpacity: 0.06, bgAnim: 'drift-x 3.4s linear infinite' },
       idle: { text: `SESSION :: ${d.session.status.toUpperCase()}`, color: sColor, bg: 'none', bgOpacity: 0, bgAnim: 'none' }
     };
     const alert = (forceAlert && forceAlert !== 'auto') ? alertMap[forceAlert] : autoAlert;
@@ -326,15 +510,36 @@ class Component extends DCLogic {
       sourceInfo: sourceInfoMap[this.state.source] ?? sourceInfoMap.sample,
       refreshLive: this.refreshLive,
       selectedBranch: this.state.branch,
-      branchOptions: this.state.branches,
-      onBranchChange: this.onBranchChange,
-      historyRef: this.historyRef,
+      branchOpen: this.state.branchOpen,
+      toggleBranchMenu: this.toggleBranchMenu,
+      branchOptions: this.state.branches.map(name => ({ name, dot: name === this.state.branch ? C.green : '#5a3c14', onPick: () => this.pickBranch(name) })),
+      historyRef: this.historyRef, inputRef: this.inputRef, spacerRef: this.spacerRef, logRef: this.logRef,
+      cmd: this.state.cmd, onCmdChange: this.onCmdChange, onCmdKey: this.onCmdKey, focusInput: this.focusInput,
+      logEnter: this.logEnter, logLeave: this.logLeave, onLogWheel: this.onLogWheel, logInnerRef: this.logInnerRef,
+      termExtra: this.state.maxPanel === 'term' ? maxStyle(this.state.portrait) : '',
+      logExtra: this.state.maxPanel === 'log' ? maxStyle(this.state.portrait) : '',
+      gridExtra: this.state.portrait ? 'grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,0.9fr) minmax(0,1fr) minmax(0,1fr);' : '',
+      termPlace: this.state.portrait ? 'grid-area:2 / 1;' : '',
+      centerPlace: this.state.portrait ? 'grid-area:1 / 1;' : '',
+      logPlace: this.state.portrait ? 'grid-area:3 / 1;' : '',
+      headerExtra: this.state.portrait ? 'flex-wrap:wrap;' : '',
+      metaExtra: this.state.portrait ? 'flex:1; flex-wrap:wrap; border-left:none; border-top:1px solid #3a2408; justify-content:flex-end;' : '',
+      termMaxIcon: this.state.maxPanel === 'term' ? '⤡' : '⤢',
+      logMaxIcon: this.state.maxPanel === 'log' ? '⤡' : '⤢',
+      toggleLogPause: this.toggleLogPause,
+      logPauseLabel: this.state.logPaused ? 'HOLD' : 'AUTO',
+      logPauseColor: this.state.logPaused ? '#1f7a35' : '#7fffa0',
+      toggleTermMax: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.toggleMax('term'); },
+      toggleLogMax: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.toggleMax('log'); },
       alert, eve,
       melchior: agentBlocks.melchior, balthasar: agentBlocks.balthasar, casper: agentBlocks.casper,
-      toggleEve: () => this.toggle('eve', eveDump),
+      toggleEve: () => this.toggle('eve', eveDump, 'lilith'),
       scrollDuration: '22s',
-      logBlocksDoubled: logBlocks.concat(logBlocks),
-      history: this.state.history,
+      logCopies: Array.from({ length: Math.max(2, this.state.logRepeat) }, () => ({ blocks: logBlocks })),
+      mdLabel: this.state.mdMode ? 'MD' : 'RAW',
+      mdColor: this.state.mdMode ? '#7fffa0' : '#1f7a35',
+      toggleMd: this.toggleMd,
+      history: this.state.history.map(h => ({ ...h, md: this.state.mdMode, raw: !this.state.mdMode, blocks: this.state.mdMode ? mdParse(h.text) : [] })),
       closeDump: this.closeDump
     };
   }
