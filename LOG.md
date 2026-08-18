@@ -62,3 +62,8 @@ what the *method* accepts (not the vector field), and whether requiring it
 as part of jet-transport's machinery is sensible and how restrictive it is.
 Dispatched to Lilith (propose mode, capped at exactly 2 directions) to fold
 into the jt-percoord direction-space alongside Round 1's findings.
+
+Lilith (propose, jt-percoord r2, capped at 2 routes): 2 directions returned
+— see reviews/jt-percoord-r2-lilith.md and
+state/lilith/jt-percoord-r2-propose.json. Awaiting user choice for Round 2's
+claim.
