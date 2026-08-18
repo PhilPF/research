@@ -1,0 +1,10 @@
+{
+  "claim_id": "jt-percoord",
+  "round": 3,
+  "mode": "extension-ruling",
+  "written_at": "2026-08-18T00:00:00Z",
+  "petitioner": "balthasar",
+  "subtask": "Run exact-jet/AD method of order p=max_i D_i over W_D arithmetic and check the commutation identity, expecting failure to discriminate D_1≠D_2",
+  "ruling": "no",
+  "reason": "Melchior's gap-found shows candidate (a)'s multi-stage-over-W_D licensing is ill-defined off the slice (a-full vs a-trunc diverge, exact witness given), and Casper flags the whole setup as likely-misframed/near-circular; the petitioned probe reuses that same undefined convention, so any result would be uninterpretable until the definitional gap is resolved — effort belongs on the statement, not another instance in the same broken family."
+}

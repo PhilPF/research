@@ -1,0 +1,30 @@
+{
+  "claim_id": "jt-percoord",
+  "round": 3,
+  "agent": "balthasar",
+  "started_at": "2026-08-18T19:56:23Z",
+  "ended_at": "2026-08-18T20:04:10Z",
+  "slot": 1,
+  "killed": false,
+  "verdict": "vacuous-or-trivial",
+  "fields": {
+    "counterexample": "No counterexample to the commutation identity: all five test-family methods commute EXACTLY at n=2, D=(1,2), F=(xy+y^3, x^2-2xy+y) (exact rationals for Euler/RK2/RK4/order-2 Taylor; floats + finite differences for backward Euler, max discrepancy 6.3e-6 vs FD noise 1e-4). A counterexample was found to the 'necessary' half of the proposed characterization: backward/implicit Euler is NOT a finite polynomial in F and its partials (infinite B-series, implicitly defined Phi) yet commutes exactly; it satisfies every stated hypothesis on M.",
+    "locates": "The hypothesis on M ('well-typed by literal substitution over any commutative R-algebra') already IS the sufficient condition: W_D is an ordinary Weil algebra, evaluation at x+t.e is an R-algebra homomorphism, and any formula built only from +, *, R-scalars is preserved by it. So the conclusion is definitional and the test family cannot fail; D_1 != D_2 plays no role at all under candidate (a), where all output coordinates share one algebra. To make the question non-vacuous, M's admissible operations must be widened to include non-algebra operations (norm/comparison/abs, tolerance-based stopping, adaptive step control, root selection). Secondary locators: (i) L_D(F) is specified only on the locus {x+t.e}, but every >=2-stage method evaluates it off that locus (measured RK2 stage-2 support: coord1 monomials (0,0),(0,1),(0,2),(1,0),(1,1)) -- the identity is literally undefined for RK2/RK4 until L_D(F) is redefined as a map W_D^n -> W_D^n; explicit Euler is the only member staying on the locus, i.e. it does pass for a shallow reason. (ii) 'every h>0' is not well-formed for implicit methods: for F=(x^2+y^2+1, xy) and large h no real backward-Euler solution exists, and where I-h*DF is singular both sides are undefined simultaneously; the identity needs the hypothesis 'I - h*DF invertible at the solution' plus a branch-selection rule.",
+    "scope": "n=2 only; D=(1,2) for all machine checks; one coupled degree-3 polynomial field; one base point (2/5,-1/3); h=3/7 exact and h=0.05 float. Methods: explicit Euler, explicit midpoint RK2, classical RK4, order-2 Taylor with exact symbolic elementary differentials, backward Euler via W_D fixed-point solve vs central finite differences of the real Newton-solved map. Two independent T_D code paths (sum over alpha of partials; direct substitution+truncation) cross-checked. NOT searched: n>=3, D with a zero entry, large D_i, non-polynomial F, multistep/partitioned/symplectic methods, rational (Pade/Rosenbrock) formulas with vanishing denominators, and the reading where the Taylor method's derivatives are obtained FROM W_D arithmetic rather than supplied exactly."
+  },
+  "subtasks": [
+    {"name": "exact commutation check, test family, D_1 != D_2", "status": "done"},
+    {"name": "vacuity: is the hypothesis on M already the answer", "status": "done"},
+    {"name": "does D_1 != D_2 ever discriminate under candidate (a)", "status": "done"},
+    {"name": "well-definedness of L_D(F) off the locus {x+t.e}", "status": "done"},
+    {"name": "implicit solve: existence, uniqueness, branch, every-h>0 quantifier", "status": "partial"},
+    {"name": "algebra-typed but non-B-series M; norm/comparison operations", "status": "partial"},
+    {"name": "Taylor method with derivatives obtained from W_D arithmetic (truncation starvation when p = max D_i > D_i)", "status": "partial"}
+  ],
+  "flags": ["none"],
+  "petition": {
+    "subtask": "Taylor/'exact jet' method of order p = max_i D_i with its elementary differentials computed BY the W_D arithmetic itself (jet-based AD) rather than supplied as exact symbolic partials",
+    "benefit": "This is the one qualitatively different probe identified mid-run where I expect an actual failure: the method needs order-p directional data in every coordinate, but W_D supplies only order D_i < p in coordinate i, so the truncation starves the method's own coefficients. If it fails, it is the first object in the test family that discriminates on D_1 != D_2 and would locate the missing hypothesis 'the method's coefficient data must not be sourced from the same truncated algebra'."
+  },
+  "review_file": "reviews/jt-percoord-r3-balthasar.md"
+}

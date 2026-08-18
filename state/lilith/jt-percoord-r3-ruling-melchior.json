@@ -1,0 +1,10 @@
+{
+  "claim_id": "jt-percoord",
+  "round": 3,
+  "mode": "extension-ruling",
+  "written_at": "2026-08-18T00:00:00Z",
+  "petitioner": "melchior",
+  "subtask": "Audit whether the (a-trunc) literal-truncation reading is a well-defined, presentation-independent operation, plus the parallel question for the implicit W_D-solve.",
+  "ruling": "no",
+  "reason": "Balthasar (vacuous-or-trivial) and Casper (likely-misframed) both independently show convention (a) makes the identity definitional/near-circular with no negative control, so effort belongs on the statement axis (widening M past algebra-homomorphism-preserved operations), not on auditing internal coherence of the (a-trunc) branch of the current framing."
+}
