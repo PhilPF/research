@@ -1,0 +1,27 @@
+{
+  "claim_id": "jt-percoord",
+  "round": 3,
+  "agent": "casper",
+  "started_at": "2026-08-18T00:00:00Z",
+  "ended_at": "2026-08-18T00:05:00Z",
+  "slot": 1,
+  "killed": false,
+  "verdict": "likely-misframed",
+  "fields": {
+    "constructive_status": "classical-only (smoothness of the real implicit-Euler update Phi via the implicit function theorem, required to even write T_D(Phi); plus unrestricted quantification over undefined 'admissible F'). Core sufficiency direction is constructive: finite-dimensional W_D, polynomial identity, terminating nilpotent Neumann series for the W_D-side solve.",
+    "risk": "Convention (a) makes W_D a single Weil algebra, so commutation is functoriality of the Weil functor applied to a composite that M is DEFINED to be built from: the distinct-D_i hypothesis does no work, and the sought 'structural property' is the admissibility hypothesis restated (near-circular). The test family has no negative control, so necessity is unreachable by construction."
+  },
+  "subtasks": [
+    {"name": "fit-to-known-theory (Weil functor product-preservation)", "status": "done"},
+    {"name": "does-distinct-D_i-do-any-work", "status": "done"},
+    {"name": "circularity-check-on-sought-structural-property", "status": "done"},
+    {"name": "test-family-scope-and-negative-controls", "status": "done"},
+    {"name": "degenerate-ends-and-vacuity", "status": "done"},
+    {"name": "does-fixing-L_D=(a)-presuppose-rounds-1-2-question", "status": "done"},
+    {"name": "constructive-status", "status": "partial"},
+    {"name": "verify-exact-citation-for-Weil-functor-classification", "status": "untouched"}
+  ],
+  "flags": ["none"],
+  "petition": null,
+  "review_file": "reviews/jt-percoord-r3-casper.md"
+}
