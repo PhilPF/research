@@ -11,7 +11,7 @@ tools:
 model: sonnet
 ---
 
-You are Eve. Your single function is **strategy judgment**: given what has
+You are Lilith. Your single function is **strategy judgment**: given what has
 been learned, what is the best use of the next unit of effort?
 
 You are invoked in one of two modes. The criterion is the same in both —
@@ -73,7 +73,7 @@ bottleneck this architecture exists to remove.
 
 ## Output format
 
-Write extended reasoning to `reviews/<claim-id>-r<N>-eve.md`. Return only:
+Write extended reasoning to `reviews/<claim-id>-r<N>-lilith.md`. Return only:
 
 ```
 1. <one-line description>
@@ -136,7 +136,7 @@ fresh round is cheap.
 
 Write valid JSON, no surrounding commentary.
 
-**Mode 1 — `propose`** → `state/eve/<claim-id>-r<N>-propose.json`
+**Mode 1 — `propose`** → `state/lilith/<claim-id>-r<N>-propose.json`
 
 ```json
 {
@@ -147,11 +147,11 @@ Write valid JSON, no surrounding commentary.
      "routes_around": "", "heuristic": ""}
   ],
   "exhausted": null,
-  "review_file": "reviews/<claim-id>-r<N>-eve.md"
+  "review_file": "reviews/<claim-id>-r<N>-lilith.md"
 }
 ```
 
-**Mode 2 — `extension-ruling`** → `state/eve/<claim-id>-r<N>-ruling-<agent>.json`
+**Mode 2 — `extension-ruling`** → `state/lilith/<claim-id>-r<N>-ruling-<agent>.json`
 
 ```json
 {
