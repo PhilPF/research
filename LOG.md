@@ -19,3 +19,32 @@ reviews/jet-transport-r0-lilith.md (Lilith's full digest/ordering)
 Carried to Lilith: n/a — Lilith itself produced this round's output; next
 step is the user's choice of one of Lilith's 5 candidate directions (or a
 prerequisite) to become Round 1's single MAGI claim.
+
+## Round 1 — 2026-08-18 — jt-percoord
+Statement: State and test jet transport under a per-coordinate fibered
+extension, where each coordinate of the original system is Weil-lifted
+independently rather than the system sharing one global Weil algebra.
+(Lilith Direction 4 from the jet-transport Round 0 scoping step; chosen by
+the user.)
+Argument shape: none — round 1, no argument attempted yet; MAGI assessed
+the statement itself as posed.
+Outcome: gap-located + misframed (both §5 rows independently triggered)
+MAGI: M gap-found | B vacuous-or-trivial | C likely-misframed
+Unfinished: Melchior — comparison to literature two-Weil-algebra fibered
+bundle functors (untouched), audit of quantifiers in "jet transport as
+method-property" (untouched). Balthasar — same-dimension/isomorphic Weil
+algebra non-canonicity (partial), nested extensions and parameter/time/
+initial-value extensions (untouched), n>=3 and nonlinear coupling, higher/
+mixed-order algebras (untouched). Casper — degenerate/vacuous ends of the
+per-coordinate extension (partial).
+Extensions: none petitioned.
+Reviews: reviews/jt-percoord-r1-{melchior,balthasar,casper}.md
+Carried to Lilith: compatibility/gluing map between per-coordinate Weil
+algebras A_i, A_j for coupled coordinates is unspecified and choice-
+dependent (Melchior); reading (R1) untyped for coupled systems, reading
+(R2) collapses to the single global Weil algebra construction, decoupled
+case adds no content (Balthasar); fixed ambient algebra under (R2) is
+non-canonical among same-dimension alternatives, tying to Direction 5
+(Balthasar); per-coordinate lift breaks coordinate-freedom that appears
+load-bearing for the broader program (Casper); axis was picked from an
+uncommitted menu with no argued priority (Casper).

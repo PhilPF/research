@@ -1,0 +1,23 @@
+{
+  "claim_id": "jt-percoord",
+  "round": 1,
+  "statement": "State and test jet transport under a per-coordinate fibered extension, where each coordinate of the original system is Weil-lifted independently rather than the system sharing one global Weil algebra.",
+  "argument_shape": "none — round 1, no argument attempted yet; MAGI assessed the statement itself as posed.",
+  "dispatched_at": "2026-08-18T00:10:00Z",
+  "completed_at": "2026-08-18T00:40:00Z",
+  "outcome": "gap-located + misframed (both table rows independently triggered: Melchior gap-found, and Balthasar vacuous-or-trivial / Casper likely-misframed)",
+  "verdicts": [
+    "state/verdicts/jt-percoord-r1-melchior.json",
+    "state/verdicts/jt-percoord-r1-balthasar.json",
+    "state/verdicts/jt-percoord-r1-casper.json"
+  ],
+  "extensions": [],
+  "lilith": "state/lilith/jt-percoord-r1-propose.json",
+  "carried_to_eve": [
+    "Melchior: the compatibility/gluing map routing cross-terms (from a coupled f_i depending on x_j) between per-coordinate Weil algebras A_i, A_j is unspecified; distinct natural choices (project vs. truncate) give inequivalent dynamics.",
+    "Balthasar: reading (R1, no shared structure) is not well-typed for coupled systems; reading (R2, shared ambient Weil algebra) restores well-typedness but collapses to the single global Weil algebra construction; only the decoupled/diagonal case is well-typed under (R1) and it adds no content over n independent 1-D lifts.",
+    "Balthasar: a fixed ambient-algebra choice under (R2) is shown non-canonical among same-dimension alternatives (ties to Direction 5, the isomorphism-equivariance axis).",
+    "Casper: per-coordinate lift depends on a distinguished coordinate system, in tension with the coordinate-freedom that appears load-bearing for the broader program's notion of a 'large class of vector fields'.",
+    "Casper: the per-coordinate axis was selected from a longer uncommitted menu (parameters, time, initial value, nested, same-dimension) with no argued priority for why this one is the right next generalization."
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "claim_id": "jt-percoord",
+  "round": 1,
+  "agent": "balthasar",
+  "started_at": "2026-08-18T18:55:00Z",
+  "ended_at": "2026-08-18T19:04:00Z",
+  "slot": 1,
+  "killed": false,
+  "verdict": "vacuous-or-trivial",
+  "fields": {
+    "counterexample": "n/a (no fixed proposition survives outside the trivial case to counterexample; see 'locates' for the constructive finding in its place)",
+    "locates": "Under the no-shared-structure reading of 'each coordinate Weil-lifted independently' (R1), the lifted vector field fails to type-check for any coordinate-coupled system: e.g. dx/dt=y, dy/dt=-x with X=x+e1*v1 in A1=R[e1]/(e1^2), Y=y+e2*v2 in A2=R[e2]/(e2^2) gives f_1(X,Y)=y+e2*v2, which is not an element of A1 -- no map A2->A1 is supplied. Under the shared-ambient reading (R2), embedding A1,A2 into a common Weil algebra Lambda (e.g. exterior algebra on e1,e2) restores well-typedness but consistency of the ODE forces X to acquire an e2-component (and Y an e1-component) under the flow, i.e. the dynamics collapse the per-coordinate assignment back into one shared global Weil algebra -- exactly the construction the claim proposes to surpass. On the one class where (R1) is well-defined without patching -- diagonal/decoupled systems f_i=f_i(x_i) -- the per-coordinate lift is termwise identical (up to renaming e_i vs shared e) to the ordinary single global Weil algebra construction, so it adds no content. The minimal condition that would exclude this finding: an explicit, canonically-chosen gluing/ambient structure relating A_i to A_j whenever the Jacobian entry df_i/dx_j is nonzero, specified as part of the hypotheses rather than left implicit in the phrase 'fibered'; also noted (Sec 5c) that even a fixed ambient algebra is not unique among same-dimension choices, giving inequivalent transported dynamics for the same system and data.",
+    "scope": "n=1 (trivial); n=2 diagonal linear system (by hand, first-order dual-number algebras); n=2 coupled linear system (harmonic oscillator dx/dt=y, dy/dt=-x) under both readings (R1) no-shared-structure and (R2) shared ambient algebra, plus one alternative ambient algebra choice illustrating non-canonicity. Not covered: n>=3, nonlinear coupling, higher-order or mixed-order per-coordinate Weil algebras, nested extensions, parameter/time/initial-value extensions -- left open. No CAS available in sandbox (sympy not installed, no PyPI network access); all computations are elementary first-order Taylor/linear substitutions verified by hand."
+  },
+  "subtasks": [
+    {"name": "enumerate candidate formalizations of per-coordinate fibered extension", "status": "done"},
+    {"name": "boundary case n=1", "status": "done"},
+    {"name": "diagonal/decoupled systems", "status": "done"},
+    {"name": "coupled system, no-shared-structure reading (R1)", "status": "done"},
+    {"name": "coupled system, shared-ambient reading (R2)", "status": "done"},
+    {"name": "same-dimension/isomorphic Weil algebra non-canonicity", "status": "partial"},
+    {"name": "nested extensions; parameter/time/initial-value extensions", "status": "untouched"},
+    {"name": "n>=3 and nonlinear coupled systems, higher/mixed-order algebras", "status": "untouched"}
+  ],
+  "flags": ["none"],
+  "petition": null,
+  "review_file": "reviews/jt-percoord-r1-balthasar.md"
+}
