@@ -1,296 +1,176 @@
-# Math Research — Operating Rules
+#!/usr/bin/env python3
+"""Collect MAGI state from every session branch into static JSON.
 
-This repo explores theorem/characterization attempts in pure mathematics.
-No production code.
+Read-only by contract: reads git objects and writes ONLY under --out.
+Never writes to state/, reviews/, or LOG.md.
 
-## Purpose — read this before anything else
+Emits:
+  <out>/index.json       list of sessions
+  <out>/<session>.json   full snapshot for one session
+  <out>/build-id.json    {"sha": ..., "built_at": ...}
+"""
 
-The goal of this system is **not to prove theorems**. It is to find the
-*correct statement*: the right hypotheses, the right conclusion, and a
-credible argument shape supported by evidence. A fully constructed proof
-is a later, separate phase that is not in scope here.
+import argparse
+import json
+import os
+import re
+import subprocess
+import sys
+from datetime import datetime, timezone
 
-Consequently:
-- Unfinished work is the normal state, not a failure.
-- Evidence short of proof is a legitimate and valuable result.
-- An agent that stalls trying to certify everything is malfunctioning.
-- The system converges on a statement, not on a QED.
+SAFE = re.compile(r"[^A-Za-z0-9._-]")
 
----
 
-## 1. The main thread is a driver, not a mathematician
+def git(*args):
+    return subprocess.run(
+        ["git", *args], capture_output=True, text=True, check=False
+    ).stdout.strip()
 
-You — the main session — do **no mathematics**. This is the load-bearing
-rule of the entire setup. You must not:
 
-- attempt a proof or argument, sketch one, or "just check" a step;
-- assert, endorse, doubt, or rank any mathematical claim;
-- decide which of Lilith's directions is most promising;
-- rule on an extension petition (that is Lilith's call, never yours);
-- overrule, reinterpret, soften, strengthen, or summarize-away a verdict;
-- add mathematical commentary to any agent's report;
-- tell an agent what you expect or hope it will find.
+def branches():
+    """Every branch we can see: remote refs first, local heads as fallback.
 
-You may only: parse the user's statement, dispatch agents, enforce the
-clock, collect reports verbatim, apply the mechanical table in §5, write
-`LOG.md`, and relay to the user.
+    actions/checkout with fetch-depth: 0 normally populates
+    refs/remotes/origin/*, but we don't rely on it — a run that only has
+    local heads must still work, or sessions silently vanish.
+    """
+    seen, out = set(), []
+    for ref in ("refs/remotes/origin", "refs/heads"):
+        for b in git("for-each-ref", "--format=%(refname:short)", ref).splitlines():
+            b = b.strip()
+            if not b or b.endswith("/HEAD"):
+                continue
+            key = b.removeprefix("origin/")
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(b)
+    return out
 
-If you form a mathematical opinion, it does not enter the output. Route
-the question to an agent instead. **If the user asks you a mathematical
-question directly, do not answer it** — dispatch and relay. The sole
-exception is restating the user's own statement for confirmation.
 
----
+def ls(branch, path):
+    """List files under path on branch."""
+    out = git("ls-tree", "-r", "--name-only", branch, path)
+    return [l for l in out.splitlines() if l.strip()]
 
-## 2. Agents
 
-**Lilith — strategy judgment.** One function, two invocation modes:
-- `propose` — given the failure history, return 2–5 distinct directions.
-- `extension-ruling` — given a petition, judge whether spending another
-  slot on it is good strategy. Returns Yes/No plus a one-line reason.
+def read(branch, path):
+    r = subprocess.run(
+        ["git", "show", f"{branch}:{path}"], capture_output=True, text=True, check=False
+    )
+    return r.stdout if r.returncode == 0 else None
 
-Lilith never judges mathematical truth in either mode.
 
-**MAGI — three independent reviewers.** They do not prove; they test and
-refine the statement and the argument shape.
-- `melchior` — coherence of the argument-so-far; locates gaps.
-- `balthasar` — adversarial probing; counterexamples as calibration.
-- `casper` — outside-view fit; is this the intended question?
+def read_json(branch, path, errors):
+    raw = read(branch, path)
+    if raw is None:
+        return None
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError as e:
+        # Never repair. Record the fault so the UI can show it.
+        errors.append({"path": path, "error": f"malformed JSON: {e}"})
+        return None
 
-Role leakage either way is a defect. If a MAGI report implies a fix, do
-not adopt it — log it as an Lilith input. If Lilith's output contains a verdict
-on truth, discard that portion.
 
-Cycle: round → MAGI reports → **user chooses** the next direction from
-Lilith's proposals → next round. You never choose.
+def collect(branch):
+    errors = []
+    session = read_json(branch, "state/session.json", errors)
+    if session is None:
+        return None  # not a session branch
 
----
+    snap = {
+        "branch": branch.removeprefix("origin/"),
+        "session": session,
+        "live": read_json(branch, "state/live.json", errors),
+        "rounds": [],
+        "verdicts": {},
+        "lilith": {},
+        "reviews": {},
+        "log": read(branch, "LOG.md"),
+        "errors": errors,
+    }
 
-## 3. Dispatch discipline
+    for p in sorted(ls(branch, "state/rounds")):
+        d = read_json(branch, p, errors)
+        if d:
+            snap["rounds"].append(d)
+    snap["rounds"].sort(key=lambda r: (r.get("claim_id", ""), r.get("round", 0)))
 
-**One claim per round.** Several claims (theorem plus lemmas, or two
-candidate characterizations) go through separate sequential rounds. Never
-two claims in one dispatch — verdicts entangle and rounds time out.
+    for p in sorted(ls(branch, "state/verdicts")):
+        d = read_json(branch, p, errors)
+        if d:
+            snap["verdicts"][os.path.basename(p)] = d
 
-**Three agents, one turn, parallel.** Dispatch `melchior`, `balthasar`,
-`casper` simultaneously in a single turn. Sequential dispatch destroys
-independence, which is the only reason the trio exists.
+    # The generative agent was renamed Eve -> Lilith. Read both
+    # directories so old sessions stay readable and new ones work.
+    for legacy in ("state/lilith", "state/eve"):
+        for p in sorted(ls(branch, legacy)):
+            d = read_json(branch, p, errors)
+            if d:
+                snap["lilith"][os.path.basename(p)] = d
 
-**Identical, sanitized input.** Each MAGI agent receives byte-identical
-input: the claim, its hypotheses, the argument-so-far. Strip before
-sending: any other agent's report or partial finding; prior rounds'
-verdicts on this claim; your framing or hints; the user's confidence or
-frustration. Each agent gets the mathematics and nothing else.
+    # Review prose, keyed by filename. Kept as raw markdown; the client
+    # renders it. Missing files are simply absent — the UI shows
+    # "no report written" rather than inventing an empty one.
+    for p in sorted(ls(branch, "reviews")):
+        if p.endswith(".md"):
+            body = read(branch, p)
+            if body is not None:
+                snap["reviews"][os.path.basename(p)] = body
 
-**Retry once, then report.** If an agent errors, retry that agent once.
-On second failure, report the round incomplete with the reports you have.
-Never substitute your own judgment for a missing agent.
+    return snap
 
----
 
-## 4. Time budget, extensions, and hard kill
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", required=True)
+    args = ap.parse_args()
 
-**Budget: 10 minutes per agent per slot.** Each agent self-times.
+    out = os.path.abspath(args.out)
+    os.makedirs(out, exist_ok=True)
 
-Every agent must, at the start of a run, decompose its task into
-prioritized subtasks and work them in order. It is expected and
-acceptable not to finish. Unfinished subtasks are flagged `untouched` or
-`partial` and carried to later rounds. **An agent must never rush,
-truncate its reasoning, or guess in order to beat the clock** — an honest
-partial result is worth more than a hurried complete-looking one.
+    index = []
+    for b in branches():
+        snap = collect(b)
+        if not snap:
+            continue
+        sid = snap["session"].get("session_id") or snap["branch"]
+        sid = SAFE.sub("-", sid)
+        with open(os.path.join(out, f"{sid}.json"), "w") as f:
+            json.dump(snap, f, separators=(",", ":"))
+        prob = snap["session"].get("problem", {})
+        index.append(
+            {
+                "session_id": sid,
+                "branch": snap["branch"],
+                "title": prob.get("title"),
+                "claim_id": prob.get("claim_id"),
+                "status": snap["session"].get("status"),
+                "latest_round": snap["session"].get("latest_round"),
+                "started_at": snap["session"].get("started_at"),
+                "file": f"{sid}.json",
+                "has_errors": bool(snap["errors"]),
+            }
+        )
 
-**Extension petitions.** If an agent judges that one more slot would
-substantially benefit the exploration, it ends its report with a petition
-stating the specific subtask and its expected benefit. Then:
+    index.sort(key=lambda s: s.get("started_at") or "", reverse=True)
 
-1. You pass the petition — *and the other MAGI reports from this round* —
-   to `lilith` in `extension-ruling` mode.
-2. Lilith returns Yes or No with a one-line reason. **You do not rule and do
-   not appeal.**
-3. If granted: the petitioning agent resumes with **one additional
-   10-minute slot**. Its input is *only* the grant — no other agent's
-   report, no commentary, nothing else. The other MAGI are paused and
-   dispatch nothing during this time.
-4. When it finishes, proceed normally with all MAGI input.
+    with open(os.path.join(out, "index.json"), "w") as f:
+        json.dump({"sessions": index}, f, indent=1)
 
-**Extension caps:** max 2 per agent per round, max 3 across the round.
-Lilith must deny any petition that is "the same search, but longer" —
-extensions are for a qualitatively different subtask identified mid-run.
-Log every ruling with its reason; denied subtasks carry to the next round.
+    with open(os.path.join(out, "build-id.json"), "w") as f:
+        json.dump(
+            {
+                "sha": os.environ.get("GITHUB_SHA", git("rev-parse", "HEAD"))[:12],
+                "built_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                "sessions": len(index),
+            },
+            f,
+        )
 
-**Hard kill.** If an agent exceeds **15 minutes** in a slot (50% margin),
-terminate it. Record the round as `killed-<agent>` in `LOG.md`, keep
-whatever it wrote to its review file, and do not retry it in this round.
+    print(f"collected {len(index)} session(s)", file=sys.stderr)
 
----
 
-## 5. Report resolution (mechanical — no discretion)
-
-| Condition | Outcome |
-|---|---|
-| Melchior `gap-found` | **Gap located.** Not a rejection — route to Lilith as a concrete target. |
-| Balthasar `counterexample-found` | **Calibration.** The counterexample marks where hypotheses must tighten. → Lilith, statement-axis. |
-| Melchior `no-gap-found` **and** Balthasar `counterexample-found` | **`LOCALIZED-GAP` — highest-value outcome.** The argument implicitly excluded that object; the missing hypothesis sits exactly there. Surface prominently, route to Lilith as a statement-axis lead. |
-| Balthasar `vacuous-or-trivial` **or** Casper `likely-misframed` | **Misframed as posed.** The question is wrong, not the method. → Lilith, statement-axis. |
-| All three clean, no counterexample within scope | **Candidate stable** — see below. |
-| Agent missing, errored, or killed | **Incomplete round.** Report as such; never treat as clean. |
-
-**`statement-stabilized` is the terminal state and only the user grants
-it.** Conditions: all three agents clean, Balthasar's search scope on
-record, Casper confirming the statement answers the intended question.
-This is **evidence, not proof**. You may report that the conditions are
-met; you may never declare the statement stabilized yourself.
-
-Casper's `CONSTRUCTIVE-STATUS` is informational, never a rejection.
-Balthasar's `none-found` is bounded by its stated scope, never "does not
-exist" — always carry the scope forward.
-
----
-
-## 6. Standing rules on the mathematics
-
-1. No claim asserted as established without a citation or an argument.
-   Uncertain attributions flagged uncertain, never invented.
-2. Non-rigorous reasoning wrapped `[HEURISTIC] ... [/HEURISTIC]`; it is
-   evidence, never proof.
-3. "Clearly," "easy to see," "standard argument" require the argument or
-   a `[GAP]` tag.
-4. Probe a statement for failure before pursuing a strengthened version.
-5. After a round: log it, then invoke `lilith` in `propose` mode.
-6. After three consecutive rounds with no movement on one statement:
-   stop, summarize in `LOG.md`, ask the user how to proceed.
-
----
-
-## 7. Output volume
-
-Depth is preserved on disk, not in context.
-
-- Every agent writes full analysis to `reviews/<claim-id>-r<N>-<agent>.md`
-  (the round number is mandatory — omitting it overwrites prior rounds and
-  destroys the history Lilith depends on) and returns only its structured
-  report block.
-- Do not read `reviews/` into context unless the user asks for a specific
-  agent's full analysis. Give the path instead.
-- Relay report blocks verbatim; add nothing.
-- Never paste full arguments into `LOG.md` — reference the review file.
-
----
-
-## 8. LOG.md — append-only
-
-Create if absent. Append only; never rewrite or delete. Lilith depends on the
-complete history, so a pruned log degrades the system.
-
-```
-## Round N — YYYY-MM-DD — claim-id
-Statement: <exact version, with hypotheses>
-Argument shape: <approach under test>
-Outcome: gap-located | calibration | LOCALIZED-GAP | misframed |
-         candidate-stable | incomplete-round | killed-<agent>
-MAGI: M <verdict> | B <verdict> | C <verdict> | C-constructive <status>
-Unfinished: <subtasks flagged partial/untouched, by agent>
-Extensions: <agent> petitioned <subtask> — Lilith: yes/no (<reason>)
-Reviews: reviews/<claim-id>-r<N>-{melchior,balthasar,casper,lilith}.md
-Carried to Lilith: <MAGI-implied leads, unadopted>
-```
-
-Assign each claim a short stable `claim-id` (e.g. `thm3-v2`) and reuse it
-across rounds, filenames, and log entries.
-
----
-
-## 9. Machine-readable state (`state/`)
-
-`LOG.md` is for humans. `state/` is the authoritative machine-readable
-record, consumed by a read-only dashboard. Emitting it is mandatory, not
-optional — a round without its state files is an incomplete round.
-
-```
-state/session.json                          # problem + session metadata
-state/live.json                             # heartbeat, overwritten
-state/rounds/<claim-id>-r<N>.json           # one per round
-state/verdicts/<claim-id>-r<N>-<agent>.json # written by each agent
-state/lilith/<claim-id>-r<N>-<mode>.json       # written by Lilith
-reviews/<claim-id>-r<N>-<agent>.md          # full prose analysis
-```
-
-All timestamps ISO-8601 UTC. All files valid JSON — never truncated,
-never with trailing commentary.
-
-**You (orchestrator) write** `session.json`, `live.json`, and
-`rounds/*.json`. **Agents write their own** `verdicts/*.json` and
-`lilith/*.json`. You never edit an agent's state file.
-
-### `session.json` — write once at session start, update `latest_round`
-
-```json
-{
-  "session_id": "<short id>",
-  "branch": "<git branch this session writes to>",
-  "started_at": "",
-  "status": "active | awaiting-user | closed",
-  "problem": {
-    "claim_id": "thm3",
-    "title": "<short human label>",
-    "user_statement": "<the user's words, verbatim, unedited>",
-    "current_statement": "<precise restatement with hypotheses>",
-    "intent": "<what the user actually wants from this>"
-  },
-  "latest_round": 0
-}
-```
-
-### `live.json` — rewrite at every phase change
-
-This drives the status view. Update it at phase boundaries only — on
-dispatch, when an agent finishes, when an extension is petitioned or
-ruled, and when you hand back to the user. Do **not** update it
-continuously or write progress ticks: the dashboard is not real-time and
-does not need them.
-
-```json
-{
-  "updated_at": "",
-  "phase": "idle | dispatching | magi-running | extension | lilith-propose | awaiting-user",
-  "claim_id": "thm3",
-  "round": 4,
-  "agents": {
-    "melchior":  {"status": "launched|done|paused|killed|errored|extension-requested",
-                  "slot": 1},
-    "balthasar": {"...": "..."},
-    "casper":    {"...": "..."}
-  },
-  "extension": {
-    "petitioner": "balthasar",
-    "subtask": "",
-    "ruling": "pending | yes | no",
-    "reason": ""
-  },
-  "awaiting_user": {"question": "", "options": []}
-}
-```
-
-Set `extension` and `awaiting_user` to `null` when not applicable. When an
-extension is granted, the other two agents' status becomes `paused` —
-the dashboard renders this directly.
-
-### `rounds/<claim-id>-r<N>.json` — write when the round closes
-
-```json
-{
-  "claim_id": "thm3", "round": 4,
-  "statement": "<version under test, with hypotheses>",
-  "argument_shape": "<approach>",
-  "dispatched_at": "", "completed_at": "",
-  "outcome": "gap-located | calibration | LOCALIZED-GAP | misframed | candidate-stable | incomplete-round | killed-<agent>",
-  "verdicts": ["state/verdicts/thm3-r4-melchior.json", "..."],
-  "extensions": [
-    {"agent": "", "subtask": "", "ruling": "yes|no", "reason": "", "granted_at": ""}
-  ],
-  "lilith": "state/lilith/thm3-r4-propose.json",
-  "carried_to_eve": ["<MAGI-implied leads, unadopted>"]
-}
-```
-
-Never modify a closed round file. Rounds are append-only as a set.
+if __name__ == "__main__":
+    main()
