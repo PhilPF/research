@@ -1,0 +1,28 @@
+{
+  "claim_id": "jt-percoord",
+  "round": 3,
+  "statement": "Fix n>=2, per-coordinate order vector D, Weil algebra W_D, vector-field lift L_D fixed to candidate (a) index-blind projection (background). M commutes with L_D if M[L_D(F)] = T_D(Phi_h^M[F]) identically in W_D. Test on {explicit Euler, RK2, RK4, implicit Euler, exact-jet Taylor} whether the identity holds, and whether a B-series/elementary-differential structural condition on M is necessary/sufficient.",
+  "argument_shape": "none — round 1 of testing this specific claim; MAGI worked the test family directly (Opus, 5-min budget per agent, per user instruction).",
+  "dispatched_at": "2026-08-18T02:50:00Z",
+  "completed_at": "2026-08-18T03:20:00Z",
+  "outcome": "gap-located + misframed (Melchior gap-found triggers row 1; Balthasar vacuous-or-trivial and Casper likely-misframed both trigger row 4)",
+  "verdicts": [
+    "state/verdicts/jt-percoord-r3-melchior.json",
+    "state/verdicts/jt-percoord-r3-balthasar.json",
+    "state/verdicts/jt-percoord-r3-casper.json"
+  ],
+  "extensions": [
+    {"agent": "melchior", "subtask": "audit whether the (a-trunc) literal-truncation reading is well-defined independent of presentation/stage-order", "ruling": "no", "reason": "Balthasar and Casper already show convention (a) makes the identity definitional with no negative control; effort belongs on the statement axis, not this branch.", "granted_at": null},
+    {"agent": "balthasar", "subtask": "run the exact-jet/AD method (elementary differentials computed by W_D arithmetic itself) over the commutation identity, expecting it to discriminate D_1!=D_2", "ruling": "no", "reason": "Melchior's gap-found shows candidate (a) is ill-defined off the slice; the petitioned probe would run inside the same undefined convention, making any result uninterpretable.", "granted_at": null}
+  ],
+  "lilith": "state/lilith/jt-percoord-r3-propose-v2.json",
+  "carried_to_eve": [
+    "Melchior: L_D(F) is only defined on the slice {x+t*e}; every >=2-stage method evaluates it off the slice, where the statement's own two readings of candidate (a) (a-full vs a-trunc) diverge (exact rational witness given in W_(1,2)); only explicit Euler stays on the slice, which is why an Euler-only sanity check hides the defect.",
+    "Melchior: the implicit solve for backward Euler is not 'a formula built by literal substitution,' so the licensing sentence doesn't actually cover it as stated; 'every h>0' is too strong for Phi_h^BE to exist as a real map.",
+    "Balthasar: under candidate (a), the hypothesis on M ('well-typed by literal substitution over any commutative R-algebra') IS ALREADY the sufficient condition (W_D is an ordinary Weil algebra; evaluation is an R-algebra homomorphism) — the conclusion is definitional, the test family cannot produce a failure, and D_1!=D_2 does no work at all under (a).",
+    "Balthasar: found a genuine counterexample to the NECESSITY half of the proposed B-series characterization — backward Euler is not a finite polynomial/B-series method (implicit, infinite series) yet commutes exactly and satisfies every stated hypothesis on M.",
+    "Balthasar: the minimal change making the question non-vacuous is widening M's admissible operations to non-algebra-homomorphism-preserved ones (norm/comparison, tolerance-based stopping, adaptive step control, root selection) — exactly what the current hypothesis excludes by construction.",
+    "Casper: convention (a) reduces the identity to product-preserving-functor naturality applied to a composite M is DEFINED to be built from; the D_1!=D_2 hypothesis does no work, the sought structural property restates the admissibility hypothesis (near-circular), and the test family has no negative control so necessity is unreachable by construction.",
+    "Untouched by all: RK4 specifically (Melchior), the asymptotic-in-h refinement, candidate lifts other than (a), n>=3, non-polynomial F, multistep/partitioned/symplectic/rational methods (Balthasar's scope note)."
+  ]
+}

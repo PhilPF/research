@@ -137,3 +137,36 @@ Sonnet, TIME OVERRIDE: 5-minute budget per agent instead of standard
 instruction for this round only.
 Extensions: none yet.
 Reviews: reviews/jt-percoord-r3-{melchior,balthasar,casper}.md (pending)
+
+## Round 3 (closed) — 2026-08-18 — jt-percoord
+Outcome: gap-located + misframed (Melchior gap-found triggers row 1;
+Balthasar vacuous-or-trivial and Casper likely-misframed both trigger row 4)
+MAGI (Opus, 5-min budget): M gap-found | B vacuous-or-trivial (+ found a
+genuine counterexample to the proposed characterization's necessity half:
+implicit/backward Euler commutes exactly yet is not a B-series method) |
+C likely-misframed
+Extensions: melchior petitioned (audit whether (a-trunc) is well-defined
+independent of presentation) — Lilith: no (Balthasar/Casper already show
+convention (a) is definitional with no negative control; effort belongs on
+the statement axis). balthasar petitioned (run exact-jet/AD method with
+elementary differentials computed by W_D arithmetic itself) — Lilith: no
+(would run inside the same undefined convention Melchior located; any
+result uninterpretable until that gap is resolved). Both rulings written to
+state/lilith/jt-percoord-r3-ruling-{melchior,balthasar}.json.
+Unfinished: RK4 specifically (Melchior, untouched); asymptotic-in-h
+refinement (untouched); candidate lifts other than (a) (untouched); n>=3,
+non-polynomial F, multistep/partitioned/symplectic/rational methods
+(Balthasar, untouched, out of round scope).
+Reviews: reviews/jt-percoord-r3-{melchior,balthasar,casper}.md
+Carried to Lilith: L_D(F) is only defined on-slice; off-slice, candidate
+(a)'s two readings (a-full vs a-trunc) diverge, exact witness given
+[Melchior]; the implicit-solve licensing for backward Euler doesn't actually
+apply as stated [Melchior]; under (a) the hypothesis on M already IS the
+sufficient condition, making the identity definitional and D_1!=D_2 inert
+[Balthasar]; backward Euler is a genuine counterexample to the proposed
+characterization's NECESSITY half [Balthasar]; the non-vacuous fix is
+widening M beyond algebra-homomorphism-preserved operations
+(norm/comparison, adaptive stepping, root selection) [Balthasar]; the whole
+setup is near-circular product-preserving-functor naturality with no
+negative control, so necessity is unreachable by construction as posed
+[Casper].

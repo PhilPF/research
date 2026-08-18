@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-08-18T02:50:00Z",
-  "phase": "magi-running",
+  "updated_at": "2026-08-18T03:20:00Z",
+  "phase": "lilith-propose",
   "claim_id": "jt-percoord",
   "round": 3,
   "agents": {
-    "melchior": {"status": "launched", "slot": 1, "model": "opus", "time_budget_min": 5},
-    "balthasar": {"status": "launched", "slot": 1, "model": "opus", "time_budget_min": 5},
-    "casper": {"status": "launched", "slot": 1, "model": "opus", "time_budget_min": 5}
+    "melchior": {"status": "done", "slot": 1},
+    "balthasar": {"status": "done", "slot": 1},
+    "casper": {"status": "done", "slot": 1}
   },
   "extension": null,
   "awaiting_user": null
