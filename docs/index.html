@@ -57,12 +57,9 @@
     </div>
 
     <div class="no-scrollbar" style="display:flex; align-items:center; gap:8px; padding:8px 14px; flex-shrink:0; border-left:1px solid #3a2408; {{ metaExtra }}">
-      <div style="flex-shrink:0; display:flex; align-items:center; gap:7px; padding:5px 9px; border:1px solid {{ build.color }};">
-        <span style="width:6px; height:6px; flex-shrink:0; background:{{ build.color }}; animation:magi-pulse 1.6s infinite;"></span>
-        <div style="display:flex; flex-direction:column; gap:1px;">
-          <span style="font-weight:700; font-size:9px; letter-spacing:0.1em; color:{{ build.color }}; white-space:nowrap;">{{ build.label }}</span>
-          <span style="font-size:8.5px; color:#7a5426; white-space:nowrap;">{{ build.detail }}</span>
-        </div>
+      <div title="{{ build.title }}" style="flex-shrink:0; display:flex; align-items:center; gap:6px; padding:4px 8px; border:1px solid {{ build.color }}; height:27px;">
+        <span style="width:5px; height:5px; flex-shrink:0; background:{{ build.color }}; animation:magi-pulse 1.6s infinite;"></span>
+        <span style="font-size:9px; letter-spacing:0.05em; color:{{ build.color }}; white-space:nowrap;">{{ build.text }}</span>
       </div>
 
       <div style="position:relative; flex-shrink:0;">
@@ -104,7 +101,7 @@
         </sc-if>
       </div>
 
-      <button onClick="{{ refreshLive }}" title="reload snapshot" style="flex-shrink:0; background:#0a0805; border:1px solid #5a3c14; color:#ff9a2e; font-size:13px; width:28px; height:27px; cursor:pointer;" style-hover="border-color:#ff9a2e;">↻</button>
+      <button onClick="{{ refreshLive }}" title="reload" style="flex-shrink:0; background:#0a0805; border:1px solid #5a3c14; color:#ff9a2e; font-size:13px; width:28px; height:27px; cursor:pointer;" style-hover="border-color:#ff9a2e;">↻</button>
     </div>
   </div>
 
@@ -120,7 +117,7 @@
       <span style="position:relative; z-index:1; flex-shrink:0; font-weight:700; font-size:9px; letter-spacing:0.06em; color:#ff5c3d; border:1px solid #ff5c3d; padding:1px 6px; white-space:nowrap; max-width:40vw; overflow:hidden; text-overflow:ellipsis;">{{ fault.text }}</span>
     </sc-if>
     <sc-if value="{{ stale }}" hint-placeholder-val="{{ false }}">
-      <span onClick="{{ reloadPage }}" style="position:relative; z-index:1; flex-shrink:0; cursor:pointer; font-weight:700; font-size:9px; letter-spacing:0.06em; color:#ffcf5c; border:1px solid #ffcf5c; padding:1px 6px; white-space:nowrap;">NEW SNAPSHOT — RELOAD</span>
+      <span onClick="{{ reloadPage }}" style="position:relative; z-index:1; flex-shrink:0; cursor:pointer; font-weight:700; font-size:9px; letter-spacing:0.06em; color:#ffcf5c; border:1px solid #ffcf5c; padding:1px 6px; white-space:nowrap;">NEW PUSH — RELOAD</span>
     </sc-if>
   </div>
 
@@ -139,7 +136,7 @@
       <div class="no-scrollbar" ref="{{ historyRef }}" onClick="{{ focusInput }}" style="flex:1; min-height:0; overflow-y:auto; cursor:text; padding:7px 10px 0; font-size:11px; color:#3fd15e; line-height:1.5;">
         <sc-for list="{{ history }}" as="entry" hint-placeholder-count="0">
           <div data-entry="{{ $index }}" style="margin-bottom:9px;">
-            <div style="color:#7fffa0; margin-bottom:2px;">ppf@magi &lt;&lt; {{ entry.key }}</div>
+            <div style="color:#7fffa0; margin-bottom:2px;">ppf@genesis &lt;&lt; {{ entry.key }}</div>
             <sc-if value="{{ entry.raw }}" hint-placeholder-val="{{ false }}">
               <div style="white-space:pre-wrap; overflow-wrap:anywhere;">{{ entry.text }}</div>
             </sc-if>
@@ -165,7 +162,7 @@
           </div>
         </sc-for>
         <div style="display:flex; align-items:center; gap:6px;">
-          <span style="flex-shrink:0; color:#7fffa0;">ppf@magi &lt;&lt;</span>
+          <span style="flex-shrink:0; color:#7fffa0;">ppf@genesis &lt;&lt;</span>
           <div style="position:relative; flex:1; min-width:0; height:15px;">
             <div style="position:absolute; inset:0; display:flex; align-items:center; white-space:pre; overflow:hidden; pointer-events:none;">
               <span>{{ cmd }}</span>
@@ -208,8 +205,9 @@
       </div>
     </div>
 
-    <!-- LOG (right) -->
-    <div style="grid-column:3; grid-row:1; min-width:0; min-height:0; display:flex; flex-direction:column; background:#020a03; border:1px solid #164d1f; {{ logPlace }} {{ logExtra }}">
+    <!-- LOG + FILE TREE (right) -->
+    <div style="min-width:0; min-height:0; display:flex; gap:10px; {{ rightPlace }}">
+    <div style="flex:{{ logFlex }}; min-width:0; min-height:0; display:flex; flex-direction:column; background:#020a03; border:1px solid #164d1f; {{ logExtra }}">
       <div onClick="{{ toggleLogMax }}" title="click to expand / collapse" style="flex-shrink:0; cursor:pointer; padding:6px 10px; background:#041005; border-bottom:1px solid #0e3016; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#3fd15e; display:flex; align-items:center; gap:8px;">
         <span>LOG.md</span>
         <span style="font-family:'Noto Sans JP',sans-serif; font-size:10px; color:#1f7a35; letter-spacing:0.05em;">「記録」</span>
@@ -238,6 +236,34 @@
           </sc-for>
         </div>
       </div>
+    </div>
+
+    <!-- FILE TREE -->
+    <div style="flex:{{ treeFlex }}; min-width:0; min-height:0; display:flex; flex-direction:column; background:#020a03; border:1px solid #164d1f; {{ treeExtra }}">
+      <div onClick="{{ toggleTreeMax }}" title="click to expand / collapse" style="flex-shrink:0; cursor:pointer; padding:6px 10px; background:#041005; border-bottom:1px solid #0e3016; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#3fd15e; display:flex; align-items:center; gap:8px;">
+        <span>TREE</span>
+        <span style="font-family:'Noto Sans JP',sans-serif; font-size:10px; color:#1f7a35; letter-spacing:0.05em;">「系統」</span>
+        <span style="flex:1;"></span>
+        <span onClick="{{ collapseTree }}" title="collapse all folders" style="cursor:pointer; font-size:9px; letter-spacing:0.08em; color:#1f7a35;">RESET</span>
+        <button onClick="{{ toggleTreeMax }}" title="expand / collapse" style="flex-shrink:0; background:none; border:1px solid #164d1f; color:#3fd15e; font-size:11px; line-height:1; width:20px; height:18px; cursor:pointer; font-family:'IBM Plex Mono',monospace;" style-hover="border-color:#3fd15e;">{{ treeMaxIcon }}</button>
+      </div>
+      <div class="no-scrollbar" style="flex:1; min-height:0; overflow-y:auto; padding:5px 0 8px; font-size:10.5px;">
+        <sc-for list="{{ treeRows }}" as="row" hint-placeholder-count="6">
+          <div onClick="{{ row.onClick }}" style="display:flex; align-items:center; gap:6px; padding-top:2px; padding-bottom:2px; padding-right:8px; padding-left:{{ row.pad }}; cursor:pointer; white-space:nowrap;" style-hover="background:#062a10;">
+            <sc-if value="{{ row.isDir }}" hint-placeholder-val="{{ true }}">
+              <span style="flex-shrink:0; width:8px; color:#1f7a35;">{{ row.caret }}</span>
+              <span style="color:#dfffe8; font-weight:700; text-shadow:0 0 7px rgba(127,255,160,0.55); overflow:hidden; text-overflow:ellipsis;">{{ row.name }}</span>
+              <span style="flex-shrink:0; color:#1f7a35; font-size:9px;">{{ row.count }}</span>
+            </sc-if>
+            <sc-if value="{{ row.isFile }}" hint-placeholder-val="{{ false }}">
+              <span style="flex-shrink:0; width:8px; color:#0e3016;">·</span>
+              <span style="color:#3fd15e; overflow:hidden; text-overflow:ellipsis;">{{ row.name }}</span>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
     </div>
 
   </div>
@@ -332,6 +358,40 @@ function jsonToMd(o) {
   return out.join('\n');
 }
 
+function makeTree(paths) {
+  const root = { name: '', dir: true, children: {} };
+  paths.forEach(p => {
+    const parts = String(p).split('/').filter(Boolean);
+    let node = root;
+    parts.forEach((part, i) => {
+      if (i === parts.length - 1) node.children[part] = { name: part, dir: false, path: parts.join('/') };
+      else {
+        node.children[part] = node.children[part] || { name: part, dir: true, path: parts.slice(0, i + 1).join('/'), children: {} };
+        node = node.children[part];
+      }
+    });
+  });
+  return root;
+}
+function flatTree(node, depth, expanded, out) {
+  const kids = Object.values(node.children).sort((a, b) => (a.dir === b.dir ? a.name.localeCompare(b.name) : (a.dir ? -1 : 1)));
+  kids.forEach(k => {
+    const pad = (8 + depth * 13) + 'px';
+    if (k.dir) {
+      const open = !!expanded[k.path];
+      out.push({ key: k.path, path: k.path, isDir: true, isFile: false, name: k.name, caret: open ? '\u25be' : '\u25b8', count: String(Object.keys(k.children).length), pad });
+      if (open) flatTree(k, depth + 1, expanded, out);
+    } else out.push({ key: k.path, path: k.path, isDir: false, isFile: true, name: k.name, caret: '', count: '', pad });
+  });
+  return out;
+}
+function fileToText(path, v) {
+  if (v == null) return '# ' + path + '\n\nnot published in this snapshot.';
+  if (typeof v === 'string') return v;
+  if (Array.isArray(v)) return '# ' + path + '\n\n' + v.map(x => '- ' + (x && typeof x === 'object' ? JSON.stringify(x) : String(x))).join('\n');
+  return '# ' + path + '\n\n' + jsonToMd(v);
+}
+
 function parseLogMd(md) {
   const lines = (md || '').split('\n');
   const blocks = []; let currentHeader = null;
@@ -405,7 +465,7 @@ class Component extends DCLogic {
     data: SAMPLE, source: 'sample', fetchedAt: null, sessions: [], sessionFile: null,
     build: null, stale: false, round: null, roundOpen: false, branchOpen: false,
     history: [], cmd: '', logRepeat: 2, maxPanel: null, logPaused: false, mdMode: true,
-    portrait: false, compact: false
+    portrait: false, compact: false, expanded: {}, treePaths: null
   };
   historyRef = React.createRef();
   inputRef = React.createRef();
@@ -469,6 +529,7 @@ class Component extends DCLogic {
     try {
       const idx = await this.resolveIndex();
       const sessions = (idx.sessions || []).slice().sort((a, b) => String(b.started_at || '').localeCompare(String(a.started_at || '')));
+      this.loadTree();
       const keep = sessions.find(s => s.file === this.state.sessionFile);
       const chosen = keep || sessions[0];
       this.setState({ sessions });
@@ -488,6 +549,22 @@ class Component extends DCLogic {
     } catch (err) {
       this.setState({ source: 'sample-fallback', branchOpen: false });
     }
+  };
+
+  loadTree = async () => {
+    try {
+      const t = await fetchJson((this._base || DATA_BASES[0]) + 'tree.json');
+      const list = Array.isArray(t) ? t : (t.files || t.paths || []);
+      const paths = list.map(x => (typeof x === 'string' ? x : (x && x.path))).filter(Boolean);
+      if (paths.length) this.setState({ treePaths: paths });
+    } catch (err) { /* no tree published; derived tree is used */ }
+  };
+  toggleDir = (path) => this.setState(s => ({ expanded: { ...s.expanded, [path]: !s.expanded[path] } }));
+  collapseTree = (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState({ expanded: {} }); };
+  openFile = (path) => {
+    const files = this._files || {};
+    const hit = Object.keys(files).find(k => k.toLowerCase() === String(path).toLowerCase());
+    this.toggle(path, fileToText(path, hit ? files[hit] : null), path);
   };
 
   checkBuild = async () => {
@@ -587,6 +664,27 @@ class Component extends DCLogic {
       this.refreshLive();
       return;
     }
+    if (cmd === 'round' || cmd.indexOf('round ') === 0) {
+      this.setState({ cmd: '' });
+      const rounds = roundsOf(this.state.data || SAMPLE);
+      const arg = cmd.slice(5).trim();
+      if (!arg) { const n = rounds[rounds.length - 1]; this.pickRound(n); this.say(cmd, 'round ' + n + ' selected (latest).'); return; }
+      const n = parseInt(arg.replace(/[^0-9]/g, ''), 10);
+      if (rounds.indexOf(n) >= 0) { this.pickRound(n); this.say(cmd, 'round ' + n + ' selected.'); }
+      else this.say(cmd, 'no round ' + arg + ' in this session. available: ' + rounds.join(', '));
+      return;
+    }
+    if (cmd === 'repo' || cmd.indexOf('repo ') === 0) {
+      this.setState({ cmd: '' });
+      const list = this.state.sessions || [];
+      const arg = cmd.slice(4).trim();
+      if (!list.length) { this.say(cmd, 'no repo index loaded. run sync.'); return; }
+      if (!arg) { const s = list[0]; this.pickBranch(s.file); this.say(cmd, 'switched to ' + (s.branch || s.session_id) + ' (most recent).'); return; }
+      const hit = list.find(s => [s.branch, s.session_id, s.claim_id, s.title].some(v => String(v || '').toLowerCase().indexOf(arg) >= 0));
+      if (hit) { this.pickBranch(hit.file); this.say(cmd, 'switched to ' + (hit.branch || hit.session_id) + '.'); }
+      else this.say(cmd, 'no repo matching "' + arg + '". available:\n' + list.map(s => '- ' + (s.branch || s.session_id)).join('\n'));
+      return;
+    }
     if (cmd === 'help') {
       this.setState({ cmd: '' });
       const help = [
@@ -595,9 +693,12 @@ class Component extends DCLogic {
         '- balthazar / b',
         '- casper / c',
         '- lilith / l',
+        '- round : select the latest round. round 3 selects round 3 if it exists',
+        '- repo : switch to the most recent repo. repo <name> switches to a matching one',
         '- sync : reload the snapshot and report what was fetched',
         '- clear : reset the terminal',
         '',
+        'Any path from the TREE panel works as a command, and clicking a file prints it here.',
         'Up and down arrows recall previous commands.'
       ].join('\n');
       this.toggle('help', help, 'help');
@@ -605,17 +706,22 @@ class Component extends DCLogic {
     }
     const key = this.ALIASES[cmd];
     if (!key) {
-      this.setState(s => ({ history: [...s.history, { key: cmd, text: 'command not found. available: casper (c)  balthazar (b)  melcior (m)  lilith (l)  sync  help  clear' }], cmd: '' }), this.afterAppend);
+      const paths = Object.keys(this._files || {});
+      const exact = paths.find(pth => pth.toLowerCase() === cmd);
+      const base = paths.filter(pth => pth.split('/').pop().toLowerCase() === cmd);
+      if (exact || base.length === 1) { this.setState({ cmd: '' }); this.openFile(exact || base[0]); return; }
+      this.setState(s => ({ history: [...s.history, { key: cmd, text: 'command not found. available: casper (c)  balthazar (b)  melcior (m)  lilith (l)  round  repo  sync  help  clear' }], cmd: '' }), this.afterAppend);
       return;
     }
     this.setState({ cmd: '' });
     this.toggle(key, (this._dumps || {})[key] || 'no report written', cmd);
   };
+  say = (key, text) => { this.setState(s => ({ history: [...s.history, { key, text }] }), this.afterAppend); this.focusInput(); };
+  closeDump = () => this.setState({ history: [] });
   toggle = (key, text, label) => {
     this.setState(s => ({ history: [...s.history, { key: label || key, text: reflow(text) }] }), this.afterAppend);
     this.focusInput();
   };
-  closeDump = () => this.setState({ history: [] });
 
   renderVals() {
     const p = this.props || {};
@@ -698,9 +804,9 @@ class Component extends DCLogic {
     const shortSha = b && b.sha ? String(b.sha).slice(0, 7) : '';
     const builtAt = b && b.built_at ? new Date(b.built_at).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
     const buildMap = {
-      live: { label: 'SNAPSHOT', color: C.green, detail: builtAt ? builtAt + (shortSha ? ' / ' + shortSha : '') : 'loaded' },
-      sample: { label: 'SAMPLE DATA', color: C.gray, detail: 'no snapshot published' },
-      'sample-fallback': { label: 'NO SNAPSHOT', color: C.red, detail: 'showing sample data' }
+      live: { text: (builtAt || 'loaded') + (shortSha ? '  ' + shortSha : ''), color: C.green, title: 'last published push' },
+      sample: { text: 'SAMPLE DATA', color: C.gray, title: 'nothing published yet' },
+      'sample-fallback': { text: 'NO DATA', color: C.red, title: 'could not load published data; showing sample' }
     };
 
     const portrait = this.state.portrait, compact = this.state.compact;
@@ -721,6 +827,26 @@ class Component extends DCLogic {
       balthasar: compact ? agentBlocks.balthasar.fill : C.orange,
       lilith: compact ? lilith.color : C.amber
     };
+
+    const files = {};
+    if (d.log) files['LOG.md'] = d.log;
+    if (d.session) files['state/session.json'] = d.session;
+    if (d.live) files['state/live.json'] = d.live;
+    if (d.rounds) files['state/rounds.json'] = d.rounds;
+    Object.keys(d.verdicts || {}).forEach(k => { files['state/verdicts/' + k] = d.verdicts[k]; });
+    Object.keys(d.reviews || {}).forEach(k => { files['state/reviews/' + k] = d.reviews[k]; });
+    Object.keys(d.lilith || {}).forEach(k => { files['state/lilith/' + k] = d.lilith[k]; });
+    if ((d.errors || []).length) files['state/errors.json'] = d.errors;
+    this._files = files;
+    const declared = this.state.treePaths || [];
+    const allPaths = Object.keys(files).concat(declared.filter(pth => !files[pth]));
+    const treeRows = flatTree(makeTree(allPaths), 0, this.state.expanded, []).map(r => ({
+      ...r,
+      onClick: r.isDir ? () => this.toggleDir(r.path) : () => this.openFile(r.path)
+    }));
+    const rightPlace = portrait
+      ? ('grid-area:' + (compact ? '2' : '3') + ' / 1; flex-direction:row; gap:8px;')
+      : ('grid-area:1 / ' + (compact ? '2' : '3') + '; flex-direction:column;');
 
     return {
       session: {
@@ -756,13 +882,20 @@ class Component extends DCLogic {
       logEnter: this.logEnter, logLeave: this.logLeave, onLogWheel: this.onLogWheel,
       onLogTouchStart: this.onLogTouchStart, onLogTouchMove: this.onLogTouchMove, onLogTouchEnd: this.onLogTouchEnd,
       termExtra: this.state.maxPanel === 'term' ? maxStyle(portrait, compact) : '',
-      logExtra: this.state.maxPanel === 'log' ? maxStyle(portrait, compact) : '',
+      logExtra: this.state.maxPanel === 'log' ? MAX_BODY : '',
+      treeExtra: this.state.maxPanel === 'tree' ? MAX_BODY : '',
+      treeRows, rightPlace,
+      logFlex: portrait ? '1.15' : '1.5',
+      treeFlex: '1',
+      collapseTree: this.collapseTree,
+      treeMaxIcon: this.state.maxPanel === 'tree' ? '\u2921' : '\u2922',
+      toggleTreeMax: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.toggleMax('tree'); },
       gridExtra,
       termPlace: portrait ? ('grid-area:' + (compact ? '1' : '2') + ' / 1;') : (compact ? 'grid-area:1 / 1;' : ''),
       logPlace: portrait ? ('grid-area:' + (compact ? '2' : '3') + ' / 1;') : (compact ? 'grid-area:1 / 2;' : ''),
       centerPlace: compact ? 'display:none;' : (portrait ? 'grid-area:1 / 1;' : ''),
       headerExtra: portrait ? 'flex-wrap:wrap;' : '',
-      metaExtra: portrait ? 'flex:1 0 100%; border-left:none; border-top:1px solid #3a2408; justify-content:flex-start; overflow-x:auto; padding:5px 10px; gap:6px;' : '',
+      metaExtra: portrait ? 'flex:1 0 100%; border-left:none; border-top:1px solid #3a2408; justify-content:flex-start; flex-wrap:wrap; padding:5px 10px; gap:6px;' : '',
       brandExtra: portrait ? 'padding:6px 10px; gap:8px;' : '',
       titleExtra: portrait ? 'padding:6px 10px; gap:1px;' : '',
       wordExtra: portrait ? 'font-size:15px; letter-spacing:0.18em;' : '',
