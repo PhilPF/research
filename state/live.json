@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-08-18T02:10:00Z",
-  "phase": "lilith-propose",
+  "updated_at": "2026-08-18T02:30:00Z",
+  "phase": "awaiting-user",
   "claim_id": "jt-percoord",
   "round": 2,
   "agents": {
@@ -9,5 +9,13 @@
     "casper": {"status": "done", "slot": 1}
   },
   "extension": null,
-  "awaiting_user": null
+  "awaiting_user": {
+    "question": "jt-percoord Round 2 closed gap-located + misframed. Lilith proposed 4 directions for Round 3. Which should become the claim?",
+    "options": [
+      "1 — swap tested axiom for independence-of-nilpotent-parameters / silent-coordinate condition, resolving Melchior's free constant c (statement)",
+      "2 — drop symmetry framing for a direct information-preservation condition on the routing map (statement)",
+      "3 — construct the routing map via coinvariant descent under the per-coordinate scaling group (R^x)^n (technique)",
+      "4 — import the KMS-style two-Weil-algebra base/fiber bundle functor T^{A,B} (technique)"
+    ]
+  }
 }

@@ -1,0 +1,38 @@
+{
+  "claim_id": "jt-percoord",
+  "round": 2,
+  "mode": "propose",
+  "written_at": "2026-08-18T00:00:00Z",
+  "directions": [
+    {
+      "n": 1,
+      "description": "Replace the tested axiom with Balthasar's independence-of-nilpotent-parameters / silent-coordinate condition (compatibility with setting subsets of t_j=0); test candidate (a) and the full family {Phi^(b,c)} against it, simultaneously resolving Melchior's free routing constant c.",
+      "axis": "statement",
+      "routes_around": "Balthasar vacuous-or-trivial + Casper informational concurrence (wrong symmetry group chosen, S_2 relabeling structurally cannot discriminate) AND Melchior gap-found (candidate (b) underspecified by a free constant c)",
+      "heuristic": "Balthasar's own partial sketch already shows (a) passes unconditionally and (b) only at c=0 under t_2=0; full formalization across all c and general coupled F is unconfirmed."
+    },
+    {
+      "n": 2,
+      "description": "Drop symmetry/naturality framing entirely; reformulate the hypothesis as a direct information-preservation condition on the routing map rho (e.g. injectivity on the other-index derivative slot / explicit quantification of cross-derivative data discarded), making 'how much cross-index data survives' the literal subject instead of a symmetry proxy for it.",
+      "axis": "statement",
+      "routes_around": "Casper's named failure mode: a symmetry group can be structurally too coarse for the axis actually in dispute; this direction uses no symmetry group at all for the load-bearing hypothesis",
+      "heuristic": "Closer to what per-coordinate extension needs (faithful transport of coupling information) than any relabeling symmetry; satisfiability by any map into the 2-dimensional codomain is unconfirmed."
+    },
+    {
+      "n": 3,
+      "description": "Revive r2-propose's unused Direction 2 (construct, don't test, the routing map via symmetrization/coinvariant descent) but descend under the independent per-coordinate scaling group (R^x)^n instead of the S_n relabeling group now shown structurally non-discriminating.",
+      "axis": "technique",
+      "routes_around": "Round 2's structural finding that S_n-descent targets the wrong invariant (every own-vs-other-index rule already descends trivially under relabeling)",
+      "heuristic": "Averaging/coinvariant construction under a continuous scaling group rather than a finite permutation group is a different, less standard tool; whether a nonzero well-typed canonical map results is unconfirmed."
+    },
+    {
+      "n": 4,
+      "description": "Import the KMS-style two-Weil-algebra base/fiber bundle functor T^{A,B} to supply cross-term compatibility by construction, carried forward untouched from Round 1's propose Direction C, in place of any hand-built routing map plus after-the-fact symmetry test.",
+      "axis": "technique",
+      "routes_around": "The whole family of problems Round 1 and Round 2 exposed (underspecified ad hoc routing maps; symmetry axioms that don't bite) by not constructing a routing map from scratch at all",
+      "heuristic": "Unconfirmed whether T^{A,B}'s one base/one fiber compatibility shape can express the n-coordinate per-coordinate setup without collapsing back to a two-algebra picture; a lead, not a settled applicability result."
+    }
+  ],
+  "exhausted": null,
+  "review_file": "reviews/jt-percoord-r2-lilith.md"
+}

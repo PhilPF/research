@@ -100,3 +100,7 @@ literally stated is vacuous for this pair — satisfied by both candidates
 parameters / silent-coordinate test) DOES separate (a) from (b) [Balthasar];
 the (a)-vs-(b) dispute is really about how much cross-index data survives,
 not about coordinate-relabeling symmetry [Casper].
+
+Lilith (propose, jt-percoord r2-v2): 4 directions returned — see
+reviews/jt-percoord-r2-lilith.md and
+state/lilith/jt-percoord-r2-propose-v2.json. Awaiting user choice for Round 3.
