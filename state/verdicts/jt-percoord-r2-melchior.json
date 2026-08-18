@@ -1,0 +1,26 @@
+{
+  "claim_id": "jt-percoord",
+  "round": 2,
+  "agent": "melchior",
+  "started_at": "2026-08-18T19:26:00Z",
+  "ended_at": "2026-08-18T19:37:00Z",
+  "slot": 1,
+  "killed": false,
+  "verdict": "gap-found",
+  "fields": {
+    "location": "Background definition of candidate (b) ('degree-truncation'), as carried into the round-2 STATEMENT's request to test it against equivariance.",
+    "reason": "The description 'keeps only terms up to a fixed total nilpotent-degree bound, counted across all the W_j's jointly' fixes which graded piece of W_1⊗W_2 survives but not where that piece lands in the lower-dimensional target W_i. The surviving degree-<=1 piece of W_1⊗W_2 is 3-dimensional (span{1,e_1,e_2}) but W_i is 2-dimensional (span{1,e_i}), so an unstated routing map e_j -> c*e_i (j != i) is required to complete (b) into an actual map into W_i. As literally given, (b) denotes a one-parameter family {Phi^(b,c)}, not a single map: c=0 collapses (b) onto (a) (contradicting the background's claim that they disagree on surviving cross terms), while every c != 0 gives a distinct but, by direct computation (hand chain-rule derivation plus a numerical finite-difference check on a generic non-symmetric coupled pair f_1,f_2), equally sigma-equivariant map. Hence the round's question ('does equivariance rule out (a), (b), both, or neither') presupposes (b) is a definite object, but the definitions given do not pin it down, and the specific completion (c=1) needed to make (b) genuinely distinct from (a) is supplied by inference, not by the stated definitions.",
+    "audit_scope": "Checked: (1) literal reconstruction of maps (a) and (b) as W_1⊗W_2 -> W_i from the background text; (2) precise formalization of the swap automorphism sigma and the equivariance condition; (3) hand chain-rule derivation and independent numerical (finite-difference) verification of equivariance for (a) and for (b) under the natural c=1 completion, on a generic non-symmetric coupled system; (4) whether equivariance could discriminate among different c completions of (b) - found it cannot, for any fixed c; (5) correctness of the motivation's premise W_1 isomorphic to W_2; (6) quantifier scope of the equivariance requirement (all F vs symmetric F only). Not covered: degree bounds D != 1 for (b); n>2 or unequal-order cases (out of scope per claim); construction of a hypothetical map ruled out by equivariance (moot given the finding)."
+  },
+  "subtasks": [
+    {"name": "Reconstruct (a) and (b) as literal maps and check well-typedness", "status": "done"},
+    {"name": "Formalize swap automorphism and equivariance condition", "status": "done"},
+    {"name": "Test equivariance against (a) and (b) concretely (derivation + numeric)", "status": "done"},
+    {"name": "Check whether outcome depends on unstated choices in (b)", "status": "done"},
+    {"name": "Check quantifier scope and motivation premise (W_1 ~= W_2)", "status": "done"},
+    {"name": "Explore alternative degree bounds D for (b)", "status": "untouched"}
+  ],
+  "flags": ["none"],
+  "petition": null,
+  "review_file": "reviews/jt-percoord-r2-melchior.md"
+}
