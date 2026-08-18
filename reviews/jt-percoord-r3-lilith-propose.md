@@ -1,124 +1,176 @@
-# Lilith — Mode 1 (propose) — jt-percoord Round 3 (single-direction dispatch)
+# Lilith — Mode 1 (propose) — jt-percoord, post-Round-3
 
-## 0. Constraint on this run
+## 1. Reading of the full history
 
-Per instruction, exactly ONE direction, precise and self-contained enough
-to be dispatched directly as Round 3's MAGI claim (no user pick-from-menu
-step this time). The new input is a *pivot in subject*, not a request to
-rank Round 2's four carried directions — the researcher has explicitly
-said "we are not trying to study vector fields, but... how does this
-restrict the methods." So this round formalizes that pivot rather than
-selecting among the Round-2-propose menu (state/lilith/jt-percoord-r2-propose-v2.json).
+**Round 0 (jet-transport, scoping).** No claim yet; Lilith digested a raw
+batch of user questions into 5 candidate directions. Direction 4
+("per-coordinate fibered extension") was chosen by the user to become
+jt-percoord.
 
-## 1. What must be reused vs. what must not be reopened
+**Round 1.** Statement: per-coordinate Weil-lift jet transport, posed
+directly with no gluing/compatibility map specified between per-coordinate
+Weil algebras for coupled coordinates. Outcome: gap-located + misframed.
+Melchior located the missing compatibility map; Balthasar showed the
+statement was untyped for coupled systems and collapsed to the ordinary
+(non-fibered) construction for decoupled systems; Casper flagged that the
+direction was chosen from an uncommitted menu with no argued priority, and
+that per-coordinate lifting breaks a coordinate-freedom load-bearing for
+the broader program. **Classification: structural.** The statement itself
+had no well-typed content for the case it was meant to cover (coupling).
 
-- Round 1 located: the per-coordinate lift of a *vector field* requires an
-  ad hoc cross-term routing map ρ (candidates (a) index-blind projection,
-  (b) degree truncation) because a vector field's per-coordinate Weil
-  lift is not literally "evaluate an existing map in a bigger algebra" —
-  it must synthesize coupling data (∂f_i/∂x_j, j≠i) that has nowhere
-  canonical to land.
-- Round 2 located: naïve relabeling/swap symmetry cannot discriminate (a)
-  from (b) (structural, both candidates already "own-vs-other-index"
-  covariant); the independence-of-nilpotent-parameters probe can, but is
-  only partially formalized; (b) is underspecified by a free constant c.
-- The user's new input explicitly reframes the object of study: instead
-  of asking "which routing map ρ is correct for the vector-field lift,"
-  ask "which numerical/geometric integration METHODS M commute with
-  taking a (possibly distinct-order) per-coordinate Weil lift of the
-  vector field" — i.e., treat routing/lift-construction as a fixed
-  background convention and make the method the variable.
-- To keep the new statement well-posed WITHOUT re-litigating Round 1/2's
-  open question, this direction fixes ρ = candidate (a) (index-blind
-  projection / full multivariable Taylor expansion truncated
-  coordinatewise) as the lift convention. (a) is the only candidate that
-  survived every test run so far (both Round 2 tests, vacuous or partial,
-  never disqualified it), so fixing it is the least assumption-laden
-  choice available, not a re-adjudication.
+**Round 2.** Statement narrowed to equal-order W_1=W_2, added a
+renaming/relabeling-equivariance requirement meant to discriminate between
+two candidate cross-term maps, (a) index-blind projection and (b)
+degree-truncation. Outcome: gap-located + misframed again. Balthasar showed
+swap-equivariance as literally stated is satisfied by *both* candidates —
+it does not discriminate at all — but located a *different* probe
+(independence of per-coordinate nilpotent parameters) that does separate
+them. Melchior showed candidate (b) needs an unspecified routing
+coefficient and collapses to (a) at one value of it. Casper: the dispute
+was never really about relabeling symmetry. **Classification: structural.**
+The diagnostic chosen to adjudicate between candidates was orthogonal to
+what actually separates them; a real discriminator exists but wasn't the
+one tested.
 
-## 2. The key structural observation that makes this a genuinely new question
+**Round 3.** Statement fixed the lift to candidate (a), and posed jet
+transport as a naturality/commuting identity M[L_D(F)] = T_D(Phi_h^M[F])
+in W_D, tested against five methods including a search for a B-series
+necessary-and-sufficient structural condition. Outcome: gap-located +
+misframed for a third time. Melchior: L_D(F) is only defined on-slice;
+off-slice, candidate (a) has two readings ("a-full" vs "a-trunc") that
+diverge, with an explicit witness. Balthasar: under (a), the hypothesis on
+M *already is* the sufficient condition — the identity is definitional,
+so D_1≠D_2 does no work — and backward Euler is a genuine counterexample
+to the necessity half (it commutes exactly, yet is not a B-series method).
+Casper: the whole setup is close to product-preserving-functor naturality
+with no negative control, so necessity is structurally unreachable as
+posed. Both extension petitions (Melchior's well-definedness audit of
+a-trunc; Balthasar's exact-jet/AD probe) were denied because both would
+have run *inside* the same undefined convention rather than resolving it.
+**Classification: structural.** The lift itself (candidate (a)) is
+underspecified exactly where the test needs it defined (off-slice), and
+even where it is defined, the commuting condition it induces is close to
+tautological — it cannot fail for the class of M it was built from, so
+"necessity" was never a testable question in this formulation.
 
-Lifting a *map* Φ: R^n → R^n via the Weil functor T_D (the actual
-multivariable Taylor expansion of Φ using real partial derivatives) is
-CANONICAL — no routing ambiguity, because Φ already has honest mixed
-partial derivatives ∂Φ_i/∂x_j to draw on. The routing ambiguity that
-Round 1 found is specific to lifting a *vector field* (an infinitesimal
-generator, not itself a map between Weil spaces) independently along each
-coordinate direction. This means the new question — does running a
-method's formula in Weil-algebra arithmetic on the lifted vector field
-match the canonical functorial lift of the method's ordinary output map —
-is well-posed on its "target" side even before ρ is chosen, and only
-needs ρ fixed on its "source" side. That asymmetry is exactly what
-licenses treating M, not ρ, as the free variable this round.
+## 2. The three-round pattern (§6.6)
+
+All three closed rounds on jt-percoord landed on **gap-located +
+misframed**, and in each case the failure is structural rather than a
+missing lemma:
+
+- R1: the statement had no well-typed content for the coupled case it was
+  meant to cover.
+- R2: the discriminating test chosen was orthogonal to the actual
+  distinction between candidates.
+- R3: the lift candidate is undefined off-slice, and on-slice the
+  commuting condition it generates is close to definitional/tautological,
+  giving no negative control.
+
+This is not "three technical setbacks on the same sound idea." It is the
+same underlying move — pick an ad hoc candidate cross-term/lift
+construction, then test a naturality-style identity built directly from
+that candidate — failing for a related but distinct structural reason each
+time. Per operating rule §6.6, three consecutive rounds with no movement
+on one statement calls for stopping to summarize and asking the user how
+to proceed, rather than reflexively proposing a fourth attempt in the same
+vein. I am flagging this explicitly per the task instruction. I am still
+providing directions below (Mode 1 requires it), but they should be read
+as candidates for *if* the user chooses to continue on jt-percoord, not as
+a substitute for that decision point.
 
 ## 3. Duplication check
 
-Not a repeat of any Round 1/2 direction: Round 1's Direction C (import
-T^{A,B} functor) and this round's use of T_D are related only in that
-both invoke Weil-functor machinery, but Direction C proposed importing an
-external bundle functor to construct ρ itself; here T_D is used only on
-the *output side* (lifting the method's plain flow-map, where no routing
-choice is needed at all) and ρ is a fixed input, not the subject. Round
-2's Directions 1-4 (independence-of-nilpotent-parameters, information-
-preservation criterion on ρ, scaling-group descent, T^{A,B} import) are
-all still about ρ/ the vector-field lift; none of them ask which methods
-commute with a fixed lift. This is a distinct axis, not a cosmetic
-variant.
+None of the five directions below repropose: fixing L_D to a specific
+candidate and testing exact-identity commuting (R3's move); the
+swap/relabeling-equivariance diagnostic (R2's move, shown vacuous); or an
+unglued per-coordinate statement with no compatibility map (R1's move).
+Direction 3 (restricting the method class) is close in spirit to
+Balthasar's carried finding about widening M, but reframes it as a
+statement split rather than a widened test — flagged as such below rather
+than presented as novel.
 
-## 4. The single formalized statement
+## 4. Directions
 
-Fix n≥2, an order vector D=(D_1,…,D_n) with each D_i≥1 (distinct orders
-per coordinate permitted), and the Weil algebra
-W_D := R[e_1,…,e_n] / (e_1^{D_1+1},…,e_n^{D_n+1}).
+**Direction 1 — replace exact identity with an order/defect measure
+(statement axis).** Instead of asking whether M[L_D(F)] equals
+T_D(Phi_h^M[F]) identically in W_D (a binary condition that Round 3 showed
+collapses to definitional under candidate (a)), restate jet transport as a
+question about the *order in h* of the discrepancy between the two sides,
+for a lift construction that need not be exact off-slice. This was flagged
+as "asymptotic-in-h refinement (untouched)" in Round 3's own unfinished
+list. [HEURISTIC] An order-based statement gives real negative control:
+two methods can share leading-order behavior but diverge at higher order,
+so the statement stops being automatically true of whatever M the lift was
+built from.
 
-**Per-coordinate Weil lift of a vector field (fixed convention, = Round-1
-candidate (a), not reopened this round):** for F:R^n→R^n admissible
-(polynomial or C^∞), define
-  L_D(F)(x + t·e) := Σ_{α : 0≤α_i≤D_i} (1/α!) ∂^α F(x) · t^α,
-t=(t_1,…,t_n) independent nilpotent parameters, e=(e_1,…,e_n).
+**Direction 2 — ground the lift in a universal property instead of a
+picked candidate (statement axis).** Rounds 1–3 all built the per-coordinate
+lift from an ad hoc candidate chosen off a short menu (index-blind
+projection, degree-truncation, ...). Replace this with a lift required to
+satisfy an explicit universal property relative to the category of Weil
+algebras and Weil-algebra homomorphisms (e.g., characterized as the unique
+natural transformation compatible with all structure maps between W_D and
+its coordinate projections/truncations), rather than tested post hoc for
+properties like swap-equivariance. [HEURISTIC] This targets Casper's
+"near-circular naturality with no negative control" directly: a
+universal-property lift is either unique and forced, or provably
+nonexistent — both outcomes are informative, unlike a candidate chosen
+first and then checked for closure properties it may already encode.
 
-**One-step method:** M is an algorithm that, given (F,h), produces an
-update map Φ_h^M[F]: R^n→R^n approximating the time-h flow of ẋ=F(x),
-defined by a fixed formula built from finitely many evaluations of F (and,
-for implicit methods, a solve of an implicit equation in F) — well-typed
-by literal substitution over any commutative R-algebra in which that
-formula makes sense. This is exactly the sense in which "the same method"
-can be run with W_D-arithmetic in place of R-arithmetic.
+**Direction 3 — split the claim into a scoped-sufficiency statement plus a
+separate, explicitly open widening question (statement axis).** Round 3's
+backward-Euler counterexample kills the necessity half of any B-series
+characterization exactly because backward Euler needs an implicit
+solve/root selection to commute exactly. Rather than continue testing "is
+the structural condition necessary and sufficient," restate the target as
+sufficiency-only for the class of methods expressible via elementary
+differentials (B-series), and log the wider class (implicit/root-selecting,
+adaptive, norm-comparison methods) as a distinct, separately-scoped
+question rather than folding it into the same necessity test. ROUTES
+AROUND: this is adjacent to Balthasar's carried "widen M" finding but is
+not the same move — it does not widen the *test*, it splits the *claim*
+so the counterexample no longer falsifies the statement being tested.
+[HEURISTIC] Necessity claims are exactly what backward Euler broke;
+removing them from the object of test (rather than patching the
+definition again) is a statement-axis move, not a technique retry.
 
-**Canonical Weil lift of a map (no routing choice needed):** for
-Φ:R^n→R^n, T_D(Φ)(x+t·e) := Σ_{α:0≤α_i≤D_i} (1/α!) ∂^αΦ(x)·t^α — the
-ordinary multivariable Taylor/chain-rule lift, unambiguous because Φ is
-already a genuine map with real mixed partials.
+**Direction 4 — require naturality across the whole diagram of Weil
+algebras, not just at one fixed D (technique axis, genuinely different
+from R3's fixed-D test).** Round 3 tested commuting at one fixed W_D.
+Instead, require compatibility with the truncation/refinement maps that
+relate W_D to W_D' for varying per-coordinate order vectors D, D'
+(an indexed/diagram condition rather than a single square). ROUTES AROUND:
+Balthasar's finding that under candidate (a), the single-D identity is
+definitional and D_1≠D_2 is inert — a diagram condition across several D's
+simultaneously is not automatically satisfied by construction the way a
+single instance is, since it constrains how M behaves as the truncation
+maps vary. [HEURISTIC] This is the same broad technique family
+(naturality/functoriality) but changes what must be shown enough that the
+Round 3 tautology argument does not immediately transfer — untested,
+flagged as a technique-axis change under the routing-around requirement
+rather than a statement change.
 
-**Commutation condition (the property to characterize):** M commutes
-with the per-coordinate Weil lift L_D if, for every admissible F, every D,
-every h>0, and every base point x_0∈R^n,
-  M[ L_D(F) ] (x_0 + t·e)  =  T_D( Φ_h^M[F] ) (x_0 + t·e)   for all t,
-as an identity in W_D — i.e., "run M's defining formula in W_D-arithmetic
-on the per-coordinate-lifted vector field, starting from the lifted
-point" equals "run M in ordinary real arithmetic to get its output map,
-then take that map's canonical functorial Weil lift."
+**Direction 5 — leave the per-coordinate axis and take a different Round-0
+branch (statement axis, structural pivot).** All three closed rounds on
+the per-coordinate fibered-extension branch (Round 0 Direction 4) failed
+structurally, and Casper flagged in Round 1 that this branch breaks a
+coordinate-freedom load-bearing for the broader jet-transport program.
+Round 0 produced 5 candidate directions total; the other four
+(parameter/time/initial-value extension, nested/iterated extension,
+isomorphic-dimension Weil algebras, vector-field class strengthening —
+exact list in reviews/jet-transport-r0-lilith.md) have not been tried.
+[HEURISTIC] A branch that fails structurally three times running is weak
+evidence the branch itself, not just each statement tried on it, is the
+obstruction; an unrelated branch from the same original menu is a cheaper
+way to make progress on the broader program than a fourth per-coordinate
+attempt.
 
-**MAGI's task:** for the concrete test family {explicit Euler, explicit
-midpoint/RK2, classical RK4, backward (implicit) Euler, the truncated
-Taylor-series ("exact jet") method of order max_i D_i}, on at least one
-genuinely coupled 2-coordinate test vector field with D_1≠D_2 permitted,
-determine which of these methods satisfy the commutation identity exactly
-(for all D and all admissible F), which fail it, which hold only to some
-asymptotic order in h, and whether there is an identifiable structural
-property of M's defining formula (e.g., expressible purely as a finite
-polynomial in F and its partial derivatives evaluated at x_0 — i.e., a
-B-series / elementary-differential-type method with no comparison,
-ordering, or norm operation baked into its definition) that is necessary
-and/or sufficient for commutation to hold at every order D.
+## 5. Note on axis balance
 
-## 5. Why this is the right single candidate here
-
-It is the direct, minimal formalization of the researcher's own words —
-"which methods do accept this kind of behavior" — with no invented
-extra content beyond what is needed to make "commutes with" precise (the
-T_D vs. L_D asymmetry in §2 is exactly the piece that had to be supplied
-to make the two sides of the commutation square well-typed). It reuses
-Round 1's surviving candidate (a) only as a fixed background convention,
-so it neither re-litigates the closed ρ-question nor smuggles a verdict
-on it in through the back door.
+Per the propose-mode rule to prioritize statement-axis ideas when the log
+shows `misframed`, four of five directions above are statement-axis
+(1, 2, 3, 5); one (4) is technique-axis, included because it is
+*qualitatively* different from the fixed-D test that failed in Round 3
+(it constrains a diagram, not a single square) rather than a patched
+version of the same test.

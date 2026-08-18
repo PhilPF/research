@@ -170,3 +170,12 @@ widening M beyond algebra-homomorphism-preserved operations
 setup is near-circular product-preserving-functor naturality with no
 negative control, so necessity is unreachable by construction as posed
 [Casper].
+
+Lilith (propose, jt-percoord r3-v2): 5 directions returned, PLUS an explicit
+§6.6 flag — jt-percoord has now closed 3 consecutive rounds (1,2,3), all
+gap-located+misframed, each a different structural reason but the same
+underlying pattern (testing an ad hoc candidate construction rather than a
+well-posed one). Per standing rule 6.6, this is logged as the stop-and-ask
+trigger; directions supplied are options for the user's decision, not a
+default next dispatch. See reviews/jt-percoord-r3-lilith-propose.md and
+state/lilith/jt-percoord-r3-propose-v2.json. Awaiting user decision.
