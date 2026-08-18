@@ -114,3 +114,26 @@ not about coordinate-relabeling symmetry [Casper].
 Lilith (propose, jt-percoord r2-v2): 4 directions returned — see
 reviews/jt-percoord-r2-lilith-propose2.md and
 state/lilith/jt-percoord-r2-propose-v2.json. Awaiting user choice for Round 3.
+
+## Round 3 — 2026-08-18 — jt-percoord
+Statement: Fix n>=2, per-coordinate order vector D, Weil algebra
+W_D=R[e_1..e_n]/(e_i^{D_i+1}), with vector-field lift L_D fixed to Round-1
+candidate (a) index-blind projection (background, not reopened). Define a
+one-step method M "commutes with L_D" if M[L_D(F)] = T_D(Phi_h^M[F])
+identically in W_D (T_D = canonical routing-free lift of an actual map via
+real mixed partials). Test on {explicit Euler, RK2, RK4, implicit Euler,
+exact-jet/truncated-Taylor method} on a coupled 2-D system with D_1!=D_2
+permitted: which methods satisfy the identity exactly, which fail/hold only
+to some order, and whether a structural (B-series/elementary-differential)
+condition on M is necessary/sufficient. (Lilith's single formalized
+proposal, per user instruction; dispatched directly to MAGI, no
+pick-from-menu step.)
+Argument shape: none — round 1 of testing this specific claim.
+Outcome: pending (MAGI dispatched, awaiting reports).
+MAGI: dispatched (melchior, balthasar, casper) in parallel, identical
+sanitized input, MODEL OVERRIDE: Opus (claude-opus-5) instead of default
+Sonnet, TIME OVERRIDE: 5-minute budget per agent instead of standard
+10 minutes (scaled hard-kill ~7.5 min instead of 15), per explicit user
+instruction for this round only.
+Extensions: none yet.
+Reviews: reviews/jt-percoord-r3-{melchior,balthasar,casper}.md (pending)
