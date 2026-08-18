@@ -52,3 +52,13 @@ uncommitted menu with no argued priority (Casper).
 Lilith (propose, jt-percoord r1): 4 directions returned — see
 reviews/jt-percoord-r1-lilith.md and state/lilith/jt-percoord-r1-propose.json.
 Awaiting user choice for Round 2.
+
+New user input (jt-percoord, pre-round-2): renaming-invariance idea — the
+two per-coordinate Weil algebras R[eps_1]/(eps_1)^2 and R[eps_2]/(eps_2)^2
+are the same algebra under symbol renaming; should a method be required to
+respect that renaming-invariance the way an ODE's solution is invariant
+under a consistent renaming of its variables? Framed as a question about
+what the *method* accepts (not the vector field), and whether requiring it
+as part of jet-transport's machinery is sensible and how restrictive it is.
+Dispatched to Lilith (propose mode, capped at exactly 2 directions) to fold
+into the jt-percoord direction-space alongside Round 1's findings.
