@@ -2,6 +2,13 @@ name: Build MAGI dashboard
 
 # Rebuilds and republishes the dashboard whenever any session branch
 # commits new state. READS state; WRITES only the published Pages site.
+#
+# IMPORTANT — deterministic inputs:
+# A push to a session branch triggers this workflow, but the site source
+# and the collector script are ALWAYS taken from the default branch, never
+# from the branch that happened to trigger the run. Otherwise a session
+# branch that forked before the latest dashboard fixes would republish its
+# own stale docs/ and run its own stale scripts/.
 on:
   push:
     branches: ['**']
@@ -13,13 +20,16 @@ on:
       - 'scripts/collect_state.py'
       - '.github/workflows/dashboard.yml'
   workflow_dispatch:
+  # Safety net: catches state pushed from branches whose workflow file is
+  # missing or outdated (they cannot trigger this workflow themselves).
+  schedule:
+    - cron: '17 * * * *'   # hourly, offset to avoid the busy top of hour
 
 permissions:
   contents: read      # never write to state/, reviews/, LOG.md
   pages: write
   id-token: write
 
-# Coalesce bursts of commits into a single build.
 concurrency:
   group: magi-dashboard
   cancel-in-progress: true
@@ -28,10 +38,28 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout (all branches)
+      # Checkout the DEFAULT branch, not the triggering ref.
+      # fetch-depth: 0 still brings every branch's history, which is what
+      # collect_state.py walks to find sessions.
+      - name: Checkout default branch (all history)
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.repository.default_branch }}
           fetch-depth: 0
+
+      - name: Report build inputs
+        run: |
+          echo "triggered by : ${{ github.ref_name }} (${{ github.event_name }})"
+          echo "building from: ${{ github.event.repository.default_branch }}"
+          echo "site commit  : $(git rev-parse --short HEAD)"
+
+      - name: Sanity-check the collector
+        run: |
+          set -e
+          test -f scripts/collect_state.py || { echo "::error::scripts/collect_state.py missing on default branch"; exit 1; }
+          head -1 scripts/collect_state.py | grep -q 'python3' \
+            || { echo "::error::collect_state.py does not look like a Python script — is it a corrupted copy?"; exit 1; }
+          test -f docs/index.html || { echo "::error::docs/index.html missing on default branch"; exit 1; }
 
       - name: Assemble site
         run: |
@@ -42,6 +70,7 @@ jobs:
           python3 scripts/collect_state.py --out _site/data
           echo "--- generated ---"
           ls -la _site/data
+          test -s _site/data/index.json || { echo "::error::index.json was not produced"; exit 1; }
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
