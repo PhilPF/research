@@ -1,0 +1,26 @@
+{
+  "claim_id": "jt-percoord",
+  "round": 2,
+  "agent": "balthasar",
+  "started_at": "2026-08-18T00:00:00Z",
+  "ended_at": "2026-08-18T00:10:00Z",
+  "slot": 1,
+  "killed": false,
+  "verdict": "vacuous-or-trivial",
+  "fields": {
+    "counterexample": "n/a",
+    "locates": "Swap-equivariance (e_1<->e_2, x_1<->x_2 relabeling) as literally stated is satisfied by BOTH candidate (a) index-blind projection and candidate (b) degree-truncation, in every formalization of (b) faithful to its verbal description in the equal-order case. Verified by exact symbolic-integer computation on a generic coupled asymmetric polynomial system (full polynomial-coefficient identity, not a point sample) and confirmed structurally: both maps are built from an 'own index vs other index' rule that never hard-codes concrete index 1 vs 2, so any such rule is automatically covariant under simultaneous relabeling. The requirement can only ever exclude a map that hard-codes a concrete index asymmetrically; neither named candidate does. A related but distinct test (does the map admit independent per-coordinate nilpotent weights t_1 != t_2, e.g. a 'perturb x_1 only' silent-coordinate case?) DOES separate them: (a) supports independent t_1,t_2; (b)'s identification e_1=e_2=e forces t_1=t_2 by construction. Minimal condition to make the stated test non-vacuous: include a genuinely non-covariant third candidate, or replace/augment the swap test with an independence-of-nilpotent-parameter / restriction-to-silent-coordinate requirement.",
+    "scope": "Equal-order case W_1=W_2=R[e]/(e^2) only, as required by the claim. Candidates (a) and (b) exactly as named, under every formalization of (b) consistent with its verbal description including degenerate bound-0. One explicit generic asymmetric coupled polynomial vector field checked as an exact polynomial identity, supplemented by a structural/algebraic argument (independent of choice of f_1,f_2) for why the result generalizes within this scope. Not swept: general-order Weil algebras, n>2, non-polynomial f_i (out of scope for this round)."
+  },
+  "subtasks": [
+    {"name": "Formalize candidates (a) and (b) precisely", "status": "done"},
+    {"name": "Formalize swap/relabeling automorphism", "status": "done"},
+    {"name": "Symbolic/exact equivariance test on generic asymmetric coupled system", "status": "done"},
+    {"name": "Search alternative formalizations of (b) for a version that breaks equivariance", "status": "done"},
+    {"name": "Probe adjacent structural differences (independence of nilpotent parameters)", "status": "partial"},
+    {"name": "Satisfiability/non-triviality of hypotheses", "status": "done"}
+  ],
+  "flags": ["none"],
+  "petition": null,
+  "review_file": "reviews/jt-percoord-r2-balthasar.md"
+}

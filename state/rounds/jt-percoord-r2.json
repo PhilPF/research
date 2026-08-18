@@ -1,0 +1,23 @@
+{
+  "claim_id": "jt-percoord",
+  "round": 2,
+  "statement": "Restrict to the equal-order case W_1=W_2=R[e]/(e^2). Require the per-coordinate lift to satisfy relabeling/renaming equivariance (swapping which coordinate gets which formal nilpotent symbol, together with x_1<->x_2, must commute with forming the lift). Test whether this rules out, distinguishes, or is vacuous for the two Round-1-located candidate cross-term maps: (a) index-blind projection, (b) degree-truncation.",
+  "argument_shape": "none — round 1 of testing this specific claim; MAGI assessed the statement/hypothesis as posed.",
+  "dispatched_at": "2026-08-18T01:30:00Z",
+  "completed_at": "2026-08-18T02:10:00Z",
+  "outcome": "gap-located + misframed (Melchior gap-found triggers row 1; Balthasar vacuous-or-trivial triggers row 4; Casper 'plausible' is informational, not itself a table trigger)",
+  "verdicts": [
+    "state/verdicts/jt-percoord-r2-melchior.json",
+    "state/verdicts/jt-percoord-r2-balthasar.json",
+    "state/verdicts/jt-percoord-r2-casper.json"
+  ],
+  "extensions": [],
+  "lilith": "state/lilith/jt-percoord-r2-propose-v2.json",
+  "carried_to_eve": [
+    "Melchior: candidate (b) 'degree-truncation' is underspecified as given — completing it into an actual map W_1 (x) W_2 -> W_i requires an unstated routing coefficient c (e_j -> c*e_i); c=0 collapses (b) onto (a), and every fixed c is equally swap-equivariant, so (b) as stated is really a one-parameter family, not one definite candidate.",
+    "Balthasar: swap/relabeling equivariance as literally stated is satisfied by BOTH (a) and (b) for every faithful formalization of (b) (confirmed by exact symbolic computation on a generic asymmetric coupled system) — neither candidate hard-codes an index asymmetry, so the test is vacuous for this pair as posed.",
+    "Balthasar: a DIFFERENT, related probe DOES separate (a) and (b) — independence of per-coordinate nilpotent parameters (a 'silent coordinate' / t_1 != t_2 restriction test): (a) supports independent per-coordinate weights, (b)'s identification e_1=e_2=e forces them equal by construction. This is a concrete, untested alternative hypothesis carried forward.",
+    "Casper: flagged in advance that swap-symmetry is orthogonal to the real (a)-vs-(b) dispute, which is about how much cross-index data survives, not about coordinate-relabeling; corroborates the vacuity finding as a yield concern rather than a miscast question.",
+    "Balthasar (untouched): general-order Weil algebras, n>2, non-polynomial f_i were out of this round's scope and remain open for a future, more general round."
+  ]
+}

@@ -83,3 +83,20 @@ the two candidate maps) needed to make the claim well-posed, per the user's
 renaming-invariance idea (Lilith r2-propose Direction 1).
 Extensions: none yet.
 Reviews: reviews/jt-percoord-r2-{melchior,balthasar,casper}.md (pending)
+
+## Round 2 (closed) — 2026-08-18 — jt-percoord
+Outcome: gap-located + misframed (both §5 rows independently triggered)
+MAGI: M gap-found | B vacuous-or-trivial | C plausible (constructive; informational, not a table trigger)
+Unfinished: Melchior — alternative degree bounds D!=1 for candidate (b)
+(untouched). Balthasar — the independence-of-nilpotent-parameters probe
+(partial; only sketched, not fully worked); general-order/n>2/non-polynomial
+cases (untouched, out of round scope).
+Extensions: none petitioned.
+Reviews: reviews/jt-percoord-r2-{melchior,balthasar,casper}.md
+Carried to Lilith: candidate (b) is underspecified (needs a routing
+coefficient; collapses to (a) at c=0) [Melchior]; swap-equivariance as
+literally stated is vacuous for this pair — satisfied by both candidates
+[Balthasar]; a DIFFERENT probe (independence of per-coordinate nilpotent
+parameters / silent-coordinate test) DOES separate (a) from (b) [Balthasar];
+the (a)-vs-(b) dispute is really about how much cross-index data survives,
+not about coordinate-relabeling symmetry [Casper].
