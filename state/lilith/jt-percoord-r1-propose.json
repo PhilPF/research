@@ -1,0 +1,38 @@
+{
+  "claim_id": "jt-percoord",
+  "round": 1,
+  "mode": "propose",
+  "written_at": "2026-08-18T00:00:00Z",
+  "directions": [
+    {
+      "n": 1,
+      "description": "Restrict the vector-field class to those with a flow-invariant skew-product/triangular fibered structure, so cross-coordinate nilpotent terms have a canonical, order-respecting home instead of requiring an ad hoc gluing map.",
+      "axis": "statement",
+      "routes_around": "Melchior gap (cross terms have no home) and Balthasar vacuous-or-trivial (symmetric coupling forces undefined-or-collapse); avoids inventing a third patched gluing reading of R1/R2.",
+      "heuristic": "One-directional coupling is a genuine third class distinct from Balthasar's diagonal (no content) and symmetric-coupled (undefined/collapses) cases."
+    },
+    {
+      "n": 2,
+      "description": "Pivot from per-coordinate splitting to Round-0 item (j): test naturality/invariance of jet transport under replacing a Weil algebra by a non-canonically-isomorphic same-dimension one.",
+      "axis": "statement",
+      "routes_around": "Balthasar's §5c non-canonicity finding (exterior algebra vs all-cross-terms-zero algebra give inequivalent dynamics); reframes the exact defect found as the subject of the claim.",
+      "heuristic": "[HEURISTIC] Turns a side-defect discovered in Round 1 into the primary object of study, avoiding the coordinate-splitting typing problem entirely."
+    },
+    {
+      "n": 3,
+      "description": "Import the literature's two-Weil-algebra fibered bundle functor (Kolar-Michor-Slovak style T^{A,B} for a fibered manifold p:Y->M, base algebra A + fiber algebra B with built-in compatibility) as the formalization of 'fibered extension', replacing the ad hoc n-independent-algebras construction.",
+      "axis": "technique",
+      "routes_around": "Melchior's untouched literature-comparison subtask; replaces the no-compatibility-structure construction that produced the typing failure with one that has compatibility built in by definition.",
+      "heuristic": "[HEURISTIC] A published base/fiber construction needs only one compatibility datum, not pairwise compatibility among all n per-coordinate algebras; unconfirmed whether jet-transport-style properties have been checked against it."
+    },
+    {
+      "n": 4,
+      "description": "Abandon per-coordinate splitting for the sibling Round-0 axis (f), initial-value extension, using a single Weil algebra along the initial-value direction with no per-coordinate splitting at all.",
+      "axis": "statement",
+      "routes_around": "Casper's likely-misframed finding that (g) was chosen from an uncommitted menu without argued priority over (f)/(h); sidesteps the multi-algebra compatibility problem by construction (only one algebra used).",
+      "heuristic": "[HEURISTIC] Round 0 already flagged (f) as the most classically grounded entry point with closer literature precedent (variational-equation/flow-Jacobian prolongation), so it was never exposed to Round 1's obstruction."
+    }
+  ],
+  "exhausted": null,
+  "review_file": "reviews/jt-percoord-r1-lilith.md"
+}

@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-08-18T00:40:00Z",
-  "phase": "lilith-propose",
+  "updated_at": "2026-08-18T01:00:00Z",
+  "phase": "awaiting-user",
   "claim_id": "jt-percoord",
   "round": 1,
   "agents": {
@@ -9,5 +9,13 @@
     "casper": {"status": "done", "slot": 1}
   },
   "extension": null,
-  "awaiting_user": null
+  "awaiting_user": {
+    "question": "jt-percoord Round 1 closed gap-located + misframed. Lilith proposed 4 directions. Which should become Round 2's single claim?",
+    "options": [
+      "1 — restrict to flow-invariant skew-product/triangular fibered structure (statement)",
+      "2 — pivot to naturality/invariance under non-canonical isomorphism of same-dimension Weil algebras (statement)",
+      "3 — import Kolar-Michor-Slovak two-Weil-algebra fibered bundle functor T^{A,B} as the formalization (technique)",
+      "4 — abandon per-coordinate splitting for Round-0 Direction 2 (initial-value extension) instead (statement)"
+    ]
+  }
 }

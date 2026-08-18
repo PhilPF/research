@@ -48,3 +48,7 @@ non-canonical among same-dimension alternatives, tying to Direction 5
 (Balthasar); per-coordinate lift breaks coordinate-freedom that appears
 load-bearing for the broader program (Casper); axis was picked from an
 uncommitted menu with no argued priority (Casper).
+
+Lilith (propose, jt-percoord r1): 4 directions returned — see
+reviews/jt-percoord-r1-lilith.md and state/lilith/jt-percoord-r1-propose.json.
+Awaiting user choice for Round 2.
