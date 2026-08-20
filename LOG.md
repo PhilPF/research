@@ -221,3 +221,28 @@ the isomorphic case; the non-isomorphic angle is a distinct question).
 Dispatching Lilith (propose, capped at exactly 1) to formalize a single
 precise claim for direct MAGI dispatch, per the user's instruction. New
 claim-id to be assigned by Lilith's framing: tentatively "jt-nonisom".
+
+## Round 1 — 2026-08-18 — jt-nonisom
+Statement: On the minimal anchor pair A=R[e]/(e^3) (dim 3) and
+A'=R[e1,e2]/(e1,e2)^2 (dim 3), same dimension but non-isomorphic
+(dim(m/m^2)=1 for A vs 2 for A'). Generalize Direction 5's
+isomorphism-equivariance to naturality under EVERY algebra homomorphism
+between same-dimension Weil algebras. Exhibit non-invertible f:A->A',
+f(e)=e1, and g:A'->A, g(e1)=e^2,g(e2)=0 (flagged non-canonical — g(e1)=0,
+g(e2)=e^2 equally valid), inducing natural transformations T_A<=>T_A'.
+Determine whether commuting with these is (a) genuinely new/non-vacuous,
+(b) already implied, or (c) vacuous/degenerate to the trivial through-R map.
+(Lilith's single formalized proposal on jet-transport Round 0 Direction 5,
+non-isomorphic case, per the user's direction.)
+Argument shape: none — round 1, no argument attempted yet.
+Outcome: pending (MAGI dispatched, awaiting reports). NOTE: per the
+session-adopted definitional-halt rule, if any agent reports a two-reading
+ambiguity with a divergence witness (the g non-canonicity flagged in the
+statement itself is a candidate), the round halts at close with outcome
+definitional-ambiguity instead of proceeding through the normal table.
+MAGI: dispatched (melchior, balthasar, casper) in parallel, identical
+sanitized input, default Sonnet model / 10-min budget (the Opus/5-min
+override was scoped to jt-percoord round 3 only, per the user's "this time"
+wording).
+Extensions: none yet.
+Reviews: reviews/jt-nonisom-r1-{melchior,balthasar,casper}.md (pending)

@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-08-18T03:45:00Z",
-  "phase": "lilith-propose",
+  "updated_at": "2026-08-18T03:55:00Z",
+  "phase": "magi-running",
   "claim_id": "jt-nonisom",
   "round": 1,
   "agents": {
-    "melchior": {"status": "not-dispatched", "slot": 0},
-    "balthasar": {"status": "not-dispatched", "slot": 0},
-    "casper": {"status": "not-dispatched", "slot": 0}
+    "melchior": {"status": "launched", "slot": 1},
+    "balthasar": {"status": "launched", "slot": 1},
+    "casper": {"status": "launched", "slot": 1}
   },
   "extension": null,
   "awaiting_user": null
