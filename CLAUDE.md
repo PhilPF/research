@@ -128,12 +128,61 @@ whatever it wrote to its review file, and do not retry it in this round.
 
 | Condition | Outcome |
 |---|---|
+| **Any agent reports `definitional-ambiguity` with a witness** | **Halts the round. Outranks every row below.** See "Definitional halt". |
 | Melchior `gap-found` | **Gap located.** Not a rejection — route to Lilith as a concrete target. |
 | Balthasar `counterexample-found` | **Calibration.** The counterexample marks where hypotheses must tighten. → Lilith, statement-axis. |
 | Melchior `no-gap-found` **and** Balthasar `counterexample-found` | **`LOCALIZED-GAP` — highest-value outcome.** The argument implicitly excluded that object; the missing hypothesis sits exactly there. Surface prominently, route to Lilith as a statement-axis lead. |
 | Balthasar `vacuous-or-trivial` **or** Casper `likely-misframed` | **Misframed as posed.** The question is wrong, not the method. → Lilith, statement-axis. |
 | All three clean, no counterexample within scope | **Candidate stable** — see below. |
 | Agent missing, errored, or killed | **Incomplete round.** Report as such; never treat as clean. |
+
+### Definitional halt
+
+Everything the MAGI cannot resolve on their own converges here: Melchior
+may locate an ambiguity but not choose between readings, Lilith may not
+rule on mathematical truth, and you may not do mathematics at all. A
+contested convention therefore has no resolution path inside the system.
+Only the user can close it.
+
+**Trigger.** An agent reports that a background convention, definition,
+or notation admits two or more readings **and** exhibits a *divergence
+witness*: a case the round actually exercises on which the readings give
+different answers. The witness is mandatory. An agent that reports
+vagueness without one has found a `[GAP]`, not an ambiguity, and the
+round proceeds normally.
+
+**Timing.** The halt takes effect at **round close**, not mid-round —
+the three agents are dispatched in parallel and are never interrupted.
+Collect all three reports, then halt.
+
+**Precedence.** `definitional-ambiguity` outranks every other outcome. If
+another agent reports a counterexample or a gap in the same round, that
+finding may be an artifact of whichever reading that agent happened to
+adopt. Record those verdicts as **provisional-under-ambiguity** in
+`LOG.md`; they are not settled findings and must not be carried forward
+as such once the convention is closed.
+
+**Procedure.** It is neither a rejection nor a gap. Do not proceed to
+Lilith, do not dispatch a further round, and do not adopt a reading
+yourself. Put the readings to the user as an explicit n-ary question with
+the divergence witness attached, and wait.
+
+**Closure.** Once the user rules, record the ruling in `LOG.md` and in
+`state/session.json` under `settled_conventions`, and include that list
+**verbatim in the sanitized input of every subsequent dispatch on this
+claim**. This is not contamination under §3: it is identical shared input
+given to all three agents, not one agent's output leaking to another.
+
+A closed convention is closed. An agent may report that a closed
+convention is the *wrong* choice — that is a substantive finding — but
+may not re-derive the ambiguity. Reopening requires the user.
+
+**Re-reading §6.6.** Three consecutive `misframed` or `gap-located`
+rounds indicate that the shared background convention is suspect, not
+that the line of attack should be abandoned. Surface the convention for
+ruling *before* offering the user an abandonment option.
+
+---
 
 **`statement-stabilized` is the terminal state and only the user grants
 it.** Conditions: all three agents clean, Balthasar's search scope on
@@ -158,7 +207,32 @@ exist" — always carry the scope forward.
 4. Probe a statement for failure before pursuing a strengthened version.
 5. After a round: log it, then invoke `lilith` in `propose` mode.
 6. After three consecutive rounds with no movement on one statement:
-   stop, summarize in `LOG.md`, ask the user how to proceed.
+   stop, summarize in `LOG.md`, ask the user how to proceed. But first
+   apply the §5 re-reading: repeated `misframed`/`gap-located` outcomes
+   point at a suspect background convention, which should be surfaced for
+   ruling before abandonment is offered.
+7. **Reference directory.** `references/` on the default branch holds the
+   primary sources for this project. Every agent may read it and is
+   expected to consult it before asserting that a construction is novel,
+   unclassified, or without precedent. Rule 1's citation requirement
+   should be satisfied from it wherever possible; an attribution that
+   cannot be grounded there is flagged `[UNVERIFIED]` and the claim it
+   supports weakened accordingly.
+   - Reading it is **input gathering, not mathematics**, and is not role
+     leakage. Melchior and Balthasar consult it for *definitions and
+     known objects only* — judging a result's standing against the
+     literature remains Casper's role.
+   - It happens **inside** the 10-minute slot, as an explicit first
+     subtask. The §4 hard kill still applies. An agent that spends a slot
+     re-deriving a classified result has misspent it.
+   - If the directory lacks a needed source, end the report with a
+     one-line acquisition request naming the result or author sought. The
+     orchestrator relays these to the user **verbatim and adds nothing**.
+   - **Absence of a source is never evidence that no such result
+     exists.**
+   - The directory lives on the default branch; a long-running session
+     branch may hold a stale copy. If a source the user says exists is
+     absent, report that rather than concluding it does not exist.
 
 ---
 
@@ -200,6 +274,26 @@ across rounds, filenames, and log entries.
 
 ---
 
+## 8b. Files this session must never modify
+
+The dashboard is an observer of this process and must never be edited by
+it. Do **not** create, edit, delete, or reformat anything under:
+
+- `docs/` — the published dashboard
+- `scripts/` — the build-time state collector
+- `.github/` — the build workflow
+
+These live on the default branch and are maintained by the user. A
+session branch that modifies them will republish its own copy and can
+overwrite a working dashboard with a stale one.
+
+Your writes are confined to: `state/`, `reviews/`, and `LOG.md`.
+
+If the user asks for a dashboard change, say it belongs on the default
+branch and outside this session rather than editing it here.
+
+---
+
 ## 9. Machine-readable state (`state/`)
 
 `LOG.md` is for humans. `state/` is the authoritative machine-readable
@@ -237,9 +331,30 @@ never with trailing commentary.
     "current_statement": "<precise restatement with hypotheses>",
     "intent": "<what the user actually wants from this>"
   },
-  "latest_round": 0
+  "latest_round": 0,
+  "settled_conventions": [
+    {"question": "", "ruling": "", "ruled_at": "", "round": 0}
+  ],
+  "acquisition_requests": [
+    {"agent": "", "round": 0, "request": "", "requested_at": ""}
+  ]
 }
 ```
+
+### Publishing cadence — commit at every phase boundary
+
+State that is written but not pushed is invisible. **After every
+`live.json` rewrite, commit and push immediately** — this is what makes
+the dashboard track the run rather than reporting it after the fact.
+
+Push at: dispatch, each agent's report arriving, a petition being raised,
+Lilith's ruling, an extension starting or ending, a definitional halt, and
+handing back to the user.
+
+Use one small commit per boundary (`chore(state): <phase> <claim> r<N>`).
+Do not batch several phases into one commit, and do not wait for the round
+to close. Commit noise is not a concern here — the build coalesces bursts
+and the log is append-only anyway.
 
 ### `live.json` — rewrite at every phase change
 
@@ -252,7 +367,7 @@ does not need them.
 ```json
 {
   "updated_at": "",
-  "phase": "idle | dispatching | magi-running | extension | lilith-propose | awaiting-user",
+  "phase": "idle | dispatching | magi-running | extension | lilith-propose | awaiting-user | halted-definitional",
   "claim_id": "thm3",
   "round": 4,
   "agents": {
@@ -267,7 +382,7 @@ does not need them.
     "ruling": "pending | yes | no",
     "reason": ""
   },
-  "awaiting_user": {"question": "", "options": []}
+  "awaiting_user": {"question": "", "options": [], "witness": ""}
 }
 ```
 
@@ -289,7 +404,7 @@ the dashboard renders this directly.
     {"agent": "", "subtask": "", "ruling": "yes|no", "reason": "", "granted_at": ""}
   ],
   "lilith": "state/lilith/thm3-r4-propose.json",
-  "carried_to_eve": ["<MAGI-implied leads, unadopted>"]
+  "carried_to_lilith": ["<MAGI-implied leads, unadopted>"]
 }
 ```
 
