@@ -1,23 +1,13 @@
 {
-  "updated_at": "2026-08-18T03:35:00Z",
-  "phase": "awaiting-user",
-  "claim_id": "jt-percoord",
-  "round": 3,
+  "updated_at": "2026-08-18T03:45:00Z",
+  "phase": "lilith-propose",
+  "claim_id": "jt-nonisom",
+  "round": 1,
   "agents": {
-    "melchior": {"status": "done", "slot": 1},
-    "balthasar": {"status": "done", "slot": 1},
-    "casper": {"status": "done", "slot": 1}
+    "melchior": {"status": "not-dispatched", "slot": 0},
+    "balthasar": {"status": "not-dispatched", "slot": 0},
+    "casper": {"status": "not-dispatched", "slot": 0}
   },
   "extension": null,
-  "awaiting_user": {
-    "question": "Per operating rule 6.6: jt-percoord has closed 3 consecutive rounds, all gap-located+misframed. Lilith supplied 5 directions but flagged this as the stop-and-ask trigger rather than a default next dispatch. How should we proceed?",
-    "options": [
-      "1 — replace exact-identity condition with an order-in-h defect measure (statement)",
-      "2 — ground the per-coordinate lift in an explicit universal property vs. Weil-algebra category (statement)",
-      "3 — split into sufficiency-only (B-series methods) vs. a separately logged wider-class open question (statement)",
-      "4 — require naturality across the full diagram of W_D's under truncation/refinement maps (technique)",
-      "5 — abandon the per-coordinate branch; take a different Round-0 direction (parameter/time/initial-value, nested, isomorphic-dimension, or vector-field-class strengthening)",
-      "Something else / stop here and reassess"
-    ]
-  }
+  "awaiting_user": null
 }
