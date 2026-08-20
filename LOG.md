@@ -246,3 +246,33 @@ override was scoped to jt-percoord round 3 only, per the user's "this time"
 wording).
 Extensions: none yet.
 Reviews: reviews/jt-nonisom-r1-{melchior,balthasar,casper}.md (pending)
+
+## Round 1 (HALTED — definitional-ambiguity) — 2026-08-19 — jt-nonisom
+Outcome: definitional-ambiguity (session-adopted halt rule; outranks the
+normal §5 table). Per the rule: does NOT proceed to Lilith, no next round
+dispatched, no reading picked by the orchestrator. All three MAGI verdicts
+below are PROVISIONAL-UNDER-AMBIGUITY, not final.
+MAGI (provisional): M gap-found | B vacuous-or-trivial | C suspicious
+Triggering agent: Melchior. Ambiguous object: choice of g:A'->A used to test
+options (a)/(b)/(c) — g(e1)=e^2,g(e2)=0 vs g'(e1)=0,g(e2)=e^2, both flagged
+"equally valid" in the claim itself.
+Divergence witness (Melchior, exact algebra): (g o f)(e)=e^2 (non-trivial,
+read as evidence against option (c)) vs (g' o f)(e)=0 (exactly the trivial
+through-R map named in option (c)). f o g and f o g' both trivial either way
+(unstated composition-order asymmetry).
+Countervailing finding (Balthasar): searched specifically for a g-vs-g'
+divergence in whether the NATURALITY CONSTRAINT ON METHODS holds, found
+none — under the standard functorial/ring-arithmetic reading of "method,"
+naturality under any single algebra hom (g or g' included) is an automatic
+tautology of being a ring hom, true for every hom, not special to g or g'.
+Also found Hom(A,A') and Hom(A',A) are each full 2-dimensional continua, not
+the 2-element choice the statement implies (though all nonzero choices per
+direction form one automorphism orbit distinct from zero/augmentation).
+Casper note: independently flagged that f is treated as canonical in the
+statement but sits in its own unexamined family of alternatives, an
+asymmetry parallel to g's flagged non-canonicity.
+Extensions: none petitioned.
+Reviews: reviews/jt-nonisom-r1-{melchior,balthasar,casper}.md
+Per the session rule: readings + witness put to the user; waiting for
+ruling. Ruling will be recorded in state/session.json settled_conventions
+and this file, and carried verbatim into future dispatches on this claim.

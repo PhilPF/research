@@ -1,0 +1,27 @@
+{
+  "claim_id": "jt-nonisom",
+  "round": 1,
+  "agent": "balthasar",
+  "started_at": "2026-08-20T00:00:00Z",
+  "ended_at": "2026-08-20T00:10:00Z",
+  "slot": 1,
+  "killed": false,
+  "verdict": "vacuous-or-trivial",
+  "fields": {
+    "counterexample": "Bespoke non-universal-formula method for T_A' (Euler step for y0,y1 plus an unmotivated extra coupling term eps*h*y1 added to the y2-update) breaks f-naturality on the first random trial tested (eps=-4, h=5/4, a=(-9/5,1/5,1/2)); this delimits the boundary of the vacuity finding.",
+    "locates": "For the natural reading of 'jet transport method' as a single universal polynomial/power-series formula evaluated via each Weil algebra's own ring arithmetic, naturality under f and under g (and g') is verified (200 exact-rational trials, nonlinear X(x)=x^2) to be an automatic tautology of ring homomorphisms -- true for ALL algebra homs, not special to f/g, and it does not even distinguish g from the flagged alternative g'. It only becomes a genuine constraint (locating reading (a)) once 'method' is allowed to be a bespoke, algebra-structure-dependent construction not reducible to one shared formula -- exactly the missing hypothesis that would make (a)/(b)/(c) decidable. Separately, Hom(A,A') and Hom(A',A) are each shown to be full 2-dimensional continua of valid choices (not the discrete 2-element ambiguity implied for g, with f wrongly treated as canonical), though all nonzero choices in each direction form a single automorphism orbit distinct from the augmentation/zero orbit of option (c).",
+    "scope": "Exact rational arithmetic (Python Fractions), 200 random trials for each hom-check and naturality identity (f, g, g' vs. Euler-in-algebra for X(x)=x^2); one bespoke-method counterexample found on first attempt; Hom-space dimension counts derived exactly from the multiplication tables (b^2=0 in A forces b in span{e^2}; m'^2=0 in A' places no constraint on m'). Automorphism-orbit transitivity (GL_2(R) on m', combined action on Hom(A',A)) argued by hand, not brute-force verified. Did not sweep other nonlinear vector fields, multi-stage RK2/Heun explicitly, or explore minimal deviations needed to break naturality beyond the one bespoke construction found."
+  },
+  "subtasks": [
+    {"name": "Verify f, g, g' are well-defined algebra homomorphisms", "status": "done"},
+    {"name": "Characterize Hom(A,A') and Hom(A',A) fully (canonicity probe)", "status": "done"},
+    {"name": "Test ring-arithmetic Euler naturality under f, g, g'", "status": "done"},
+    {"name": "Construct bespoke method to locate where naturality can break", "status": "done"},
+    {"name": "Search for g vs g' divergence witness", "status": "done"},
+    {"name": "Brute-force verify automorphism orbit transitivity claims", "status": "partial"},
+    {"name": "Sweep additional nonlinearities / explicit multi-stage RK2", "status": "untouched"}
+  ],
+  "flags": ["none"],
+  "petition": null,
+  "review_file": "reviews/jt-nonisom-r1-balthasar.md"
+}

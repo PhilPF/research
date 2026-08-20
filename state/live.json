@@ -1,13 +1,21 @@
 {
-  "updated_at": "2026-08-18T03:55:00Z",
-  "phase": "magi-running",
+  "updated_at": "2026-08-19T00:00:00Z",
+  "phase": "halted-definitional",
   "claim_id": "jt-nonisom",
   "round": 1,
   "agents": {
-    "melchior": {"status": "launched", "slot": 1},
-    "balthasar": {"status": "launched", "slot": 1},
-    "casper": {"status": "launched", "slot": 1}
+    "melchior": {"status": "done", "slot": 1},
+    "balthasar": {"status": "done", "slot": 1},
+    "casper": {"status": "done", "slot": 1}
   },
   "extension": null,
-  "awaiting_user": null
+  "awaiting_user": {
+    "question": "DEFINITIONAL HALT (session rule): choice of g vs g' (the two flagged 'equally valid' homomorphisms A'->A) has a divergence witness. Round is halted, not resolved via the normal table. Which reading do you rule, or something else?",
+    "options": [
+      "g(e1)=e^2, g(e2)=0",
+      "g'(e1)=0, g'(e2)=e^2",
+      "Both/neither -- the whole family Hom(A',A) matters, not a binary choice (per Balthasar's finding of a 2-dim continuum)",
+      "Something else / reframe the claim"
+    ]
+  }
 }

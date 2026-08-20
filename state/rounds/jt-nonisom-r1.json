@@ -1,0 +1,25 @@
+{
+  "claim_id": "jt-nonisom",
+  "round": 1,
+  "statement": "On the minimal anchor pair A=R[e]/(e^3) (dim 3) and A'=R[e1,e2]/(e1,e2)^2 (dim 3), same dimension but non-isomorphic. Generalize Direction 5's isomorphism-equivariance to naturality under every algebra homomorphism between same-dimension Weil algebras. Exhibit f:A->A' (f(e)=e1) and g:A'->A (g(e1)=e^2,g(e2)=0, flagged non-canonical vs g'(e1)=0,g'(e2)=e^2). Determine whether commuting with the induced transformations is (a) genuinely new/non-vacuous, (b) already implied, or (c) vacuous/degenerate to the trivial through-R map.",
+  "argument_shape": "none — round 1, no argument attempted yet.",
+  "dispatched_at": "2026-08-18T03:55:00Z",
+  "completed_at": "2026-08-19T00:00:00Z",
+  "outcome": "definitional-ambiguity (session-adopted halt rule; outranks the normal §5 table)",
+  "verdicts": [
+    "state/verdicts/jt-nonisom-r1-melchior.json",
+    "state/verdicts/jt-nonisom-r1-balthasar.json",
+    "state/verdicts/jt-nonisom-r1-casper.json"
+  ],
+  "extensions": [],
+  "lilith": null,
+  "carried_to_eve": [],
+  "definitional_halt": {
+    "triggering_agent": "melchior",
+    "ambiguous_object": "The choice of g: A'->A used to test options (a)/(b)/(c). Two 'equally valid' readings were named in the claim itself: g(e1)=e^2, g(e2)=0, versus g'(e1)=0, g'(e2)=e^2.",
+    "divergence_witness": "Melchior (exact algebra computation): (g o f)(e) = e^2 (a genuinely non-trivial endomorphism of A, read by Melchior as evidence against option (c)) versus (g' o f)(e) = 0 (exactly the trivial through-R augmentation-then-unit map named in option (c)). f o g and f o g' are both trivial for either choice (an unstated further asymmetry in composition order).",
+    "countervailing_finding": "Balthasar independently searched for a g-vs-g' divergence specifically in whether the NATURALITY CONSTRAINT ON METHODS holds, and found none: under the standard functorial (ring-arithmetic) reading of 'method', naturality under any single algebra homomorphism -- including both g and g' -- is an automatic tautology of being a ring homomorphism, true for every hom whatsoever, not special to g or g'. Balthasar also found Hom(A,A') and Hom(A',A) are each full 2-dimensional continua, not the 2-element choice the statement implies, though all nonzero choices per direction form one automorphism orbit distinct from the zero/augmentation orbit.",
+    "casper_note": "Casper independently flagged (before either witness) an asymmetry: f is treated as canonical in the statement but sits in its own unexamined family of valid alternatives, parallel to g's flagged non-canonicity.",
+    "user_ruling": null
+  }
+}
