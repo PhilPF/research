@@ -1,0 +1,25 @@
+{
+  "claim_id": "jt-nonisom",
+  "round": 1,
+  "agent": "melchior",
+  "started_at": "2026-08-20T00:00:00Z",
+  "ended_at": "2026-08-20T00:10:00Z",
+  "slot": 1,
+  "killed": false,
+  "verdict": "gap-found",
+  "fields": {
+    "location": "The composite g∘f: A→A used (implicitly) to test options (a)/(b)/(c) against the non-canonical choice of g",
+    "reason": "The statement flags g(e1)=e^2,g(e2)=0 as non-canonical, with g'(e1)=0,g'(e2)=e^2 an equally valid alternative, but does not fix which is meant when testing whether the induced-transformation constraint is non-vacuous (a) vs degenerate to the trivial through-R map (c). Computationally verified: (g∘f)(e)=e^2 (a genuinely non-trivial endomorphism, evidence against option c), while (g'∘f)(e)=0 (exactly the trivial through-R augmentation-then-unit map named in option c). The two 'equally valid' choices thus push toward opposite answers on the very axis the claim asks to resolve, and the claim does not specify which is intended. (Additionally, f∘g is trivial for both choices, so the divergence is asymmetric in composition order — an unstated further choice.)",
+    "audit_scope": "Full computational verification of: well-definedness and non-invertibility of f, g, g' (neither injective nor surjective, confirmed via explicit multiplication-table implementation); composites g∘f, g'∘f, f∘g, f∘g'. Citation-recall-level (not re-derived) check that the general Weil-algebra-hom-induces-natural-transformation construction's hypotheses hold for A,A',f,g. Not examined: mathematical resolution of (a)/(b)/(c) itself; determinacy of 'commute with induced transformation' as a method-property beyond the anchor pair (explicitly out of round-1 scope)."
+  },
+  "subtasks": [
+    {"name": "Verify Weil algebras and invariants", "status": "done"},
+    {"name": "Verify f,g,g' well-defined and non-invertible", "status": "done"},
+    {"name": "Check induced-natural-transformation construction hypotheses", "status": "done"},
+    {"name": "Test g/g' non-canonicity for concrete divergence", "status": "done"},
+    {"name": "Assess well-typedness of (a)/(b)/(c) trichotomy given divergence", "status": "partial"}
+  ],
+  "flags": ["none"],
+  "petition": null,
+  "review_file": "reviews/jt-nonisom-r1-melchior.md"
+}
