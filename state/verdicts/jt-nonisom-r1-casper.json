@@ -1,0 +1,25 @@
+{
+  "claim_id": "jt-nonisom",
+  "round": 1,
+  "agent": "casper",
+  "started_at": "2026-08-20T00:00:00Z",
+  "ended_at": "2026-08-20T00:09:30Z",
+  "slot": 1,
+  "killed": false,
+  "verdict": "suspicious",
+  "fields": {
+    "constructive_status": "constructive",
+    "risk": "The (a)/(b)/(c) trichotomy is posed about an undefined 'method'; its cleanest resolution for the bare Weil functor T_A is likely a restatement of the classical Weil-algebra/Weil-functor duality (Nat(T^A,T^B) correspond to Hom(A,B)) rather than a finding about jet transport specifically, risking a technically-answerable-but-empty result. Secondary risk: f (e-> e1) is treated as canonical while sitting in an unexamined 2-parameter family of equally valid alternatives (any y in m' with y^2=0), an asymmetry with the correctly-flagged non-canonicity of g."
+  },
+  "subtasks": [
+    {"name": "sanity-of-named-objects", "status": "done"},
+    {"name": "standing-against-known-theory", "status": "done"},
+    {"name": "trichotomy-well-posedness", "status": "done"},
+    {"name": "canonicity-asymmetry-f-vs-g", "status": "done"},
+    {"name": "degenerate-ends", "status": "partial"},
+    {"name": "constructive-status", "status": "done"}
+  ],
+  "flags": ["none"],
+  "petition": null,
+  "review_file": "reviews/jt-nonisom-r1-casper.md"
+}
