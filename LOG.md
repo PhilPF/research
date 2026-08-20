@@ -179,3 +179,45 @@ well-posed one). Per standing rule 6.6, this is logged as the stop-and-ask
 trigger; directions supplied are options for the user's decision, not a
 default next dispatch. See reviews/jt-percoord-r3-lilith-propose.md and
 state/lilith/jt-percoord-r3-propose-v2.json. Awaiting user decision.
+
+## Session note — 2026-08-18 — process rules (session-only)
+The user described 4 process-rule changes as CLAUDE.md updates: (1)
+definitional-halt outcome (a two-reading convention + divergence witness
+halts the round, outranks other outcomes, goes to the user directly, no
+Lilith/next round until ruled); (2) consult references/ as a first subtask
+before novel constructions (Melchior/Balthasar for definitions, Casper for
+literature standing; [UNVERIFIED]/ACQUISITION: for gaps); (3) commit+push
+after every live.json phase change, one small commit each; (4) writes
+confined to state/, reviews/, LOG.md (never docs/, scripts/, .github/).
+Verified: CLAUDE.md is unchanged on disk (no diff/commit since cbccddc), no
+references/ directory exists. Per the user's choice, all 4 are adopted
+SESSION-ONLY, not written into CLAUDE.md — see state/session.json
+session_notes. Going forward this session: rule (1) applies to future
+rounds; rule (2) is a no-op given no references/ dir exists (will flag
+ACQUISITION requests instead); rule (3) is now followed; rule (4) already
+matched practice.
+
+## Ruling — 2026-08-18 — jt-percoord definitional convention
+The user ruled on the (a-full) vs (a-trunc) ambiguity Melchior located in
+Round 3 (divergence witness given there). Per the user's explicit choice,
+this is recorded as a CONVENTION, not a proven result: per-coordinate Weil
+lift is fixed to (a-full) going forward; (a-trunc) and the per-output
+reading are discarded. Whether exact commutation actually holds under
+(a-full) remains open and is not treated as settled — MAGI may still test
+it on a future claim. Recorded in state/session.json under
+settled_conventions; to be included verbatim in future dispatches on this
+claim per the user's rule (1).
+
+jt-percoord is now paused (not abandoned) after 3 consecutive
+gap-located+misframed rounds, per the user's decision to redirect effort.
+
+## New claim — 2026-08-18 — jet-transport Round 0 Direction 5 revisited
+Per the user's direction, returning to jet-transport Round 0 Direction 5
+("Add an equivariance hypothesis: require the method to respect isomorphisms
+between Weil algebras of equal dimension...") with the user's requested
+focus: the NON-isomorphic case — same-dimension Weil algebras that are not
+isomorphic. This needs formalization (Direction 5's original text targets
+the isomorphic case; the non-isomorphic angle is a distinct question).
+Dispatching Lilith (propose, capped at exactly 1) to formalize a single
+precise claim for direct MAGI dispatch, per the user's instruction. New
+claim-id to be assigned by Lilith's framing: tentatively "jt-nonisom".
