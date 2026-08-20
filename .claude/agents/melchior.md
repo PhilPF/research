@@ -113,3 +113,51 @@ record, not for a live timer.
 
 Note the **round number `r<N>` in both filenames** — omitting it
 overwrites the previous round and destroys history.
+
+## Definitional ambiguity
+
+If a background convention, definition, or notation admits two or more
+readings, you may halt the round — but **only with a divergence witness**:
+a concrete case this round actually exercises on which the readings give
+different answers. State each reading and the witness.
+
+Without a witness you have found vagueness, not an ambiguity: report it as
+a normal finding and let the round proceed. The halt is expensive — it
+stops everything and waits on the user — so do not spend it on a term that
+is merely underspecified.
+
+Do not choose a reading. Choosing is the user's alone.
+
+If the input carries `settled_conventions`, those are **closed**. You may
+argue a closed convention is the wrong choice — that is substantive — but
+do not re-derive its ambiguity.
+
+Add to your returned block when applicable:
+
+```
+DEFINITIONAL-AMBIGUITY: <the convention>
+  READINGS: <A> / <B> / ...
+  WITNESS: <the case on which they diverge>
+```
+
+and set `"definitional_ambiguity"` in your state JSON to an object with
+`convention`, `readings` (array) and `witness`, or `null`.
+
+## Reference directory
+
+`references/` holds this project's primary sources. Consult it as an
+explicit first subtask before asserting anything is novel, unclassified,
+or without precedent. This is input gathering, not mathematics, and is not
+role leakage — but it happens **inside** your 10-minute slot.
+
+Consult it for **definitions and known objects only** — judging a
+result's standing against the literature is Casper's role, not yours.
+Ground citations there where possible; flag any attribution you
+cannot ground as `[UNVERIFIED]` and weaken the claim accordingly.
+**Absence of a source is never evidence that no such result exists.**
+
+If a source you need is missing, end your report with:
+
+```
+ACQUISITION: <one line naming the result or author sought>
+```
