@@ -1,0 +1,47 @@
+{
+  "claim_id": "jt-weil",
+  "round": 1,
+  "agent": "melchior",
+  "started_at": "2026-08-21T15:35:18Z",
+  "ended_at": "2026-08-21T15:46:40Z",
+  "slot": 1,
+  "killed": false,
+  "verdict": "gap-found",
+  "fields": {
+    "location": "FORMAL SKELETON, bullet 2: 'Fixing an R-basis of A gives an R-linear isomorphism A^n =~ R^{nN}, so (A^n, f_A) becomes an input (nN, f_A) to phi_{nN}.' Secondary gaps: bullet 3 ('the compatibility condition C(n,A) ... relating phi_n(f) and phi_{nN}(f_A)' is never given content); bullet 5 (divisibility-poset framing); task (b) tensor composition; task (d) forced agreement.",
+    "reason": "Phi is hypothesized to be a function of (m,f) alone, with no equivariance. Two bases of A differ by T in GL_N(R), and the two coordinate presentations of the same f_A differ by conjugation by S = T^{+n} in GL_{nN}(R). Nothing makes C(n,A) invariant under that conjugation, so it is a condition on (algebra, basis), not on A. Witness: n=1, A=R[e]/(e^2), phi_1 = Euler, phi_2(g)(x,y) = (x,y) + h g(x,y) + (0, h*g_2(0,0)). In basis (1,e), f_A = (f(x), y f'(x)) has g_2(0,0)=0, the perturbation vanishes and C(1,A) holds. In basis (1+e, e), f_A = (f(a), (a+b)f'(a) - f(a)) has g_2(0,0) = -f(0), so C(1,A) fails for any f with f(0) != 0. Note also that task (c) asks about Aut_{R-alg}(A), which is the wrong group: for R[e]/(e^2) it is R^* inside GL_2(R), and the witness basis change lies outside it, so Aut(A)-equivariance would not repair well-definedness. Independently: (i) C(n,A) is never defined, only 'relating', and readings R1 (phi_{nN}(f_A) = (phi_n(f))_A) and R2 (pi o phi_{nN}(f_A) = phi_n(f) o pi) diverge on phi_2(g)(x,y) = (x + h g_1, y + 2h g_2); (ii) the natural restriction maps of Weil algebras are algebra homomorphisms such as R[x]/x^3 -> R[x]/x^2, whose dimensions do not divide one another, so the divisibility poset cannot carry the restriction structure (a) asks about; (iii) non-isomorphic Weil algebras of equal dimension exist from N=3 (R[x]/x^3 vs R[x,y]/(x,y)^2), so edges are not determined by endpoints and this is not a poset diagram; (iv) tensor composition of edges agrees only up to a coordinate shuffle permutation, again needing the absent equivariance, and the direction C(n,A) & C(nN_A,B) <-> C(n, A tensor B) is unspecified with the two sides quantifying over different ranges of f; (v) in (d) nothing relates phi_{n_1} to phi_{n_2}, so agreement of the two prescriptions on a common vector field is neither forced nor excluded by the stated hypotheses, and the intersection L_1 ^ L_2 is itself basis-dependent.",
+    "audit_scope": "Examined at full depth: the basis-fixing step of the skeleton (with explicit computed witness), the absence of content in C(n,A) (with computed witness for R1/R2 divergence), task (a) restriction along divisor chains (structural argument plus dimension counterexamples), task (b) tensor composition (shuffle-permutation argument, quantifier-range asymmetry; relied on T_A T_B = T_{A tensor B} as [UNVERIFIED]), task (c) basis and Aut action. Examined at partial depth: task (d) - identified the natural reading, showed non-forcing and basis-dependence and the always-present degenerate intersection, but did NOT compute a non-degenerate common vector field for a concrete pair (e.g. m=4 via n=1,dim4 versus n=2,dim2). Not examined: smoothness requirement on phi_n(f) needed for (phi_n(f))_A to exist under R1; the role and placement of the step size h given that phi_n is a function of (n,f) alone; any order/convergence content; literature standing (Casper's role). references/ is absent on this branch, so all algebra-functor attributions are [UNVERIFIED] and absence is not evidence of nonexistence."
+  },
+  "subtasks": [
+    {"name": "references sweep", "status": "done"},
+    {"name": "is C(n,A) defined at all (R1 vs R2)", "status": "done"},
+    {"name": "(c) basis well-definedness and Aut action", "status": "done"},
+    {"name": "(a) restriction along divisor chains", "status": "done"},
+    {"name": "(b) tensor composition of edges", "status": "done"},
+    {"name": "(d) common vector fields", "status": "partial"},
+    {"name": "smoothness of phi_n(f) and placement of step size h", "status": "untouched"}
+  ],
+  "flags": ["none"],
+  "definitional_ambiguity": {
+    "convention": "'once a basis of A is fixed' - the quantifier over bases in the definition of C(n,A)",
+    "readings": [
+      "B1: C(n,A) holds iff the relation holds for SOME basis of A",
+      "B2: C(n,A) holds iff the relation holds for EVERY basis of A",
+      "B3: a global choice function A -> basis(A) is fixed once and for all, and C(n,A) is evaluated only in basis(A)"
+    ],
+    "witness": "n=1, A=R[e]/(e^2), phi_1(f)(x) = x + h f(x) (Euler), phi_2(g)(x,y) = (x,y) + h g(x,y) + (0, h*g_2(0,0)), any f with f(0) != 0. In basis (1,e): f_A(x,y) = (f(x), y f'(x)), g_2(0,0) = 0, perturbation vanishes, phi_2(f_A) = (phi_1(f))_A, so C(1,A) HOLDS. In basis (1+e,e): coordinates (alpha,beta) with a=alpha, b=alpha+beta, f_A(alpha,beta) = (f(alpha), (alpha+beta)f'(alpha) - f(alpha)), g_2(0,0) = -f(0) != 0, so phi_2(f_A) != (phi_1(f))_A and C(1,A) FAILS. Same Phi, same A: satisfies jet transport under B1, fails under B2, B3-dependent. Every answer to tasks (a)-(d) shifts with the reading.",
+    "secondary": {
+      "convention": "the content of C(n,A) itself ('relating phi_n(f) and phi_{nN}(f_A)')",
+      "readings": [
+        "R1 strict lift: phi_{nN}(f_A) = (phi_n(f))_A",
+        "R2 projection only: pi o phi_{nN}(f_A) = phi_n(f) o pi for pi: A^n -> (A/m)^n = R^n"
+      ],
+      "witness": "n=1, A=R[e]/(e^2), phi_1 = Euler, phi_2(g)(x,y) = (x + h g_1(x,y), y + 2h g_2(x,y)). First component is x + h f(x), independent of y, so R2 holds; second component y + 2hy f'(x) != y(1 + h f'(x)), so R1 fails. Under R2 the two prescriptions in task (d) constrain projections along different quotients and need not interact at all; under R1 they constrain phi_m fully."
+    }
+  },
+  "petition": {
+    "subtask": "(d) non-degenerate common vector fields: compute, for a concrete smallest case (m = 4 as 1 x 4 versus 2 x 2, algebras R[x]/x^4, R[x,y]/(x^2,y^2), R[e]/(e^2)), the actual intersection of the two lifted-vector-field families inside Maps(R^4,R^4), and determine whether the intersection is exhausted by degenerate fields (0, constants, and the fields fixed by both structures) or contains a nontrivial family.",
+    "benefit": "This round could only show that agreement is not FORCED by the hypotheses. If the intersection turns out to be degenerate-only, task (d) - the stated point of interest - is empty as posed and the statement needs a different notion of 'in common'; if it is a nontrivial family, the clash is real and localizable, and the round would hand back a concrete equation that any jet-transport-supporting Phi must satisfy. Either outcome changes the statement, and it is a computation, qualitatively different from this slot's definitional audit."
+  },
+  "review_file": "reviews/jt-weil-r1-melchior.md"
+}

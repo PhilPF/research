@@ -1,0 +1,37 @@
+{
+  "claim_id": "jt-weil",
+  "round": 1,
+  "agent": "casper",
+  "started_at": "2026-08-21T00:00:00Z",
+  "ended_at": "2026-08-21T00:09:00Z",
+  "slot": 1,
+  "killed": false,
+  "verdict": "likely-misframed",
+  "fields": {
+    "constructive_status": "unclear",
+    "risk": "The 'iff' has no independent right-hand side: 'Phi supports jet transport iff C(n,A) for all n,A' defines the predicate rather than characterizing it, and C(n,A) is itself never stated. Near-circular as posed."
+  },
+  "subtasks": [
+    {"name": "references-check", "status": "done"},
+    {"name": "literature-fit-jet-transport-and-weil-functors", "status": "done"},
+    {"name": "circularity-and-right-hand-side-audit", "status": "done"},
+    {"name": "index-category-poset-critique-(a)(b)", "status": "done"},
+    {"name": "well-definedness-Aut-vs-GL-(c)", "status": "done"},
+    {"name": "vacuity-audit-of-(d)-vector-fields-in-common", "status": "partial"},
+    {"name": "degenerate-ends", "status": "done"},
+    {"name": "constructive-status", "status": "partial"},
+    {"name": "ground-weil-functor-theorem-in-primary-source", "status": "untouched"}
+  ],
+  "flags": ["none"],
+  "petition": null,
+  "definitional_ambiguity": {
+    "convention": "The content of C(n,A) -- the 'compatibility condition relating phi_n(f) and phi_{nN}(f_A)'. The skeleton names it and never states it.",
+    "readings": [
+      "(i) Full lift-equivariance: phi_{nN}(f_A) = T_A(phi_n(f)) under the chosen identification A^n = R^{nN}.",
+      "(ii) Augmentation compatibility only: pi o phi_{nN}(f_A) = phi_n(f) o pi, where pi: A -> A/m_A = R is the augmentation; no constraint on the nilpotent part.",
+      "(iii) Order-p agreement: phi_{nN}(f_A) = T_A(phi_n(f)) + O(h^{p+1}) for the method's order p."
+    ],
+    "witness": "n=1, A=R[e]/(e^2) (N=2, basis (1,e)), m=2, f(x)=x^2, so f_A in coordinates is g(y)=(y_1^2, 2 y_1 y_2). Define Phi by phi_n = explicit Euler (x -> x + h f(x)) for all n != 2, and phi_2(g)(y_1,y_2) = (y_1 + h g_1(y), y_2 + h g_2(y) + h^2 g_1(y)^2). Then T_A(phi_1(f)) = (y_1 + h y_1^2, y_2 + 2h y_1 y_2) while phi_2(f_A) = (y_1 + h y_1^2, y_2 + 2h y_1 y_2 + h^2 y_1^4). Reading (i): C(1,A) FAILS. Reading (ii): C(1,A) HOLDS (real parts agree identically). Reading (iii) with p=1: C(1,A) HOLDS (discrepancy is O(h^2)). One witness separates all three. The divergence propagates into this round's deliverables: under (ii) item (c) is trivially well-defined and item (d) is near-vacuous; under (i) (c) fails without an added equivariance hypothesis and (d) is substantive; under (iii) both prescriptions in (d) can hold while disagreeing, so the agree/disagree/independent trichotomy is not the right question."
+  },
+  "review_file": "reviews/jt-weil-r1-casper.md"
+}
