@@ -1,13 +1,22 @@
 {
-  "updated_at": "2026-08-21T00:45:00Z",
-  "phase": "magi-running",
+  "updated_at": "2026-08-21T01:15:00Z",
+  "phase": "halted-definitional",
   "claim_id": "jt-weil",
   "round": 2,
   "agents": {
     "melchior": {"status": "done", "slot": 1, "verdict": "gap-found + definitional-ambiguity"},
-    "balthasar": {"status": "launched", "slot": 1, "note": "redispatched after an orchestrator dispatch error broke the §3 identical-input requirement on the first launch; first launch's output will be discarded when it arrives"},
+    "balthasar": {"status": "done", "slot": 1, "verdict": "none-found (bounded scope; [GAP] logged, not a halt)", "note": "corrected-run files reconstructed after a same-filename race with a voided duplicate launch overwrote them; voided run's distinct findings preserved separately, not used for resolution"},
     "casper": {"status": "done", "slot": 1, "verdict": "likely-misframed + definitional-ambiguity"}
   },
   "extension": null,
-  "awaiting_user": null
+  "awaiting_user": {
+    "question": "Round 2 of jt-weil halted on a fresh definitional ambiguity: what does item (d)'s phrase 'two lift structures on the same R^m have vector fields in common' mean? Melchior and Casper each raised this with a divergence witness.",
+    "options": [
+      "A: same base field, different algebras (Melchior II)",
+      "B: any common image, incl. degenerate (Casper A / Melchior I) -- witness shows this is universally nonempty (always contains 0), near-vacuous",
+      "C: non-degenerate common image (Casper B)",
+      "D: common refinement / compatible source (Casper C) -- flagged by Casper as possibly near-circular"
+    ],
+    "witness": "See state/rounds/jt-weil-r2.json .definitional_halt.ambiguities[0].witnesses"
+  }
 }

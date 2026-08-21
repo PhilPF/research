@@ -2,7 +2,7 @@
   "session_id": "jt-weil-s1",
   "branch": "claude/jet-transport-weil-algebra-weyote",
   "started_at": "2026-08-21T00:00:00Z",
-  "status": "active",
+  "status": "awaiting-user",
   "problem": {
     "claim_id": "jt-weil",
     "title": "Jet transport as a compatibility condition indexed by the divisibility poset",

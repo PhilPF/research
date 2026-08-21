@@ -1,0 +1,50 @@
+{
+  "claim_id": "jt-weil",
+  "round": 2,
+  "statement": "Same (a)-(d) package as round 1, with C(n,A) pinned down by the two round-1 settled conventions: holds at every R-basis of A; content is the exact identity phi_{nN}(f_A) = T_A(phi_n(f)).",
+  "argument_shape": "Direct audit of the now-closed C(n,A) for restriction, tensor composition, well-definedness/automorphism action, and multi-structure consistency; re-dispatched fresh (round-1 verdicts stripped per §3, only settled_conventions carried forward).",
+  "dispatched_at": "2026-08-21T00:41:00Z",
+  "completed_at": "2026-08-21T01:15:00Z",
+  "outcome": "definitional-halt",
+  "verdicts": [
+    "state/verdicts/jt-weil-r2-melchior.json",
+    "state/verdicts/jt-weil-r2-balthasar.json",
+    "state/verdicts/jt-weil-r2-casper.json"
+  ],
+  "dispatch_incident": {
+    "description": "Orchestrator error: the first balthasar launch (agent a918fcde0bb0d03d5) received extra framing melchior and casper did not, breaking the CLAUDE.md §3 identical-input requirement. Caught before casper was dispatched; balthasar was redispatched (agent a100b41b775e5ea07) with corrected, truly identical input. Both launches wrote to the same output paths; the voided launch finished later and overwrote the corrected launch's files on disk. The corrected launch's structured report (preserved verbatim in its completion notification) was used to reconstruct reviews/jt-weil-r2-balthasar.md and state/verdicts/jt-weil-r2-balthasar.json. The voided launch's distinct content (a different, and arguably sharper, counterexample) was preserved at reviews/jt-weil-r2-balthasar-VOIDED-a918fcde.md, marked void, and excluded from this round's resolution.",
+    "resolution": "reconstructed-from-notification"
+  },
+  "extensions": [
+    {"agent": "melchior", "subtask": "determine whether the two prescription-domains in (d) intersect at any non-affine vector field once convention 1 is in force (orbit-intersection geometry)", "ruling": "moot", "reason": "round halted for definitional-ambiguity before reaching Lilith extension-ruling", "granted_at": null},
+    {"agent": "balthasar", "subtask": "S7 -- construct an explicit Phi separating C(1,A tensor B) from the composite of C(1,A) and C(2,B) at a non-product basis", "ruling": "moot", "reason": "round halted for definitional-ambiguity before reaching Lilith extension-ruling", "granted_at": null},
+    {"agent": "casper", "subtask": "re-pose (a)-(d) over the category W of Weil algebras with algebra homomorphisms (incl. truncation morphisms) and judge fit against jet-transport literature", "ruling": "moot", "reason": "round halted for definitional-ambiguity before reaching Lilith extension-ruling", "granted_at": null}
+  ],
+  "lilith": null,
+  "carried_to_lilith": [],
+  "definitional_halt": {
+    "triggered_by": ["melchior", "casper"],
+    "ambiguities": [
+      {
+        "question": "What does item (d)'s phrase 'two lift structures on the same R^m have vector fields in common' mean?",
+        "raised_by": ["melchior", "casper"],
+        "corroborated_by": "balthasar (non-halting: logged the same soft spot as a [GAP], explicitly declined to halt, and reported no divergence in the cases it actually ran)",
+        "readings": [
+          "A: same base field, different algebras -- same n, same f: R^n -> R^n, two Weil algebras A,B of equal dimension N; phi_m receives one prescription from f_A and one from f_B (Melchior reading II)",
+          "B: any common image, including degenerate elements -- some map F: R^m -> R^m lies in both lifted-image sets L(n,A) and L(n',B) (Melchior reading I / Casper reading A)",
+          "C: non-degenerate common image -- as B, but excluding the always-present degenerate/trivial common elements such as the zero field or scalar multiples of the identity (Casper reading B)",
+          "D: common refinement / compatible source -- h = f_A = g_B with the two identifications compatible with a common refinement of the two lift structures (Casper reading C; flagged by Casper as possibly near-circular, since it may assume the agreement it would be used to test)"
+        ],
+        "witnesses": [
+          "Casper: the zero field 0 on R^m is the A-lift of f=0 and the B-lift of g=0 for EVERY pair of lift structures on EVERY R^m -- so under reading B the hypothesis of (d) is universally satisfied and carries no information (near-vacuous), while under reading C it is a genuine restriction, and under D it plausibly forces agreement by construction (near-circular). Vacuous / substantive / near-circular is the full spread across readings B/C/D on the round's stated point of interest.",
+          "Melchior: n=1, N=3, m=3; A=R[e]/(e^3) basis (1,e,e^2), B=R[x,y]/(x,y)^2 basis (1,x,y); f(t)=t^2. f_A(a0,a1,a2)=(a0^2, 2a0a1, 2a0a2+a1^2), f_B(b0,b1,b2)=(b0^2, 2b0b1, 2b0b2) -- differ in the third coordinate by a1^2. Under reading B/C/D this pair is NOT an instance of (d)'s hypothesis at all (f_A != f_B as sets/images; f_A=g_B in standard bases forces f affine). Under reading A it IS an instance (same base field f=t^2, two algebras of the same dimension N=3), and the two prescriptions (f_A vs f_B) are independent, constraining phi_3 at two distinct arguments. Different verdicts on the exact case round 2's analysis ran."
+        ]
+      }
+    ],
+    "provisional_under_ambiguity": [
+      {"agent": "melchior", "verdict": "gap-found", "note": "the (b)/(c) equivariance gap finding stands independent of this ambiguity, but item (d) analysis (and the petitioned orbit-intersection subtask) depends on which reading is adopted"},
+      {"agent": "casper", "verdict": "likely-misframed", "note": "the poset-vs-category-W critique and the phi_n(f)-as-a-point critique stand independent of this ambiguity; the vacuous/substantive/near-circular spread on (d) is entirely reading-dependent"},
+      {"agent": "balthasar", "verdict": "none-found", "note": "locates (1)-(4) stand independent of this ambiguity; locate (5) (the m=4 scalar-locus agreement) used one specific reading (closest to B/C) and is provisional until closed"}
+    ]
+  }
+}

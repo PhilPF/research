@@ -1,322 +1,125 @@
-# jt-weil — Round 2 — Balthasar (adversarial probe)
+# jt-weil — Round 2 — Balthasar (adversarial probe) — RECONSTRUCTED
 
-Slot start 2026-08-21T17:56:23Z. Budget 10 min.
+**Provenance note (written by the orchestrator, not by Balthasar):** this
+round-2 Balthasar slot was originally dispatched twice under the same output
+path (`reviews/jt-weil-r2-balthasar.md`, `state/verdicts/jt-weil-r2-balthasar.json`) —
+once with a dispatch error that broke the CLAUDE.md §3 identical-input
+requirement across the MAGI trio (agent `a918fcde0bb0d03d5`, verdict
+`counterexample-found`, voided), and once corrected to match melchior's and
+casper's input exactly (agent `a100b41b775e5ea07`, verdict `none-found`). The
+voided run finished later in wall-clock time and overwrote both files on disk
+with its own content before this was noticed. What follows is the corrected
+run's full structured report, recovered verbatim from its completion
+notification — this is the content that governs round 2's resolution. The
+corrected run's free-prose elaboration beyond this structured report was not
+recoverable, since only the structured report is returned to the orchestrator;
+if that additional depth is needed, the subtask is: re-run this slot's
+analysis under the same (corrected) input.
 
-## Subtask 0 — references/ (done)
-
-`/home/user/research/references/` **still does not exist on this branch**
-(`ls` error, not an empty directory). Per CLAUDE.md §6.7 this is not
-evidence that no such sources exist. Standard facts leaned on:
-
-- `[UNVERIFIED]` Weil functors are product-preserving; `f_{A⊗B} = (f_A)_B`
-  (Kolář–Michor–Slovák, *Natural Operations in Differential Geometry*,
-  ch. VIII). Used in (a),(b).
-- `[UNVERIFIED]` For polynomial `f`, `f_A(u)` is evaluation of `f` at
-  `u ∈ A`. All computations below use only this, and it is self-checking
-  (Taylor series terminates by nilpotency).
-
----
-
-## Subtask 1 — THE HEAD-ON TEST: is the family non-empty under the closed conventions? **YES. Not vacuous.** (done)
-
-The dispatch conjectures that the round-1 basis witness may now kill
-ordinary methods. **It does not.** The two are different objects:
-
-- The round-1 witness was a *pathological* `Φ` (Euler + the `χ` kick),
-  designed to be basis-sensitive. Convention 1 **kills that `Φ`** — it is
-  no longer admissible. Correct; the witness did its job as calibration.
-- **Euler survives convention 1 unscathed.** Reason: `φ_m(F)(y) = y+hF(y)`
-  satisfies `φ_m(S∘F∘S⁻¹) = S∘φ_m(F)∘S⁻¹` for *every* `S ∈ GL_m(R)`.
-  A change of `R`-basis of `A` changes `T_A` to `S∘T_A` with `S = g^{⊕n}`,
-  `g ∈ GL_N(R)`. So `C(n,A)` at one basis ⟹ `C(n,A)` at every basis,
-  automatically. Verified by hand in r1 §1 for `A = D` at basis `(1,1+ε)`:
-  `Ψ₂(a,b) = (a,b) + h·F₂(a,b) = φ₂(F₂)` exactly.
-- The same argument covers every Runge–Kutta method (explicit or
-  implicit): an RK stage map is built from `+`, scalar multiplication and
-  evaluations of `F`, all of which commute with linear conjugation, and
-  all of which the Weil functor preserves.
-
-**So: the family of admissible `Φ` is non-empty and contains the entire
-classical RK class.** The statement is not vacuous.
-
-**What convention 1 actually forces (answer to (c)).** *Not* full
-equivariance. It forces exactly
-
-  for all `g ∈ GL_N(R)`, all `f`:
-  `φ_{nN}( g^{⊕n} f_A (g^{⊕n})⁻¹ ) = g^{⊕n} (φ_n f)_A (g^{⊕n})⁻¹`,
-
-i.e. `GL_N`-equivariance of `φ_{nN}` **restricted to the `GL_N`-orbit of
-the lift locus**, and nothing at all off that orbit. The user's remark
-("must hold for all bases, but that does not force equivariance") is
-**correct as stated**, and Subtask 3 below shows the gap between the two
-is not a technicality — it is where the whole solution space lives.
-
-`C(n,A)` is now well defined on `A` alone in the only sense that matters:
-its *truth value* no longer depends on a choice, because the choice is
-universally quantified. The price is Subtask 3.
+The voided run's own content (distinct counterexample: a "wild Phi" showing
+the family is non-vacuous but under-constrains phi_1 off the lifted locus;
+and a corrected (d) collision computation putting the smallest collision at
+m=3 rather than m=4) is preserved nowhere else and is **not** used for round 2
+resolution, but is worth the user's awareness as a lead: it agrees with the
+corrected run on the substance (none-found / no true counterexample to a
+stated hypothesis-conclusion pair) while adding a sharper structural finding
+(the diagram constrains phi_m only on a thin locus; phi_1 is essentially
+unconstrained) that the corrected run's condensed report does not state as
+explicitly. It should be treated as an unverified lead for a future round, not
+as this round's verdict.
 
 ---
 
-## Subtask 2 — (d) two lift structures with common vector fields: **forced to agree, and the forcing is non-trivial.** (done for `n=1`, dim ≤ 5, identity identification)
+## Structured report (verbatim from agent a100b41b775e5ea07's notification)
 
-Script: `/tmp/.../scratchpad/r2.py`. Exact `Fraction` arithmetic,
-monomial-quotient Weil algebras, 40 random integer points per pair,
-seed 7. Algebras exercised:
+VERDICT: none-found
 
-| dim | algebras |
-|---|---|
-| 3 | `R[x]/x³`, `R[x,y]/(x,y)²` |
-| 4 | `R[x]/x⁴`, `R[x,y]/(x²,y²)`, `R[x,y]/(x³,xy,y²)`, `R[x,y,z]/m²` |
-| 5 | `R[x]/x⁵`, `R[x,y]/(x³,y²)`-type, `R[x,y]/(x⁴,xy,y²)`, `R[x₁..x₄]/m²` |
+COUNTEREXAMPLE: n/a — no object violates a stated hypothesis while
+contradicting a stated conclusion. Nearest object, fully hypothesis-compliant:
+f_0(u,v) = (v,0) on R^2. It is provably not g_A^beta for any g: R -> R, any
+basis of the unique 2-dimensional Weil algebra R[e]/(e^2) (conjugation
+preserves linearity; linear lifts force g(t)=ct hence g_A = c*id, whose
+conjugates are c*id, never a nonzero nilpotent). So phi_2 receives zero
+constraint from below at f_0. This is a locator, not a refutation: the
+counterexample family built on it (arbitrary value at a primitive field,
+propagated upward) is certified only modulo the coherence question of task
+(d), which was not closed this slot.
 
-Test: for `f` affine / quadratic / cubic / quartic, is `f_A = f_B` as maps
-`R^N → R^N` under the monomial-basis identification?
+LOCATES:
 
-**Raw result — every same-dimension pair, all 13 pairs, dims 3,4,5:**
-agreement on **affine `f` only**; disagreement on quadratic, cubic,
-quartic.
+1. The index object is too weak. "Diagram over the divisibility poset with
+   the algebras as edges" — an edge n -> nN is not determined by N. It
+   carries a label (Weil algebra A of dim N, basis coset in
+   GL_N(R)/Aut_{R-alg}(A)). Minimal condition that would exclude the
+   mismatch: index by the category whose morphisms n -> nN are those labelled
+   pairs, composing by tensor product, with the divisibility poset as its
+   image under forgetting the label. Observation only.
+2. The conditions are propagation-only. Nothing constrains phi_m off the thin
+   lifted set, and phi_1 is entirely free since 1 = 1*1 is its only
+   factorisation. Minimal condition excluding the under-determination: an
+   independent normalisation at primitive fields, which the hypotheses do not
+   supply.
+3. On task (c): under the settled conventions Aut_{R-alg}(A) acts *trivially*
+   on the set of conditions. Naturality gives
+   f_A o sigma^{(+n)} = sigma^{(+n)} o f_A, so C(n,A) at basis beta and at
+   sigma(beta) are the identical condition. Aut(A) is the null direction of
+   the basis quantifier, not an additional tool. Convention 1's real content
+   is: C(n,A) at one basis, plus conjugation-equivariance of phi_{nN} under
+   the block subgroup {I_n tensor S} restricted to lifted fields — strictly
+   weaker than GL_{nN}(R)-equivariance on both the group axis and the domain
+   axis, confirming and sharpening the user's remark.
+4. On task (b): the tensor edge is strictly stronger than edge composition,
+   because composing basis choices reaches only product bases of A tensor B
+   (dimension count at A = B = R[e]/e^2: GL_4 is 16-dimensional,
+   Aut(R[x,y]/(x^2,y^2)) is 4-dimensional, leaving 12 genuinely distinct
+   conditions, against at most 4 reachable by composition). Dimension-level
+   only — [HEURISTIC], no object.
+5. On task (d): non-empty and consistent at the scalar locus. At m = 4 the
+   fields 0 and c*id lie in the lifted set of both R[x]/x^4 and
+   R[x,y]/(x^2,y^2) (non-isomorphic, nilpotency index 4 vs 3), so the two
+   prescriptions on phi_4 are forced to agree, and do. "Vector fields in
+   common" admits three readings (set intersection / common base field /
+   common refinement of the two lift structures); no case actually exercised
+   diverges under them, so this is reported as a [GAP], not a
+   definitional-ambiguity halt.
 
-### Consequences
+SCOPE: Weil algebras — all isomorphism classes of dimension <= 4 enumerated
+by hand; dimension >= 5 and moduli families untouched. Vector fields — ALL
+linear maps at m = 2 (complete, via the scalar-conjugacy argument);
+g(t) = t^2 at m = 4 in the standard splitting only; f = 0 and f = c*id at
+m = 4 across two non-isomorphic dim-4 algebras. Bases — GL_2(R) fully at
+m = 2; GL_4(R) only by dimension count, no explicit non-product basis tested.
+Methods Phi — identity, Euler, exact flow, and the "modify at a primitive
+field and propagate" family (constructed, coherence unverified). No machine
+search run: sympy unavailable in this environment, so all arguments used are
+elementary and hand-checkable and are written out in full in the (recovered)
+review. references/ is absent on this branch, so every literature
+attribution is [UNVERIFIED]; absence of the directory is not evidence the
+sources do not exist.
 
-1. **The collision locus is exactly the affine fields**, at every
-   dimension tested. r1 located this at `m = 4`; the **smallest case is
-   `m = 3`** (`R[x]/x³` vs `R[x,y]/(x,y)²`), which r1 missed.
-2. The two prescriptions on `φ_m` are therefore **forced to agree**, and
-   agreement is equivalent (same computation applied to `ψ := φ₁(f)`) to
-   `ψ` being affine. So the diagram *derives*:
+SUBTASKS:
+- S0 consult references/ for definitions: done (directory absent)
+- S1 what convention 1 actually forces on Phi: done
+- S2 Aut(A) as the redundancy of the basis quantifier (task c): done
+- S3 under-determination; thinness of lifted set; freedom of phi_1: done
+- S4 tensor edge, product vs non-product bases (task b): partial
+- S5 task (d) readings and witness hunt: partial
+- S6 restriction along divisor chains (task a): partial
+- S7 explicit Phi separating C(1,A tensor B) from the composite: untouched
+- S8 Weil algebras of dimension >= 5 and moduli: untouched
 
-   > **(R) Affine rigidity.** For every affine `f : R → R`, `φ₁(f)` must
-   > be an affine map.
+FLAGS: none
 
-   Nothing in the hypotheses supplies this; the collision produces it.
-   Euler and every RK method satisfy it (an RK step on an affine field is
-   affine), so no collapse.
-3. Answer to (d) as posed: not "independent", not "forced to disagree" —
-   **over-determined but consistent**. The correct verdict is *forced to
-   agree, and the forcing is a genuine, non-vacuous closure condition on
-   `Φ`*. This is the strongest point in the statement's favour that I
-   found.
-4. **Contrasting free collision.** `(n,A) = (2,D)` vs `(1, D⊗D)` at
-   `m = 4`: here `f_{D⊗D} = (f_D)_D`, so the second prescription is
-   `(φ₂(f_D))_D = ((φ₁f)_D)_D = (φ₁f)_{D⊗D}` by `C(1,D)` — implied, not
-   new. The binding collisions are exactly those between **tensor-
-   indecomposable** labels (`dim m/m² = 1` for `R[x]/x^k`, `≥ 2` for a
-   nontrivial tensor product).
-
-**Not searched:** collisions under a *non-identity* `GL_N` identification
-(i.e. `U f_A U⁻¹ = g_B` for `U ∈ GL_N` not a basis-matching), which
-convention 1 makes legitimate and which could **enlarge** the collision
-locus beyond affine `f` and hence strengthen (R). Flagged `partial`; this
-is the extension I petition for.
-
----
-
-## Subtask 3 — COUNTEREXAMPLE: the condition characterizes nothing about the method. (done)
-
-This is the round's main adversarial finding, and it survives both closed
-conventions.
-
-### The object
-
-Let `L*_m := { g^{⊕n} ∘ f_A ∘ (g^{⊕n})⁻¹ : m = nN, A Weil of dim N **with
-N ≥ 2**, g ∈ GL_N(R), f smooth on R^n }` — the *non-trivially prescribed*
-locus in the space of vector fields on `R^m`. (`N = 1` forces `A = R` and
-`C(n,R)` is the tautology `φ_n(f) = φ_n(f)`; it prescribes nothing.)
-
-`L*_m` is **thin**: for `m = 2` it is parameterised by one function of one
-variable plus `dim GL₂ = 4` parameters, inside the space of all fields on
-`R²` (two functions of two variables). It is a proper subset with empty
-interior. `[HEURISTIC]` The same dimension count applies at every `m`.
-
-Now define, for any `m ≥ 2`, any field `F₀ ∉ L*_m`, and any map
-`G : R^m → R^m` whatsoever:
-
-```
-φ_1  := Euler on R^1
-φ_m  := Euler everywhere on L*_m and everywhere except at F₀
-φ_m(F₀) := G                                  (arbitrary garbage)
-φ_k  for k > m := Euler, corrected on the lifts of F₀ so that
-        C(m,A) : φ_{mN}((F₀)_A) = (G)_A  holds for every Weil A, basis
-```
-
-**Hypothesis audit.** Each `φ_k` is a function of `(k, ·)` and the field
-alone ✔. `C(n,A)` holds at *every* basis for every `n`, `A`: on the lift
-locus the values are Euler's, which are basis-independent by Subtask 1;
-at `F₀` the condition `C(m,A)` is satisfied by construction (`(F₀)_A` for
-`N ≥ 2` is a fresh field, not itself in `L*_{mN}` for generic `F₀`
-`[HEURISTIC]`, so the redefinition creates no second prescription); `F₀`
-never appears on the *right* of any condition with `φ_1` as source
-because `F₀ ∉ L*_m`. Convention 2 (exact identity) ✔ — it *is* an exact
-identity, just about a `Φ` nobody would call a method. Convention 1
-(every basis) ✔.
-
-**So `Φ` "supports jet transport" while being discontinuous, inconsistent
-(zeroth order), non-convergent, and not equivariant.** `G` is arbitrary:
-the admissible family contains a copy of `{all maps R^m → R^m}` for each
-`m ≥ 2`.
-
-### What this locates
-
-The claim's framing — *"the characterization comes from taking that
-seriously"* — is where this bites. `{C(n,A)}` is not a characterization
-of anything; it is a **coherence / extension condition**. Structurally:
-
-- `φ₁` is constrained by the system **only** through the affine rigidity
-  (R) of Subtask 2. Nothing else in the entire diagram touches it.
-  Everything that distinguishes Euler from RK4 lives in `φ₁` and is
-  invisible to the diagram.
-- On `L*_m`, `φ_m` is completely *determined* by lower levels.
-- Off `L*_m`, `φ_m` is completely *free*.
-
-So the diagram is a **left-Kan / free-extension structure**, not a
-characterization: solutions = (arbitrary data off the lift loci) +
-(forced propagation along them) + (the collision constraints of Subtask 2).
-
-**Minimal condition that would exclude this object** (observation, not a
-recommendation): the hypotheses need something that ties `φ_m` off the
-lift locus to `φ_m` on it. Candidates in increasing strength:
-continuity in `F` is **not** enough (`L*_m` is thin *and* closed, so a
-bump supported off it is smooth); `GL_m(R)`-equivariance is **not**
-enough (the orbit of `F₀` still misses `L*_m`); what does suffice is
-**naturality/locality** — `φ_m(F)(y)` depending on `F` only through its
-∞-jet at finitely many points, together with a uniform expression in `m`
-(the "single map per dimension" of the statement's first sentence read as
-*one formula*, not *one function*). The statement's own opening sentence
-gestures at this and the skeleton drops it.
-
----
-
-## Subtask 4 — (b) tensor composition. (done at the algebra level; partial at coordinates)
-
-With convention 1, r1's coordinate objection **dissolves**: the composite
-edge `n → nN_A → nN_A N_B` uses the product basis `{eᵢ⊗fⱼ}` in one order,
-the direct `A⊗B` edge uses whichever basis, and since *every* basis of
-`A⊗B` is quantified over, the product bases in both orders are among
-them. So:
-
-- `C(n,A) ∧ C(nN_A,B) ⟹ C(n,A⊗B)` **at the product bases**, via
-  `f_{A⊗B} = (f_A)_B` `[UNVERIFIED]` and `(φ_n f)_{A⊗B} = ((φ_n f)_A)_B`.
-- **Not** every basis of `A⊗B` is a product basis, so the converse
-  direction — that `C(n,A⊗B)` at *all* bases follows from the two factor
-  conditions at all their bases — needs the `GL_{N_A N_B}` orbit of
-  product bases to be everything, which it is (any basis is `g·(product
-  basis)`), **provided** the equivariance in Subtask 1 is available at the
-  intermediate level. Since Subtask 1 gives equivariance only *restricted
-  to lift orbits*, and `(f_A)_B` is in the lift orbit, this closes.
-  `[GAP]` — I sketched this, did not verify it symbolically.
-- `A⊗B ≅ B⊗A` gives two routes through different intermediate levels
-  (`nN_A` vs `nN_B`); the square commutes for the same reason. **Both
-  routes land on the same forced value of `φ_{nN_AN_B}`, so (b) coheres.**
-
-**Where it does not cohere:** the poset-edge picture claims the edges
-*compose*, but the set of edges `n → nN` is not closed under composition
-in the relevant sense — `R[x]/x⁴` is a legitimate edge `1 → 4` that is
-**not** any composite (it is tensor-indecomposable). The composable edges
-generate only the decomposable labels. So the poset diagram has strictly
-more edges than its composition closure, and by Subtask 2 the *binding*
-constraints live exactly on the non-composable ones.
-
----
-
-## Subtask 5 — (a) restriction along chains `n | n' | m`. (partial)
-
-Coherence *is* forced along a chain when the two factorisations are
-tensor factorisations of the same algebra (Subtask 4). It is **not
-forced by the chain at all** when the label is indecomposable: `C(1,
-R[x]/x⁴)` is not the composite of any pair of conditions on `1|2|4`.
-Restated as an observation: divisibility records only `dim`, and `dim` is
-a very lossy invariant of a Weil algebra (four non-isomorphic algebras at
-`N = 4`, all giving different conditions on the same `φ₄`). The
-index structure that actually carries the conditions is the **category of
-Weil algebras**, with `dim : Weil → (N,×)` a monoidal functor down to the
-poset. The poset is a shadow.
-
-I could not extract a precise "restriction" statement to attack, so this
-is a `[GAP]`, not a counterexample.
-
----
-
-## Hypothesis-boundary probes (partial)
-
-1. **Smoothness is missing.** The skeleton says "`f : R^n → R^n` a
-   right-hand side" with **no regularity hypothesis**, but `f_A` is
-   undefined for `f` that is not `C^k`, `k =` nilpotency order of `A`. So
-   `C(n,A)` is not even a well-formed condition on the stated domain of
-   `φ_n`. *Minimal condition that would exclude the pathology:* restrict
-   the domain of `φ_n` to `C^∞` fields (or make `C(n,A)` conditional on
-   `f ∈ C^{ord A}`). This is a real hole in the skeleton, cheap to close.
-2. **`m = 1`.** The only factorisation is `1 = 1·1`, `A = R`, and
-   `C(1,R)` is a tautology. So `φ₁` receives **no direct condition**;
-   it is constrained only indirectly, via Subtask 2's affine rigidity
-   pulled back from level 3. Worth recording: the base of the diagram is
-   nearly free.
-3. **`m` prime.** Only `n=1,N=m` and `n=m,N=1`. So `φ_p` is constrained
-   only on the (thin) image of `L*_p` from level 1. Consistent with
-   Subtask 3.
-4. **Untouched:** step size `h` is nowhere in the skeleton. A real method
-   is `φ_n(h,f)`; suppressing `h` is harmless for Euler/RK but I did not
-   probe whether any condition becomes `h`-dependent (e.g. adaptive
-   methods, where `φ_n` genuinely is not a function of `(n,f)` alone —
-   the statement's opening sentence *excludes* adaptive methods by fiat,
-   which is a scope choice worth surfacing).
-
----
-
-## Definitional status
-
-I considered raising `definitional-ambiguity` on the **coordinate
-ordering of `A^n ≅ R^{nN}`** (component-major `(a₁ coords, a₂ coords, …)`
-vs basis-major `(all first-basis-coords, all second, …)`; these differ by
-a shuffle `σ` which is **not** of the form `g^{⊕n}`, so convention 1 does
-*not* quantify it away). I attempted to build a `Φ` satisfying one
-reading and not the other (`n=2`, `A=D`, `m=4`, a `φ₄` privileging
-coordinate 2) and it **failed** — the candidate satisfied neither
-reading. Without a verified divergence witness this is **vagueness, not
-ambiguity**: recorded as a `[GAP]`, and the round proceeds. Someone
-should pin the ordering down anyway.
-
----
-
-## Search scope (bounds every "none found")
-
-- **Weil algebras:** `R`; `D=R[x]/x²`; dim 3: `R[x]/x³`, `R[x,y]/(x,y)²`;
-  dim 4: `R[x]/x⁴`, `R[x,y]/(x²,y²)`, `R[x,y]/(x³,xy,y²)`, `R[x,y,z]/m²`;
-  dim 5: `R[x]/x⁵`, `R[x,y]/(x³,y²)`-monomial, `R[x,y]/(x⁴,xy,y²)`,
-  `R⁴-fat-point`. **Monomial quotients only** — no non-monomial ideals,
-  nothing of dim ≥ 6.
-- **Identifications:** monomial-basis identity identification for the
-  collision search; `GL₂` basis `(1,1+ε)` by hand for `D`. **No systematic
-  `GL_N` sweep** — this is the main gap.
-- **Fields:** univariate polynomial `f` of degree ≤ 4, 40 random integer
-  points per pair, exact `Fraction`, seed 7. No multivariable `f`, no
-  transcendental `f`, `n = 1` only in the collision search.
-- **Methods:** explicit Euler (computed); RK reasoned about via linear-
-  conjugation-equivariance, **not** computed; the Subtask-3 wild `Φ`
-  (constructed, hypothesis-audited by hand, not machine-checked).
-- **Levels:** `m ∈ {1,2,3,4,5}` plus prime/`m=1` boundary reasoning.
-
-## Acquisition
-
-`references/` is absent on this branch.
+PETITION: S7 — construct an explicit Phi satisfying C(1,A) and C(2,B) for
+A = B = R[e]/e^2 but failing C(1, A tensor B) at a non-product basis of
+R[x,y]/(x^2,y^2). Benefit: this is the one falsifiable assertion in the
+package ("the poset-edge structure composes correctly under tensor
+product"), and I have only a dimension count, not an object. Producing it
+would convert S4 from heuristic to a certified counterexample and settle
+whether tensor product is a genuine composition or only lax. Qualitatively
+different from the m = 2 linear-field sweep I ran, not a wider version of it.
 
 ACQUISITION: Kolář–Michor–Slovák, *Natural Operations in Differential
-Geometry* ch. VIII (Weil bundles), and Jorba–Zou / Abad–Barrio–Blesa–
-Rodríguez on jet-transport ODE integrators — to ground the two
-`[UNVERIFIED]` facts and to check whether "the method is given by a
-uniform arithmetic expression" is already standing in that literature
-(that is exactly the hypothesis Subtask 3 shows is missing).
-
-## Extension petition
-
-**Subtask:** the `GL_N`-twisted collision search — solve
-`U f_A U⁻¹ = g_B` for `U ∈ GL_N(R)`, `A ≇ B` of equal dimension, over
-dims 3–6, rather than only the identity identification. **Expected
-benefit:** qualitatively different from this round's sweep. Convention 1
-makes twisted identifications legitimate edges, so a solution with `f`
-**non-affine** would strengthen the derived rigidity (R) from "`φ₁`
-preserves affine" to a constraint on higher jets — which is the only
-route I see by which the diagram could constrain `φ₁` enough to say
-anything about the *identity* of the method, and hence the only route by
-which the word "characterization" in the claim could be earned. A null
-result is equally informative: it would confirm that `φ₁` is essentially
-free and the framework is a coherence condition only.
+Geometry* (ch. VIII, Weil functors: naturality in A, product-preservation,
+T_{A⊗B} = T_A ∘ T_B), and any classification of Weil algebras of dimension
+<= 6 with their automorphism groups.
