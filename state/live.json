@@ -1,0 +1,13 @@
+{
+  "updated_at": "2026-08-21T00:00:00Z",
+  "phase": "dispatching",
+  "claim_id": "jt-weil",
+  "round": 1,
+  "agents": {
+    "melchior": {"status": "launched", "slot": 1},
+    "balthasar": {"status": "launched", "slot": 1},
+    "casper": {"status": "launched", "slot": 1}
+  },
+  "extension": null,
+  "awaiting_user": null
+}
