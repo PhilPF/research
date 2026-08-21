@@ -4,7 +4,7 @@
   "claim_id": "jt-weil",
   "round": 2,
   "agents": {
-    "melchior": {"status": "launched", "slot": 1},
+    "melchior": {"status": "done", "slot": 1, "verdict": "gap-found + definitional-ambiguity"},
     "balthasar": {"status": "launched", "slot": 1, "note": "redispatched after an orchestrator dispatch error broke the §3 identical-input requirement on the first launch; first launch's output will be discarded when it arrives"},
     "casper": {"status": "launched", "slot": 1}
   },
