@@ -66,3 +66,37 @@ provisional-under-ambiguity — not settled findings — until the user rules on
 both readings. Not routed to Lilith. Awaiting user.
 
 Carried to Lilith: none yet (halt precedes Lilith dispatch).
+
+### Closure — user ruling on both ambiguities (2026-08-21)
+
+**Ambiguity 1 (basis quantifier).** Ruled: **B2** — C(n,A) must hold for
+every R-basis of A. User's own words, verbatim: "It must hold for all
+bases, but that does not force equivariance."
+
+**Ambiguity 2 (content of C(n,A)).** Ruled: **(i) full lift-equivariance**
+— C(n,A) is the exact identity phi_{nN}(f_A) = T_A(phi_n(f)) under the
+chosen R-linear identification A^n =~ R^{nN}.
+
+Recorded in state/session.json under settled_conventions. Per §5, these
+are now closed conventions: binding on all subsequent rounds of jt-weil,
+to be included verbatim in every future dispatch's sanitized input. Round
+1's provisional-under-ambiguity verdicts (melchior gap-found, balthasar
+counterexample-found, casper likely-misframed) remain on record as
+provisional and are not re-adopted as settled findings — round 2 retests
+the same (a)-(d) package fresh, with C(n,A) now fully pinned down.
+
+## Round 2 — 2026-08-21 — jt-weil
+Statement: same package (a)-(d) as round 1, now with both settled
+conventions substituted into C(n,A): C(n,A) is "for every R-basis of A,
+phi_{nN}(f_A) = T_A(phi_n(f)) exactly, under the R-linear identification
+A^n =~ R^{nN} induced by that basis, for every f: R^n -> R^n."
+Argument shape: direct audit (well-definedness, restriction, tensor
+composition, automorphism action, multi-structure consistency), same as
+round 1, now unblocked by closed conventions.
+Dispatched to melchior, balthasar, casper in parallel (Opus), byte-identical
+sanitized input including the two settled conventions verbatim. Round 1
+verdicts and partial/untouched subtasks are NOT included in this input,
+per §3 (prior rounds' verdicts on this claim are stripped) — only the
+settled_conventions carry forward, as the explicit exception.
+Outcome: pending.
+

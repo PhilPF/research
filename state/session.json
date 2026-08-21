@@ -2,7 +2,7 @@
   "session_id": "jt-weil-s1",
   "branch": "claude/jet-transport-weil-algebra-weyote",
   "started_at": "2026-08-21T00:00:00Z",
-  "status": "awaiting-user",
+  "status": "active",
   "problem": {
     "claim_id": "jt-weil",
     "title": "Jet transport as a compatibility condition indexed by the divisibility poset",
@@ -10,7 +10,20 @@
     "current_statement": "A numerical method is a family Phi = (phi_n)_{n>=1}, phi_n a function of (n, f) alone for f: R^n -> R^n a right-hand side. A Weil R-algebra A with dim_R(A) = N and f: R^n -> R^n induce the lift f_A: A^n -> A^n; fixing an R-basis of A gives A^n =~ R^{nN}, so (A^n, f_A) becomes an input (nN, f_A) to phi_{nN}. For each n and each Weil algebra A of dimension N, this defines a compatibility condition C(n,A) relating phi_n(f) and phi_{nN}(f_A) for all f. Phi 'supports jet transport' iff C(n,A) holds for every n and every Weil algebra A. Fixing m and ranging over factorizations m = nN and Weil algebras A of dimension N gives every condition bearing on phi_m, organizing the family as a diagram over the divisibility poset (N, |), with a Weil algebra of dimension N giving an edge n -> nN. Round 1 tests, as one package: (a) restriction of {C(n,A)} along divisor chains n | n' | m; (b) composition under tensor product (does C(n, A tensor B) relate to C(n,A) and C(nN_A,B) as edge composition n -> nN_A -> nN_A N_B?); (c) the action of Aut_{R-alg}(A) on C(n,A), and whether C(n,A) is well-defined independent of the chosen basis; (d) [point of interest] when R^m carries two distinct lift structures with vector fields in common, whether the two resulting prescriptions on phi_m are forced to agree.",
     "intent": "Find the correct characterization of jet-transport-compatible numerical methods as a poset-indexed compatibility structure, and locate where it breaks (gaps, counterexamples, or ill-posedness) rather than prove it outright."
   },
-  "latest_round": 1,
-  "settled_conventions": [],
+  "latest_round": 2,
+  "settled_conventions": [
+    {
+      "question": "Quantifier over bases of A in the definition of C(n,A) (\"once a basis of A is fixed\")",
+      "ruling": "B2 — C(n,A) must hold for every R-basis of A. User's own words, verbatim: \"It must hold for all bases, but that does not force equivariance.\"",
+      "ruled_at": "2026-08-21T00:40:00Z",
+      "round": 1
+    },
+    {
+      "question": "The content of C(n,A) relating phi_n(f) and phi_{nN}(f_A)",
+      "ruling": "(i) full lift-equivariance — C(n,A) is the exact identity phi_{nN}(f_A) = T_A(phi_n(f)) under the chosen R-linear identification A^n =~ R^{nN}.",
+      "ruled_at": "2026-08-21T00:40:00Z",
+      "round": 1
+    }
+  ],
   "acquisition_requests": []
 }

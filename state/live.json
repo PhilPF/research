@@ -1,20 +1,13 @@
 {
-  "updated_at": "2026-08-21T00:20:00Z",
-  "phase": "halted-definitional",
+  "updated_at": "2026-08-21T00:41:00Z",
+  "phase": "dispatching",
   "claim_id": "jt-weil",
-  "round": 1,
+  "round": 2,
   "agents": {
-    "melchior": {"status": "done", "slot": 1, "verdict": "gap-found (provisional-under-ambiguity)"},
-    "balthasar": {"status": "done", "slot": 1, "verdict": "counterexample-found (provisional-under-ambiguity)"},
-    "casper": {"status": "done", "slot": 1, "verdict": "likely-misframed (provisional-under-ambiguity)"}
+    "melchior": {"status": "launched", "slot": 1},
+    "balthasar": {"status": "launched", "slot": 1},
+    "casper": {"status": "launched", "slot": 1}
   },
   "extension": null,
-  "awaiting_user": {
-    "question": "Two definitional ambiguities halted round 1 of jt-weil, each with a divergence witness. Ruling needed on both before the round can resume.",
-    "options": [
-      "Q1 (basis quantifier in C(n,A)): B1-some-basis | B2-every-basis | B3-fixed-global-choice",
-      "Q2 (content of C(n,A)): (i)-full-lift-equivariance | (ii)-augmentation-only | (iii)-order-p-asymptotic-agreement"
-    ],
-    "witness": "See state/rounds/jt-weil-r1.json .definitional_halt.ambiguities[*].witness"
-  }
+  "awaiting_user": null
 }
