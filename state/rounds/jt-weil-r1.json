@@ -1,0 +1,51 @@
+{
+  "claim_id": "jt-weil",
+  "round": 1,
+  "statement": "See state/session.json problem.current_statement (round 1: package (a)-(d) on the poset-indexed compatibility characterization of jet transport).",
+  "argument_shape": "Direct audit of the compatibility conditions C(n,A) for well-definedness, restriction, tensor composition, automorphism action, and multi-structure consistency.",
+  "dispatched_at": "2026-08-21T00:00:00Z",
+  "completed_at": "2026-08-21T00:20:00Z",
+  "outcome": "definitional-halt",
+  "verdicts": [
+    "state/verdicts/jt-weil-r1-melchior.json",
+    "state/verdicts/jt-weil-r1-balthasar.json",
+    "state/verdicts/jt-weil-r1-casper.json"
+  ],
+  "extensions": [
+    {"agent": "melchior", "subtask": "compute non-degenerate common vector fields for (d) at m=4", "ruling": "moot", "reason": "round halted for definitional-ambiguity before reaching Lilith extension-ruling", "granted_at": null},
+    {"agent": "balthasar", "subtask": "map the collision lattice at m=8 or 12 across all Weil algebras of the relevant dimensions", "ruling": "moot", "reason": "round halted for definitional-ambiguity before reaching Lilith extension-ruling", "granted_at": null}
+  ],
+  "lilith": null,
+  "carried_to_lilith": [],
+  "definitional_halt": {
+    "triggered_by": ["melchior", "casper"],
+    "ambiguities": [
+      {
+        "question": "Quantifier over bases of A in the definition of C(n,A) (\"once a basis of A is fixed\")",
+        "raised_by": "melchior",
+        "corroborated_by": "balthasar (non-halting secondary finding, same underlying issue)",
+        "readings": [
+          "B1: C(n,A) required to hold for SOME basis of A",
+          "B2: C(n,A) required to hold for EVERY basis of A",
+          "B3: a single global choice function A -> basis(A) is fixed once and for all; C(n,A) is only ever evaluated at that basis"
+        ],
+        "witness": "n=1, A=R[e]/(e^2), phi_1=explicit Euler, phi_2(g)(x,y)=(x,y)+h g(x,y)+(0, h*g_2(0,0)). Basis (1,e): g_2(0,0)=0, C(1,A) holds. Basis (1+e,e): g_2(0,0)=-f(0), C(1,A) fails whenever f(0)!=0. Same Phi, same A, opposite verdicts depending on basis reading. Balthasar independently reproduced the same phenomenon with a different Phi/f at bases (1,eps) vs (1,1+eps)."
+      },
+      {
+        "question": "The content of C(n,A) itself — what relation between phi_n(f) and phi_{nN}(f_A) is actually being asserted",
+        "raised_by": "casper",
+        "readings": [
+          "(i) full lift-equivariance: phi_{nN}(f_A) = T_A(phi_n(f)) under the chosen identification A^n =~ R^{nN}",
+          "(ii) augmentation compatibility only: pi o phi_{nN}(f_A) = phi_n(f) o pi, for the augmentation pi: A -> A/m_A =~ R, with no constraint on the nilpotent part",
+          "(iii) order-p agreement: phi_{nN}(f_A) = T_A(phi_n(f)) + O(h^{p+1}) for the method's order p"
+        ],
+        "witness": "n=1, A=R[e]/(e^2), m=2, f(x)=x^2 (f_A(y)=(y1^2, 2 y1 y2) in basis (1,e)). Phi: explicit Euler at every level except phi_2(g)(y)=(y1+h g_1(y), y2+h g_2(y)+h^2 g_1(y)^2). Reading (i): C(1,A) fails (extra h^2 y1^4 term). Reading (ii): C(1,A) holds. Reading (iii), p=1: C(1,A) holds."
+      }
+    ],
+    "provisional_under_ambiguity": [
+      {"agent": "melchior", "verdict": "gap-found", "note": "location/witness both depend on which basis-quantifier reading is adopted"},
+      {"agent": "balthasar", "verdict": "counterexample-found", "note": "counterexample is a basis-dependence witness; not a settled finding until the basis-quantifier convention is closed"},
+      {"agent": "casper", "verdict": "likely-misframed", "note": "misframing assessment (circularity of the 'iff') is partly downstream of C(n,A)'s content never being pinned to one reading"}
+    ]
+  }
+}
