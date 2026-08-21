@@ -1,0 +1,33 @@
+{
+  "claim_id": "jt-weil",
+  "round": 2,
+  "agent": "balthasar",
+  "started_at": "2026-08-21T17:57:22Z",
+  "ended_at": "2026-08-21T18:08:40Z",
+  "slot": 1,
+  "killed": false,
+  "verdict": "none-found",
+  "fields": {
+    "counterexample": "n/a — no object violating a stated hypothesis while contradicting a stated conclusion. Nearest object: f_0(u,v)=(v,0) on R^2, a linear nilpotent field that is provably not g_A^beta for any g:R->R and any basis of the unique 2-dim Weil algebra R[e]/(e^2) (conjugates of the only linear lifts c*id are c*id, never nilpotent-nonzero). It satisfies every hypothesis and shows phi_2 receives zero constraint from below there. It is a locator, not a refutation: the counterexample FAMILY built on it (arbitrary value at a primitive field, propagated upward) is certified only modulo the coherence question of task (d), which I did not close.",
+    "locates": "Two hypotheses are too weak. (1) The index object: 'diagram over the divisibility poset with the algebras as edges' is too weak — an edge n -> nN is not determined by N. It carries a label (Weil algebra A of dim N, basis coset in GL_N(R)/Aut_R-alg(A)). Minimal condition that would exclude the mismatch: index by the category whose morphisms n -> nN are such labelled pairs, composing by tensor product, with the divisibility poset only its image under forgetting the label. Observation, not recommendation. (2) The conditions are propagation-only: nothing constrains phi_m at fields outside the thin lifted set, and phi_1 (bottom of the poset) is entirely unconstrained since 1=1*1 is its only factorisation. Minimal condition excluding the under-determination: an independent normalisation at primitive fields (e.g. prescribing phi_1, or a consistency/order condition), which the current hypotheses do not supply. (3) Under the settled conventions Aut_R-alg(A) acts trivially on the set of conditions: naturality gives f_A o sigma^{+n} = sigma^{+n} o f_A, so C(n,A) at basis beta and at sigma(beta) are the identical condition. The automorphism action is the null direction of the basis quantifier, not an additional tool.",
+    "scope": "Weil algebras: all isomorphism classes of dim <= 4 enumerated by hand (R; R[e]/e^2; R[x]/x^3, R[x,y]/(x,y)^2; R[x]/x^4, R[x,y]/(x^2,y^2), R[x,y]/(x^3,xy,y^2)-type, R[x,y,z]/(x,y,z)^2). Dim >= 5 untouched; dim with moduli untouched. Vector fields: ALL linear maps at m=2 (complete via scalar-conjugacy argument); g(t)=t^2 at m=4 in the standard splitting only; f=0 and f=c*id at m=4 across two non-isomorphic dim-4 algebras. Bases: GL_2(R) fully at m=2; GL_4(R) only by dimension count (16 vs 8 product-basis vs 4-dim Aut), no explicit non-product basis tested. Methods Phi probed: identity, Euler, exact flow, and the 'modify at a primitive field and propagate' family (constructed, coherence unverified). No machine search executed: sympy unavailable in this environment; all arguments used are elementary and hand-checkable, written out in full in the review file. references/ absent on this branch, so all literature attributions are [UNVERIFIED]."
+  },
+  "subtasks": [
+    {"name": "S0 consult references/ for Weil-algebra and jet-transport definitions", "status": "done"},
+    {"name": "S1 determine exactly what convention 1 (every basis) forces on Phi", "status": "done"},
+    {"name": "S2 Aut_R-alg(A) as the redundancy/kernel of the basis quantifier (task c)", "status": "done"},
+    {"name": "S3 under-determination: thinness of the lifted-field set, freedom of phi_1", "status": "done"},
+    {"name": "S4 tensor edge: product vs non-product bases of A tensor B (task b)", "status": "partial"},
+    {"name": "S5 task (d) readings of 'vector fields in common' and witness hunt", "status": "partial"},
+    {"name": "S6 restriction along divisor chains n | n' | m (task a)", "status": "partial"},
+    {"name": "S7 explicit Phi separating C(1,A tensor B) from the composite", "status": "untouched"},
+    {"name": "S8 Weil algebras of dimension >= 5 and moduli families", "status": "untouched"}
+  ],
+  "flags": ["none"],
+  "definitional_ambiguity": null,
+  "petition": {
+    "subtask": "S7 — construct an explicit Phi satisfying C(1,A) and C(2,B) for A=B=R[e]/e^2 but failing C(1, A tensor B) at a non-product basis of R[x,y]/(x^2,y^2)",
+    "benefit": "This is the single falsifiable assertion in the package ('the poset-edge structure composes correctly under tensor product'). I have only a dimension count (12 genuinely distinct conditions on the tensor edge vs at most 4 reachable by composing basis choices), not an object. Producing the object would convert S4 from heuristic to a certified counterexample and settle whether tensor product is a composition or only a lax one — qualitatively different from the m=2 linear-field sweep I actually ran, not a wider version of it."
+  },
+  "review_file": "reviews/jt-weil-r2-balthasar.md"
+}

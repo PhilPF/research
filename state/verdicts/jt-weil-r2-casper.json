@@ -1,0 +1,39 @@
+{
+  "claim_id": "jt-weil",
+  "round": 2,
+  "agent": "casper",
+  "started_at": "2026-08-21T00:00:00Z",
+  "ended_at": "2026-08-21T00:10:00Z",
+  "slot": 1,
+  "killed": false,
+  "verdict": "likely-misframed",
+  "fields": {
+    "constructive_status": "unclear",
+    "risk": "The divisibility poset is the dimension-shadow of the category of Weil algebras: it collapses non-isomorphic algebras of equal dimension and cannot express truncation-order homomorphisms (the practitioner's main operation), so items (a) and (d) inherit their difficulty from the encoding rather than the mathematics. Compounding this, the pinned-down skeleton has phi_n(f) as a POINT of R^n with no initial condition and no step size, which makes C(n,A) assert that the lifted run has zero nilpotent part - i.e. it constrains away exactly the derivative data jet transport exists to compute."
+  },
+  "subtasks": [
+    {"name": "references/ sweep", "status": "done"},
+    {"name": "literature fit (jet transport / Weil functors)", "status": "done"},
+    {"name": "index-structure critique (poset vs category W)", "status": "done"},
+    {"name": "hypothesis/conclusion strength, degenerate ends, well-formedness", "status": "done"},
+    {"name": "(d) reading analysis and divergence witness", "status": "done"},
+    {"name": "constructive status", "status": "partial"},
+    {"name": "restatement of (a)/(b) in the alternative framing", "status": "partial"}
+  ],
+  "flags": ["none"],
+  "petition": {
+    "subtask": "Re-pose the same four questions (a)-(d) over the category W of Weil algebras with algebra homomorphisms (including truncation morphisms), and judge whether the resulting statement is the one the jet-transport literature would recognize - as opposed to auditing the poset version further.",
+    "benefit": "Determines whether the current misframing is cosmetic (poset is a faithful shorthand) or substantive (the intended theorem is a naturality statement over W that the poset cannot state). This decides whether round 3 should test the poset statement or replace it, and it is a qualitatively different subtask from the framing audit performed this slot."
+  },
+  "definitional_ambiguity": {
+    "convention": "What it means for two lift structures on the same R^m to 'have vector fields in common' (item (d)). Fresh; independent of the two closed conventions.",
+    "readings": [
+      "Reading A: set-theoretic intersection of the lift images, L_A n L_B != empty.",
+      "Reading B: there is h in L_A n L_B that is not the lift of a zero or constant field on either side (a shared field that actually sees the nilpotents).",
+      "Reading C: a common source, not merely a common image - a single h with h = f_A = g_B whose two identifications are compatible with a common refinement (e.g. both factor through A tensor B or a shared quotient)."
+    ],
+    "witness": "m = 4 with lift structures (n=2, A = R[eps]/(eps^2), N=2) and (n=1, B = R[x]/(x^4), N=4). The zero field h = 0 on R^4 is simultaneously the A-lift of f = 0 on R^2 and the B-lift of g = 0 on R, so 0 lies in L_A n L_B for EVERY pair of lift structures on every R^m. Under Reading A the hypothesis of (d) is therefore satisfied by every pair and carries no information; under Reading B it is a genuine restriction; under Reading C it plausibly forces agreement by construction, making (d) near-circular. Vacuous / substantive / near-circular is the full spread of verdicts on the round's stated point of interest, decided entirely by the reading.",
+    "acquisition": "Kolar-Michor-Slovak, Natural Operations in Differential Geometry, ch. VIII (product-preserving functors = Weil functors); plus one primary jet-transport source (Berz, Modern Map Methods, or a Jorba-Gimeno jet-transport paper)."
+  },
+  "review_file": "reviews/jt-weil-r2-casper.md"
+}

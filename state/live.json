@@ -6,7 +6,7 @@
   "agents": {
     "melchior": {"status": "done", "slot": 1, "verdict": "gap-found + definitional-ambiguity"},
     "balthasar": {"status": "launched", "slot": 1, "note": "redispatched after an orchestrator dispatch error broke the §3 identical-input requirement on the first launch; first launch's output will be discarded when it arrives"},
-    "casper": {"status": "launched", "slot": 1}
+    "casper": {"status": "done", "slot": 1, "verdict": "likely-misframed + definitional-ambiguity"}
   },
   "extension": null,
   "awaiting_user": null

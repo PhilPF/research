@@ -73,14 +73,14 @@ natural transformation over `W`. The divisibility poset is the image of `W`
 under `A ↦ dim_R A` — a lossy, dimension-only shadow. Three consequences:
 
 **(i) It collapses non-isomorphic algebras of equal dimension.** `dim = 4`
-contains at least `R[x]/(x^4)`, `R[x,y]/(x^2, y^2)` (as a quotient of the
-right degree), `R[x,y]/(x^2,xy,y^2)` extended, etc. These give genuinely
-different conditions on the same `phi_{4n}`; the poset sees one edge
-`n → 4n` where there are many. So the "diagram over the divisibility poset"
-is not a diagram over a poset at all: it is a diagram over a free category
-on edges labelled by isomorphism classes (and, with convention 1, by bases).
-Calling it the divisibility poset is not a harmless abbreviation — it is the
-very thing that makes item (d) look like a puzzle.
+contains at least `R[x]/(x^4)` and `R[x,y]/(x^2, y^2)`-type algebras, among
+others. These give genuinely different conditions on the same `phi_{4n}`;
+the poset sees one edge `n → 4n` where there are many. So the "diagram over
+the divisibility poset" is not a diagram over a poset at all: it is a
+diagram over a free category on edges labelled by isomorphism classes (and,
+with convention 1, by bases). Calling it the divisibility poset is not a
+harmless abbreviation — it is the very thing that makes item (d) look like a
+puzzle.
 
 **(ii) It hides the real morphisms.** The interesting maps between Weil
 algebras are algebra homomorphisms — the projection `R[x]/(x^3) →
@@ -115,10 +115,10 @@ A framing of jet transport that cannot express "drop from order 2 to order
   that agreement is a real constraint that the poset makes invisible
   (it is one edge either way). **This asymmetry is the genuine content
   hiding under (b), and (b) as posed does not ask for it.**
-- **(d):** see §5. In `W`, "two lift structures on the same `R^m`" is not a
-  coincidence to be resolved; it is two unrelated objects of `W` that happen
-  to have the same dimension. The pressure to make them interact comes from
-  the poset, not from the mathematics.
+- **(d):** see §5 and §8. In `W`, "two lift structures on the same `R^m`" is
+  not a coincidence to be resolved; it is two unrelated objects of `W` that
+  happen to have the same dimension. The pressure to make them interact
+  comes from the poset, not from the mathematics.
 
 **Framing recommendation (stated as a finding, not a fix):** the statement
 worth having is almost certainly indexed by `W`, with the divisibility poset
@@ -216,9 +216,9 @@ intact. `[GAP]` I have not verified the claimed equivalence; I state it as
 the shape I expect, not as established.
 
 **(d) — the point of interest, and a fresh ambiguity.** "Have vector fields
-in common" admits at least two readings that this round actually exercises,
-and they disagree on whether the hypothesis of (d) is generic or rare. See
-the DEFINITIONAL-AMBIGUITY block at the end.
+in common" admits at least three readings that this round actually
+exercises, and they disagree on whether the hypothesis of (d) is vacuous,
+substantive, or circular. See §8.
 
 Beyond the ambiguity: outside-view, I expect the honest answer to (d) to be
 **"independent, except where an algebra homomorphism links the two"** — and
@@ -268,6 +268,50 @@ which alone I would have called `suspicious`:
 Item (b) and item (c) are, by contrast, well-posed and worth their slots.
 This is a partial misframing, not a worthless one, and the salvage is
 visible: re-index over `W`, and make `phi_n(f)` a map.
+
+---
+
+## 8. DEFINITIONAL-AMBIGUITY (fresh; not one of the two closed conventions)
+
+**Convention:** what "two lift structures on `R^m` *have vector fields in
+common*" means, in item (d).
+
+Fix the case this round exercises: `m = 4`, with lift structures
+`(n = 2, A = R[ε]/(ε^2), N_A = 2)` and `(n = 1, B = R[x]/(x^4), N_B = 4)`.
+Write `L_A ⊂ Vect(R^4)` for the set of fields `T_A ∘ f_A ∘ T_A^{-1}` over all
+`f: R^2 → R^2` and all bases of `A`, and `L_B` likewise.
+
+**Reading A (set-theoretic intersection of the lift images).**
+"Have vector fields in common" means `L_A ∩ L_B ≠ ∅`.
+
+**Reading B (a shared field that actually sees the nilpotents).** There is
+`h ∈ L_A ∩ L_B` that is not the lift of a zero or constant field on either
+side.
+
+**Reading C (a common source, not merely a common image).** There is a
+single `h` together with `f`, `g` such that `h = f_A = g_B` *and* the two
+identifications are compatible with a common refinement (e.g. both factor
+through `A ⊗ B` or a shared quotient).
+
+**Divergence witness — the zero field, exercised by this round.**
+Take `h = 0` on `R^4`. Then `h = 0_A` (the `A`-lift of `f = 0` on `R^2`) and
+`h = 0_B` (the `B`-lift of `g = 0` on `R`). So `0 ∈ L_A ∩ L_B` for **every**
+pair of lift structures on **every** `R^m`. The same holds for suitable
+constant fields.
+
+The readings therefore diverge on this witness in a way that changes the
+answer to (d):
+- **Reading A:** the hypothesis of (d) is *satisfied by every pair*, so the
+  clause "have vector fields in common" carries no information and (d)
+  collapses into the general question about `phi_m`.
+- **Reading B:** the hypothesis is genuine and possibly restrictive; (d) is a
+  question about a special locus.
+- **Reading C:** the hypothesis is strong enough that I suspect it forces the
+  two prescriptions to agree by construction, making (d) near-circular.
+
+Vacuous-as-hypothesis / substantive / near-circular is the full spread of
+possible verdicts on the round's stated point of interest, decided entirely
+by the reading. I do not choose among them.
 
 ---
 
