@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-08-21T00:41:00Z",
-  "phase": "dispatching",
+  "updated_at": "2026-08-21T00:45:00Z",
+  "phase": "magi-running",
   "claim_id": "jt-weil",
   "round": 2,
   "agents": {
     "melchior": {"status": "launched", "slot": 1},
-    "balthasar": {"status": "launched", "slot": 1},
+    "balthasar": {"status": "launched", "slot": 1, "note": "redispatched after an orchestrator dispatch error broke the §3 identical-input requirement on the first launch; first launch's output will be discarded when it arrives"},
     "casper": {"status": "launched", "slot": 1}
   },
   "extension": null,
